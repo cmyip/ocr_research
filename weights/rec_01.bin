@@ -1,0 +1,5420 @@
+######## ADR ####################################################################################################
+$1238
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# TOO GENERIC
+# 2:[X,%0]%D%D%D%D%D%D[%D,%0]
+
+NUM1=[2,3,4,5,6,7,8]
+
+PIX1=[3231389,3231391,3231392,3231420,3231421,3231422,3231928,3233148,3233398,3233399,3233482,3332870,3333394,3381162,3381183,3381196,3381242]
+PIX2=[3381250,3381295,3381298,3381305,3381717,3382985,3382988,3623130,3823129,4231402,4231407,4231415,4231423,4231428,4232257,4232813,4233395]
+PIX3=[4233396,4233397,4233401,4233402,4233403,4233404,4323393,4823131,6681810,6681834,6681838,801728,801730,801753,801762,801763,801765,801766]
+PIX4=[801769,801771,801781,801784,801799,801800,801801,801804,801808,801817,801818,801827,801837,802308,802434,802435,802437,802442,802513,802987]
+PIX5=[803456,831747,831767,831816,832986,8391724,881754,881758,881828,881829,881836,882444,882692,8861831,8862879]
+
+NINE6=[901841,901931,901941,901990,902211,902212,902315,902590,902969,903077,903082,903151,903152,903314,903432,993257,993258]
+
+
+2:%{NUM1}%D%D%D%D%D
+2:X%{PIX1}
+2:X%{PIX2}
+2:X%{PIX3}
+2:X%{PIX4}
+2:X%{PIX5}
+2:%{NINE6}
+
+2:2231038
+2:2231961
+2:2231966
+2:2231972
+2:2233138
+2:2233312
+2:2251003
+2:2251073
+2:2252201
+2:2253311
+2:2391001
+2:2391010
+2:2391041
+2:2391060
+2:2391081
+2:2391085
+2:2391086
+2:2391087
+2:2391860
+2:2391959
+2:2392200
+2:2392452
+2:2631016
+2:2631023
+2:2631026
+2:2631040
+2:2631053
+2:2631064
+2:2631071
+2:2631082
+2:2631953
+2:2632189
+2:2632192
+2:2632204
+2:2632534
+2:2633160
+2:2633300
+2:2633305
+2:2633309
+2:2633355
+2:2651017
+2:2651067
+2:2651749
+2:2652901
+2:2653083
+2:2653303
+2:2653306
+2:2653307
+2:2653310
+2:2681005
+2:2681008
+2:2681048
+2:2681050
+2:2681076
+2:2681079
+2:2681741
+2:2681859
+2:2682197
+2:2682417
+2:2682420
+2:2683057
+2:2683304
+2:2683308
+2:2683318
+2:3233148
+2:3233398
+2:3233399
+2:3331380
+2:3332845
+2:3333194
+2:3333254
+2:3333392
+2:3361093
+2:3361099
+2:3361100
+2:3361131
+2:3361184
+2:3361194
+2:3361228
+2:3361230
+2:3361921
+2:3361986
+2:3361988
+2:3361991
+2:3361992
+2:3362284
+2:3362333
+2:3362335
+2:3362336
+2:3362354
+2:3362360
+2:3362378
+2:3362396
+2:3362404
+2:3362411
+2:3362478
+2:3362603
+2:3362622
+2:3362758
+2:3362760
+2:3362762
+2:3362764
+2:3362772
+2:3362776
+2:3362778
+2:3362780
+2:3362782
+2:3362784
+2:3362787
+2:3362983
+2:3363021
+2:3363024
+2:3363248
+2:3363273
+2:3363346
+2:3363350
+2:3363494
+2:3381106
+2:3381125
+2:3381154
+2:3381158
+2:3381160
+2:3381214
+2:3381221
+2:3381235
+2:3381277
+2:3381289
+2:3381296
+2:3381297
+2:3381723
+2:3381815
+2:3381922
+2:3382266
+2:3382270
+2:3382353
+2:3382359
+2:3382379
+2:3382383
+2:3382386
+2:3382395
+2:3382399
+2:3382493
+2:3382535
+2:3382733
+2:3382924
+2:3382945
+2:3383274
+2:3383469
+2:3391144
+2:3391167
+2:3391218
+2:3391246
+2:3391247
+2:3391301
+2:3391302
+2:3391303
+2:3391304
+2:3391917
+2:3391919
+2:3392251
+2:3392277
+2:3392352
+2:3392838
+2:3393022
+2:3623130
+2:3683286
+2:3822965
+2:3823129
+2:4231340
+2:4231390
+2:4231393
+2:4231394
+2:4231396
+2:4231398
+2:4231400
+2:4231401
+2:4231402
+2:4231403
+2:4231405
+2:4231409
+2:4231417
+2:4231418
+2:4231435
+2:4231436
+2:4232624
+2:4232805
+2:4232813
+2:4232830
+2:4232835
+2:4232844
+2:4232950
+2:4232968
+2:4233078
+2:4233132
+2:4233135
+2:4233170
+2:4233208
+2:4233209
+2:4233395
+2:4233396
+2:4233397
+2:4462447
+2:4621395
+2:4621408
+2:4623134
+2:4823131
+2:5393109
+2:5393110
+2:5393119
+2:5393120
+2:5581873
+2:5592015
+2:5681463
+2:5681745
+2:5681746
+2:5682495
+2:6062814
+2:6062900
+2:6063291
+2:6063373
+2:6233123
+2:6233385
+2:6233386
+2:6233490
+2:6233491
+2:6382742
+2:6382743
+2:6382744
+2:6383073
+2:6383362
+2:6391251
+2:6391545
+2:6423048
+2:6423125
+2:6631092
+2:6631098
+2:6631135
+2:6631143
+2:6631163
+2:6631182
+2:6631185
+2:6631238
+2:6631239
+2:6631244
+2:6631259
+2:6631613
+2:6631695
+2:6631994
+2:6632295
+2:6632334
+2:6632337
+2:6632382
+2:6632438
+2:6632477
+2:6632480
+2:6632481
+2:6632482
+2:6632483
+2:6632484
+2:6632485
+2:6632486
+2:6632487
+2:6632488
+2:6632521
+2:6632558
+2:6632605
+2:6632606
+2:6632668
+2:6632903
+2:6632929
+2:6632991
+2:6632993
+2:6632995
+2:6632997
+2:6633005
+2:6633009
+2:6633011
+2:6633013
+2:6633015
+2:6633017
+2:6633019
+2:6633023
+2:6633025
+2:6633079
+2:6633275
+2:6633279
+2:6633294
+2:6633347
+2:6633351
+2:6633383
+2:6633384
+2:6633483
+2:6633488
+2:6633489
+2:6642930
+2:6643124
+2:6651510
+2:6653086
+2:6653122
+2:6653387
+2:6653388
+2:6681595
+2:6681722
+2:6681752
+2:6681809
+2:6681889
+2:6682740
+2:6682927
+2:6682928
+2:6683246
+2:6683289
+2:6683290
+2:6683389
+2:6683390
+2:6683492
+2:6683493
+2:6691541
+2:8233094
+2:8392218
+2:8423096
+2:8562032
+2:8832054
+2:8832401
+2:8832604
+2:8832734
+2:8832920
+2:8842921
+2:8843095
+2:8843301
+2:8851796
+2:8851826
+2:8852031
+2:8853084
+2:8853093
+2:8861052
+2:8861744
+2:8861786
+2:8861790
+2:8862030
+2:8862922
+2:8862923
+2:8863484
+######## Afghanistan ####################################################################################################
+$1000
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Albania ####################################################################################################
+$1001
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# First 2 chars are always letter
+^K0%D%D%D%D~^KO%D%D%D%D
+^D1%D%D%D%D~^DI%D%D%D%D
+^%L0%D%D%D~^%LO%D%D%D
+^%L1%D%D%D~^%LI%D%D%D
+
+# Old plates replacements
+%L%L%DPR0V$~%L%L%DPROV$
+
+# New plates replacements
+
+^%L%L%D%D%D%L1~^%L%L%D%D%D%LI
+^%L%L%D%D%D%L0~^%L%L%D%D%D%LO
+
+^%L%L%D%D%D1%L~^%L%L%D%D%DI%L
+^%L%L%D%D%D0%L~^%L%L%D%D%DO%L
+
+# Solve ambiguity with old format
+
+^BC%D%D%DI~^BC%D%D%D1
+^BR%D%D%DI~^BR%D%D%D1
+^BZ%D%D%DI~^BZ%D%D%D1
+^DI%D%D%DI~^DI%D%D%D1
+^DL%D%D%DI~^DL%D%D%D1
+^DR%D%D%DI~^DR%D%D%D1
+^DV%D%D%DI~^DV%D%D%D1
+^EL%D%D%DI~^EL%D%D%D1
+^ER%D%D%DI~^ER%D%D%D1
+^FR%D%D%DI~^FR%D%D%D1
+^GJ%D%D%DI~^GJ%D%D%D1
+^GR%D%D%DI~^GR%D%D%D1
+^HS%D%D%DI~^HS%D%D%D1
+# ... to continue in the future
+
+^BC%D%D%DO~^BC%D%D%D0
+^BR%D%D%DO~^BR%D%D%D0
+^BZ%D%D%DO~^BZ%D%D%D0
+^DO%D%D%DO~^DO%D%D%D0
+^DL%D%D%DO~^DL%D%D%D0
+^DR%D%D%DO~^DR%D%D%D0
+^DV%D%D%DO~^DV%D%D%D0
+^EL%D%D%DO~^EL%D%D%D0
+^ER%D%D%DO~^ER%D%D%D0
+^FR%D%D%DO~^FR%D%D%D0
+^GJ%D%D%DO~^GJ%D%D%D0
+^GR%D%D%DO~^GR%D%D%D0
+^HS%D%D%DO~^HS%D%D%D0
+# ... to continue in the future
+
+
+#############################################################################################
+# More advanced replacements in source code because its complexity
+#############################################################################################
+
+REGION=[BC,BR,BZ,DI,DL,DR,DV,EL,ER,FR,GJ,GR,HS,KJ,KO,KR,KU,KV,LA,LB,LE,LU,MA,MK,MR,MT,PE,PG,PR,PU,SH,SK,SR,TP,TR,VL]
+
+# Standard plate up to 2011
+%{REGION}%D%D%D%D%L
+
+# Standard plate from 2011
+%L%L%D%D%D%L%L
+
+# Motorcycles
+2:%L%L%D%D%D
+2:%{REGION}%D%D%D%D
+
+# Agricultural and technological vehicles
+%L%L[M,R][B,T]%D%D
+
+# Diplomatics
+CD%D%D%D%D%L
+
+# Taxis
+%L%L%D%D%DT
+
+# Trailers
+%L%LR%D%D%D
+
+# Temporary
+%L%L%DPROV
+%L%L%DPRK######## Algeria ####################################################################################################
+$1002
+TrainingGroup:1
+
+%D%D%D%D%D%D%D%D%D%D
+######## AmericanSamoa ####################################################################################################
+$1003
+TrainingGroup:3
+
+%D%D%D%D[%D,%0]
+
+######## ANDORRA ########################################################################################################
+$1004
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+[E,F,G,J,K,L,M,N]%D%D%D%D
+
+
+######## Angola ####################################################################################################
+$1005
+TrainingGroup:1
+
+# Until 1996
+%L%L%L%D%D%D%D
+
+# From 1997
+%L%L%L%D%D%D%D
+%L%L%D%D%D%D%L%L
+######## Anguilla ####################################################################################################
+$1006
+TrainingGroup:1
+
+SUFFIX=[H,G,R]
+
+%L%D%D%D[%D,%0]%{SUFFIX}
+C%D%D%D%D
+M%D%D%D[%D,%0]
+[G,R]%D%D%D[%D,%0]######## Antarctica ####################################################################################################
+$1007
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## AntiguaandBarbuda ####################################################################################################
+$1008
+TrainingGroup:3
+
+PREFIX=[A,P,PA,R,TX,ABP,BUS,C,AT,G]
+%{PREFIX}%D%D%D[%D,%0]
+
+######## Argentina ####################################################################################################
+$1009
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^0%L%L%D%D%D~^O%L%L%D%D%D
+^%L0%L%D%D%D~^%LO%L%D%D%D
+^%L%L0%D%D%D~^%L%LO%D%D%D
+
+^0%L0%D%D%D~^O%LO%D%D%D
+^00%L%D%D%D~^OO%L%D%D%D
+^%L00%D%D%D~^%LOO%D%D%D
+
+^8%L%L%D%D%D~^B%L%L%D%D%D
+^%L8%L%D%D%D~^%LB%L%D%D%D
+^%L%L8%D%D%D~^%L%LB%D%D%D
+
+^5%L%L%D%D%D~^S%L%L%D%D%D
+^%L5%L%D%D%D~^%LS%L%D%D%D
+^%L%L5%D%D%D~^%L%LS%D%D%D
+
+^0%L%D%D%D%L%L~^O%L%D%D%D%L%L
+^%L0%D%D%D%L%L~^%LO%D%D%D%L%L
+^%L%L%D%D%D0%L~^%L%L%D%D%DO%L
+^%L%L%D%D%D%L0~^%L%L%D%D%D%LO
+
+^5%L%D%D%D%L%L~^S%L%D%D%D%L%L
+^%L5%D%D%D%L%L~^%LS%D%D%D%L%L
+^%L%L%D%D%D5%L~^%L%L%D%D%DS%L
+^%L%L%D%D%D%L5~^%L%L%D%D%D%LS
+
+## "LLL DDD" From 1995
+%L%L%L%D%D%D
+
+## "DDD LLL" Motocicletas cuadradas
+%D%D%D%L%L%L
+
+# Trailer
+%D%D%D%L%L%L%D%D%D
+
+# Mercosur
+%L%L%D%D%D%L%L
+
+## DDDDDD From 1972-1994
+%D%D%D%D%D%D
+
+######## Armenia ####################################################################################################
+$1010
+TrainingGroup:1
+
+^%D%D0%L%D%D%D~^%D%DO%L%D%D%D
+^%D%D%L0%D%D%D~^%D%D%LO%D%D%D
+
+^%D%D1%L%D%D%D~^%D%DI%L%D%D%D
+^%D%D%L1%D%D%D~^%D%D%LI%D%D%D
+
+%D%D%L%L%D%D%D
+
+######## Aruba ####################################################################################################
+$1011
+TrainingGroup:3
+
+STATECODE=[A,MFA,AG,MFD,B,MFV,BR,N,D,DT,T,GAR,TR,MBA,TX,MBD,V]
+
+[%{STATECODE},%0]%D%D%D[%D,%0][%D,%0]
+######## Australia ####################################################################################################
+$1012
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^%D%D%D0%L%L~^%D%D%DO%L%L
+^%D%D%D%L0%L~^%D%D%D%LO%L
+^%D%D%D%L%L0~^%D%D%D%L%LO
+
+^%L%L%D%D%L0~^%L%L%D%D%LO
+^%L%L%D%D0%L~^%L%L%D%DO%L
+^%L0%D%D%L%L~^%LO%D%D%L%L
+
+^%L0%L%D%D~^%LO%L%D%D
+^%L%L0%D%D%L~^%L%LO%D%D%L
+
+^Y0%L%D%D~^YO%L%D%D
+
+TRAILERS1=[H,U,V,Y,Z]
+
+# Queensland
+%D%D%D%L%L%L
+%D%L%L%L%D%D%D
+
+# Australian Capital Territory
+Y%L%L%D%D%L
+
+# New South Wales
+%L%L%D%D%L%L
+%L%L%L%D%D%L
+%D%D%D%D%DS
+%D%D%D%DS%D
+%{TRAILERS1}%D%D%D%D[%D,%0]
+T%D%D%D[%D,%0]
+
+# Northern territory
+C%L%D%D%L%L
+
+# South Australia
+S%D%D%D%L%L%L
+S%L%D%D%L%L
+
+# Tasmania
+%L%D%D%L%L
+%L%L%D%D%D%D
+%L%D%D%L%L
+
+# Victoria
+1%L%L%D%L%L
+%L%L%L%D%D%D
+
+# Western Australia
+1%L%L%L%D%D%D
+######## Austria ####################################################################################################
+$1013
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+MetaData:1
+
+^0%D%D%D~^O%D%D%D
+^D0%D%D~^DO%D%D
+^H0%D%D~^HO%D%D
+^J0%D%D~^JO%D%D
+^K0%D%D~^KO%D%D
+^0P%D%D~^OP%D%D
+^0W%D%D~^OW%D%D
+^R0%D%D~^RO%D%D
+^S0%D%D~^SO%D%D
+^V0%D%D~^VO%D%D
+
+^1%D%D%D~^I%D%D%D
+^1L%D%D~^IL%D%D
+^1M%D%D~^IM%D%D
+^K1%D%D~^KI%D%D
+^L1%D%D~^LI%D%D
+^M1%D%D~^MI%D%D
+^R1%D%D~^RI%D%D
+^V1%D%D~^VI%D%D
+
+STATECODE=[AM,B,BA,BB,BD,BG,BH,BL,BM,BN,BP,BR,BZ,DL,DO,E,EF,EU,FB,FE,FF,FK,FR,FV,G,GB,GD,GF,GK,GM,GR,GS,GU,HA,HB,HF,HL,HO,I,IL,IM,JE,JO,JU,JW,K,KB,KI,KF,KK,KL,KO,KR,KS,KU,L,LA,LB,LE,LF,LI,LL,LN,LZ,MA,MD,ME,MI,MT,MU,MZ,N,ND,NK,O,OP,OW,P,PE,PL,PT,RA,RE,RI,RO,S,SB,SD,SE,SK,SL,SP,SO,SR,ST,SV,SW,SZ,T,TA,TD,TK,TU,UU,V,VB,VD,VI,VK,VL,VO,W,WB,WD,WK,WE,WL,WN,WO,WT,WU,WY,WZ,ZE,ZT]
+
+## "STATE numbers and digits
+%{STATECODE}%D%D[%L,%D][%L,%D][%L,%D][%L,%D]
+%{STATECODE}%D%D[%L,%D][%L,%D][%L,%D]
+%{STATECODE}%D%D[%L,%D][%L,%D]
+%{STATECODE}%D[%D,%L]%L%L
+
+# Custom plates
+%{STATECODE}%L%L%L%D[%D,%0]
+%{STATECODE}%L%L%L%L%D
+######## Azerbaijan ####################################################################################################
+$1014
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^%D%D1%L%D%D%D~^%D%DI%L%D%D%D
+^%D%D%L1%D%D%D~^%D%D%LI%D%D%D
+
+^%D%D0%L%D%D%D~^%D%DO%L%D%D%D
+^%D%D%L0%D%D%D~^%D%D%LO%D%D%D
+
+^%D%D2%L%D%D%D~^%D%DZ%L%D%D%D
+
+
+# Standard plates
+%D%D%L%L%D%D%D
+
+# Foreign and Public
+[H,P]%D%D%D%D%D%D
+
+######## Bahamas ####################################################################################################
+$1015
+TrainingGroup:3
+
+T%D%D%D[%D,%0]
+%D%D%D%D[%D,%0]
+######## Bahrain ####################################################################################################
+$1016
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# To detect others GCC plates
+%D%D%D[%D,%0][%D,%0][%D,%0]
+
+######## Bangladesh ####################################################################################################
+$1017
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Barbados ####################################################################################################
+$1018
+TrainingGroup:1
+
+^0%D%D%D~^O%D%D%D
+^0%L%D%D~^O%L%D%D
+
+LETTERS=[A,C,E,G,J,L,M,O,P,S,T,X]
+
+%{LETTERS}%D[%D,%0][%D,%0][%D,%0]
+%{LETTERS}%L%D[%D,%0][%D,%0][%D,%0]
+
+# Taxi
+Z%D%D[%D,%0][%D,%0]
+Z[M,R]%D%D[%D,%0][%D,%0]
+
+# Government
+M[L,P]%D%D[%D,%0][%D,%0]
+
+# Hire car or limo
+H[L,%0]%D[%D,%0][%D,%0][%D,%0]
+
+# Diplomatic corps
+CD%D%D[%D,%0][%D,%0]
+
+# Buses
+B%D%D%D
+B[M,T]%D%D[%D,%0]
+
+######## Belarus ####################################################################################################
+$1019
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+
+# First set
+^%L0%D%D%D%D%D~^%LO%D%D%D%D%D
+^0%L%D%D%D%D%D~^O%L%D%D%D%D%D
+^%L1%D%D%D%D%D~^%LI%D%D%D%D%D
+^1%L%D%D%D%D%D~^I%L%D%D%D%D%D
+^10%D%D%D%D%D~^IO%D%D%D%D%D
+^01%D%D%D%D%D~^OI%D%D%D%D%D
+
+# Second set and old plates
+^%D%D%D%D%L0~^%D%D%D%D%LO
+^%D%D%D%D0%L~^%D%D%D%DO%L
+^%D%D%D%D%L1~^%D%D%D%D%LI
+^%D%D%D%D1%L~^%D%D%D%DI%L
+^%D%D%D%D10~^%D%D%D%DIO
+^%D%D%D%D01~^%D%D%D%DOI
+
+# Third set
+^0%D%D%D%D%L%D~^O%D%D%D%D%L%D
+^1%D%D%D%D%L%D~^I%D%D%D%D%L%D
+^%L%D%D%D%D0%D~^%L%D%D%D%DO%D
+^%L%D%D%D%D1%D~^%L%D%D%D%DI%D
+
+# Fourth set
+# same as first set
+
+SECOND=[A,B,C,E,I,K,M,H,P,O,T,X]
+FIRST=[A,B,C,E,H,I,K,M,O,P,T,X]
+NUMBER=[1,2,3,4,5,6,7]
+
+# First set
+%{FIRST}%{SECOND}%D%D%D%D%{NUMBER}
+
+# Second set
+%D%D%D%D%{FIRST}%{SECOND}%{NUMBER}
+
+# old plates
+%D%D%D%D%{FIRST}%{SECOND}
+
+# Third set
+%{FIRST}%D%D%D%D%{SECOND}%{NUMBER}
+
+# Fourth set
+%{FIRST}%{SECOND}%{NUMBER}%D%D%D%D
+
+# Taxis
+%{NUMBER}TAX%D%D%D%D
+
+# Diplomatic
+CD%D%D%D%D[%D,%0]
+
+
+
+
+
+
+
+
+
+######## Belgium ####################################################################################################
+$1020
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^10%L%L%D%D%D~^1O%L%L%D%D%D
+^1%L0%L%D%D%D~^1%LO%L%D%D%D
+^1%L%L0%D%D%D~^1%L%LO%D%D%D
+
+^11%L%L%D%D%D~^1I%L%L%D%D%D
+^1%L1%L%D%D%D~^1%LI%L%D%D%D
+^1%L%L1%D%D%D~^1%L%LI%D%D%D
+
+^1%L9%L%D%D%D~^1%LP%L%D%D%D
+^1%L%L9%D%D%D~^1%L%LP%D%D%D
+^1%L99%D%D%D~^1%LPP%D%D%D
+
+^0%L%L%D%D%D~^O%L%L%D%D%D
+^%L0%L%D%D%D~^%LO%L%D%D%D
+^%L%L0%D%D%D~^%L%LO%D%D%D
+
+^1%L%L%D%D%D~^I%L%L%D%D%D
+^%L1%L%D%D%D~^%LI%L%D%D%D
+^%L%L1%D%D%D~^%L%LI%D%D%D
+
+^%D%D%D0%L%L~^%D%D%DO%L%L
+^%D%D%D%L0%L~^%D%D%D%LO%L
+^%D%D%D%L%L0~^%D%D%D%L%LO
+
+^%D%D%D1%L%L~^%D%D%DI%L%L
+^%D%D%D%L1%L~^%D%D%D%LI%L
+^%D%D%D%L%L1~^%D%D%D%L%LI
+
+## 1973-2008: 3 letters, 3 digits (ABC.123)
+%L%L%L%D%D%D
+
+## 2008 (June 25)-2010 (November 15) "DDD LLL" 
+%D%D%D%L%L%L
+
+## from 2010 (November 15): "D LLL DDD" 
+1%L%L%L%D%D%D
+
+## from 2021 
+2%L%L%L%D%D%D
+
+# Taxi
+T%L%L%L%D%D%D
+
+
+
+
+
+######## Belize ####################################################################################################
+$1021
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Benin ####################################################################################################
+$1022
+TrainingGroup:1
+
+H%D%D%D%DRB
+A%D%D%D%D
+%L%L%D%D%D%D
+######## Bermuda ####################################################################################################
+$1023
+TrainingGroup:1
+
+^1%L%D%D%D~^I%L%D%D%D
+
+%L%L%D%D%D
+######## Bhutan ####################################################################################################
+$1024
+TrainingGroup:1
+
+^BP%D1%D%D%D%D$~^BP%DI%D%D%D%D$
+^BP%D0%D%D%D%D$~^BP%DO%D%D%D%D$
+
+BP%D%L%D%D%D%D
+
+[RBP,RBG]%D%D%D%D
+######## Bolivia ####################################################################################################
+$1025
+TrainingGroup:3
+
+^%D%D%D%L1%L~^%D%D%D%LI%L
+^%D%D%D%L%L1~^%D%D%D%L%LI
+
+%L%L%L%D%D%D
+
+[%D,%0]%D%D%D%L%L%L
+
+######## Bosnia ####################################################################################################
+$1026
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# Replacements before 1992
+^L1%D%D%D%D%D%D~^LI%D%D%D%D%D%D
+^M0%D%D%D%D%D%D~^MO%D%D%D%D%D%D
+^D0%D%D%D%D%D%D~^DO%D%D%D%D%D%D
+
+# Replacements for 1994-1998
+^B1%D%D%D%D%L~^BI%D%D%D%D%L
+^D0%D%D%D%D%L~^DO%D%D%D%D%L
+^V1%D%D%D%D%L~^VI%D%D%D%D%L
+^M0%D%D%D%D%L~^MO%D%D%D%D%L
+^K0%D%D%D%D%L~^KO%D%D%D%D%L
+^G0%D%D%D%D%L~^GO%D%D%D%D%L
+
+# Modern replacements
+^0%D%D%L%D%D%D~^O%D%D%L%D%D%D
+^0%D%D0%D%D%D~^O%D%DO%D%D%D
+^%L%D%D1%D%D%D~^%L%D%DI%D%D%D
+^%L%D%D0%D%D%D~^%L%D%DO%D%D%D
+
+
+STATE_OLD1 = [BL,TD,LI,PD,TR,TB,SA,ZE,CP,TZ,BI,KNJ,MO,DO,GZ,BC,VI,ZV,BN,JC,MD,BU,MG]
+STATE_OLD2 = [SA,BI,PD,DO,TZ,VI,MO,JC,BR,BU,TR,ZV,ZE,MD,KO,GO]
+
+# Old and Current regular plates
+[%L,%D]%D%D%L%D%D%D
+
+# Taxis
+TA%D%D%D%D%D%D
+
+# Before 1992
+%{STATE_OLD1}%D%D%D%D%D%D
+
+# 1994-1998
+%{STATE_OLD2}%D%D%D%D%L[%L,%0]
+
+# Temporary
+TT%D%D%D%D%D%D
+
+# Diplomatic
+%D%D%L%D%D%D
+
+
+
+######## Botswana ####################################################################################################
+$1027
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+%D%D%D0%L%L~%D%D%DO%L%L
+%D%D%D%L0%L~%D%D%D%LO%L
+%D%D%D%L%L0~%D%D%D%L%LO
+
+# After 1995
+B%D%D%D%L%L%L
+
+# Before 1995
+BD%D%D%D%D%L
+
+# Government
+BX%D%D%D[%D,%0][%D,%0]
+
+######## Brazil ####################################################################################################
+$1028
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# BRAZIL REPLACEMENTS
+
+^%L01%D%D%D~^%LOI%D%D%D
+^%L10%D%D%D~^%LIO%D%D%D
+
+^0%L1%D%D%D~^O%LI%D%D%D
+^1%L0%D%D%D~^I%LO%D%D%D
+
+^01%L%D%D%D~^OI%L%D%D%D
+^10%L%D%D%D~^IO%L%D%D%D
+
+^011%D%D%D~^OII%D%D%D
+^101%D%D%D~^IOI%D%D%D
+^110%D%D%D~^IIO%D%D%D
+
+^100%D%D%D~^IOO%D%D%D
+^010%D%D%D~^OIO%D%D%D
+^001%D%D%D~^OOI%D%D%D
+
+^%L%L0%D%D%D~^%L%LO%D%D%D
+^%L0%L%D%D%D~^%LO%L%D%D%D
+^%L00%D%D%D~^%LOO%D%D%D
+^0%L%L%D%D%D~^O%L%L%D%D%D
+^0%L0%D%D%D~^O%LO%D%D%D
+^00%L%D%D%D~^OO%L%D%D%D
+^000%D%D%D~^OOO%D%D%D
+
+^%L%L1%D%D%D~^%L%LI%D%D%D
+^%L1%L%D%D%D~^%LI%L%D%D%D
+^%L11%D%D%D~^%LII%D%D%D
+^1%L%L%D%D%D~^I%L%L%D%D%D
+^1%L1%D%D%D~^I%LI%D%D%D
+^11%L%D%D%D~^II%L%D%D%D
+^111%D%D%D~^III%D%D%D
+
+# MERCOSUR REPLACEMENTS
+
+^%L%L0%D%L%D%D~^%L%LO%D%L%D%D
+^%L%L1%D%L%D%D~^%L%LI%D%L%D%D
+
+^%L0%L%D%L%D%D~^%LO%L%D%L%D%D
+^0%L%L%D%L%D%D~^O%L%L%D%L%D%D
+
+^%L01%D%L%D%D~^%LOI%D%L%D%D
+^%L10%D%L%D%D~^%LIO%D%L%D%D
+
+^0%L1%D%L%D%D~^O%LI%D%L%D%D
+^1%L0%D%L%D%D~^I%LO%D%L%D%D
+
+^01%L%D%L%D%D~^OI%L%D%L%D%D
+^10%L%D%L%D%D~^IO%L%D%L%D%D
+
+^011%D%L%D%D~^OII%D%L%D%D
+^101%D%L%D%D~^IOI%D%L%D%D
+^110%D%L%D%D~^IIO%D%L%D%D
+
+^100%D%L%D%D~^IOO%D%L%D%D
+^010%D%L%D%D~^OIO%D%L%D%D
+^001%D%L%D%D~^OOI%D%L%D%D
+
+^%L%L%L%D1%D%D~^%L%L%L%DI%D%D
+^%L%L%L%D0%D%D~^%L%L%L%DO%D%D
+
+MERCO_LETTER4=[A,B,C,D,E,F,G,H,I,J]
+
+## "LLL DDDD"
+%L%L%L%D%D%D%D
+
+# Mercosur
+%L%L%L%D%{MERCO_LETTER4}%D%D
+
+
+######## Brunei ####################################################################################################
+$1029
+TrainingGroup:1
+
+B[%L,%0][%L,%0]%D%D[%D,%0][%D,%0]
+K%L[%L,%0]%D%D[%D,%0][%D,%0]
+
+%D%D%D%DDC
+######## Bulgaria ####################################################################################################
+$1030
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+LETTER=[A,B,E,K,M,H,O,P,C,T,Y,X]
+SPECIAL=[B,H,T]
+
+^0%L%D%D%D%D%L%L~^O%L%D%D%D%D%L%L
+^%L0%D%D%D%D%L%L~^%LO%D%D%D%D%L%L
+^00%D%D%D%D%L%L~^OO%D%D%D%D%L%L
+
+# Squared
+^0%L%L%D%D%D%D~^O%L%L%D%D%D%D
+^%L0%L%D%D%D%D~^%LO%L%D%D%D%D
+^%L%L0%D%D%D%D~^%L%LO%D%D%D%D
+
+## 1992...
+%{LETTER}%D%D%D%D%{LETTER}%{LETTER}
+%{LETTER}%{LETTER}%D%D%D%D%{LETTER}%{LETTER}
+
+# 2007 special
+%D%D%D%{SPECIAL}%D%D%D
+
+# Police
+BA%D%D%D%D%D%D
+
+# Vanity
+C%{LETTER}%D%D%D%D%D%D
+
+# Civil protection
+CP%D%D%D%D%D
+
+# Diplomat
+%L%L%D%D%D%D
+
+# SQUARE PLATES
+2:%{LETTER}%{LETTER}%{LETTER}%D%D%D%D
+2:%{LETTER}%{LETTER}%{LETTER}%{LETTER}%D%D%D%D
+######## BurkinaFaso ####################################################################################################
+$1031
+TrainingGroup:1
+
+%D[%D,%0]%L[%L,%0]%D%D%D%D[%L,%0][%L,%0]
+
+%L%D%D%D%DBF
+%D%D%D%D%L%D%D
+######## Burundi ####################################################################################################
+$1032
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# Boats
+%D%D[%D,%0]
+
+
+######## Cambodia ####################################################################################################
+$1033
+TrainingGroup:3
+
+^%D%L0%D%D%D%D$~^%D%LO%D%D%D%D$
+
+# Since april 2004
+%D%L[%L,%0]%D%D%D%D
+
+# Specifics
+%D%D%D%D%D
+%L%L[%L,%0][%L,%0]%D%D%D%D
+
+# Diplomatic
+CD%D%D%D%D[%D,%0][%D,%0]
+######## Cameroon ####################################################################################################
+$1034
+TrainingGroup:1
+
+^N0%D%D%D%D%L~^NO%D%D%D%D%L
+^0U%D%D%D%D%L~^OU%D%D%D%D%L
+
+REGION=[AD,CE,EN,ES,LT,NO,NW,OU,SU,SW]
+
+%{REGION}%D%D%D%L[%L,%0]
+######## Canada ####################################################################################################
+$1035
+TrainingGroup:3
+
+# Ontario
+%D%D%D%L%L%L[%L,%0]
+%L%L%L%D%D%D
+%L%L%L%L%D%D%D
+%L%L%D%D%D%D%D
+
+# Quebec
+%D%D%D%L%D%D%D
+%L%D%D%L%L%L
+[F,L,C,T]%D%D%D%D%D%D
+F%L%D%D%D%D%D
+F%L%L%D%D%D%D
+R%L%D%D%D%D%L
+TB%D%D%D%D
+TR%D%D%D%D%D
+TS%D%D%D%D
+
+# Alberta
+%L%L%L%D%D%D[%D,%0]
+
+# British Columbia
+%L%L%D%D%D%L
+
+######## CapeVerde ####################################################################################################
+$1036
+TrainingGroup:1
+
+CV%L%D%D%D%D
+
+REGION=[BR,BV,FG,SA,SL,SN,ST,SV]
+
+%{REGION}%D%D%L%L
+FA%D%D%D%D
+CD%D%D%D%D[%D,%0]
+######## CaymanIslands ####################################################################################################
+$1037
+TrainingGroup:3
+
+^C1%D%D%D%D~^CI%D%D%D%D
+
+CI%D%D%D%D
+%D%D%D%D%D[%D,%0]
+
+######## CentralAfricanRepublic ####################################################################################################
+$1038
+TrainingGroup:3
+
+SUFFIX=[BB,BG,BK,HB,HK,KG,LB,MB,MK,MP,NG,SE,UA,UK,UP,VK]	
+
+%L%L%D%D[%D,%0]%{SUFFIX}
+
+######## Chad ####################################################################################################
+$1039
+TrainingGroup:1
+
+REGION=[01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22]
+VEHICLE=[B,C,M,MS,P,S,T,V]
+
+%{REGION}%{VEHICLE}%D%D%D%D%L
+
+G%D%D%D%D%D
+PN%D%D%D%D
+
+%D%DCMD%D%D
+%D%D%{VEHICLE}%D%DCD
+######## Chile ####################################################################################################
+$1040
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# Before 2007
+%L%L%D%D%D%D
+
+# After 2007
+%L%L%L%L%D%D
+
+######## China ####################################################################################################
+$1041
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# Small/Compact Vehicles
+%L%D%L%D%D%D
+
+# Small/Compact Vehicles 
+%L[D,F]%D%D%D%D%D
+
+# Large Vehicles
+%L%D%D%D%DV
+
+# Large Vehicles (New Energy)
+%L%D%D%D%D%D[D,F]
+
+# Motorcycles
+[C,%0]%D%D%D%D%D
+
+# General
+%L[%L,%0]%D%D%D[%D,%0]
+
+# Unknown
+%L%D%D%D%D%L
+
+
+######## ChristmasIsland ####################################################################################################
+$1042
+TrainingGroup:1
+
+^C1%D%D%D~^CI%D%D%D
+
+%D%D%D%D
+CI%D%D%D%D
+######## CocosIslands ####################################################################################################
+$1043
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Colombia ####################################################################################################
+$1044
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:1
+
+# VEHICULOS
+
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+^%L%L0%D%D%D$~^%L%LO%D%D%D$
+^%L00%D%D%D$~^%LOO%D%D%D$
+
+^0%L%L%D%D%L$~^O%L%L%D%D%L$
+^%L0%L%D%D%L$~^%LO%L%D%D%L$
+^%L%L0%D%D%L$~^%L%LO%D%D%L$
+^%L00%D%D%L$~^%LOO%D%D%L$
+
+^%L%L%L%D%DI$~^%L%L%L%D%D1$
+
+## Vehiculos privados
+%L%L%L%D%D%D
+%L%L%D%D%D%L[%L,%D]
+%D%L%D%L%D%L%L
+%L%D%D%L%L%D[%L,%D]
+
+## Motos "LLL DDL" 
+%L%L%L%D%D[%L,%0]
+
+## Motos Antiguas "LLL DD"
+#%L%L%L%D%D
+
+## Motocarros
+%D%D%D%L%L%L
+
+# Special red
+T%D%D%D%D
+
+# Remolques
+R%D%D%D%D%D
+
+## Diplom ticas "LL DDDD"
+%L%L%D%D%D%D
+
+## Riohacha "L DDDDD"
+%L%D%D%D%D%D
+
+
+######## Comoros ####################################################################################################
+$1045
+TrainingGroup:1
+
+%D%D%D[%D,%0]%L[%D,%0][%D,%0]
+
+######## Congo ####################################################################################################
+$1046
+TrainingGroup:7
+
+KN%D%D%D%D%L%L
+
+%D%D%D%L%D%D
+%D%D%D%L%L%D[%D,%0]
+
+
+######## CookIslands ####################################################################################################
+$1047
+TrainingGroup:1
+
+%D%D%D%D
+R%L%D%D%D
+A%L%L%D%D%D
+######## CostaRica ####################################################################################################
+$1048
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:1
+
+^0%L%L%D%D%D~^O%L%L%D%D%D
+^%L0%L%D%D%D~^%LO%L%D%D%D
+^%L%L0%D%D%D~^%L%LO%D%D%D
+
+STATECODE=[A,G,H,SJ,P,C,L]
+VEHICLE=[C,CL,M,PE,CD,CC,D,VH,CRC]
+
+# From 1994
+%L%L%L%D%D%D
+%L%L%D%D%D[%D,%0]
+
+# Commercial
+C%D%D%D%D[%D,%0][%D,%0]
+
+# Motocicletas
+M%D%D%D%D%D%D
+
+# Servicio municipal
+T%{STATECODE}%D%D%D[%D,%0][%D,%0]
+%{STATECODE}B%D%D%D[%D,%0][%D,%0]
+%{VEHICLE}%D%D%D[%D,%0][%D,%0][%D,%0]
+%D%D[%D,%0][%D,%0][%D,%0][%D,%0]
+
+
+######## Croatia ####################################################################################################
+$1049
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^0G%D%D%D%L~^OG%D%D%D%L
+^0S%D%D%D%L~^OS%D%D%D%L
+^R1%D%D%D%L~^RI%D%D%D%L
+^1M%D%D%D%L~^IM%D%D%D%L
+^S1%D%D%D%L~^SI%D%D%D%L
+
+^%L%L%D%D%D1$~^%L%L%D%D%DI$
+^%L%L%D%D%D%L1$~^%L%L%D%D%D%LI$
+^%L%L%D%D%D%D1$~^%L%L%D%D%D%DI$
+^%L%L%D%D%D%D%L1$~^%L%L%D%D%D%D%LI$
+^%L%L%D%D%D%D1%L$~^%L%L%D%D%D%DI%L$
+
+
+STATECODE=[BJ,OG,BM,OS,CK,PU,DA,PZ,DE,RI,DJ,SB,DU,SK,GS,SL,IM,ST,KA,SI,KC,VK,KR,VT,KT,VU,KZ,VZ,MA,ZD,NA,ZG,NG,ZU]
+
+# 1990 series
+%{STATECODE}%D%D%D%L[%L,%0]
+%{STATECODE}%D%D%D%D%L[%L,%0]
+
+######## Cuba ####################################################################################################
+$1050
+TrainingGroup:1
+
+^1%L%L%D%D%D~^I%L%L%D%D%D
+^0%L%L%D%D%D~^O%L%L%D%D%D
+
+PROVINCE=[P,B,H,M,F,V,S,AC,T,G,O,U,N,I]
+
+%{PROVINCE}%L%L%D%D%D
+
+%L%D%D%D%D%D
+
+######## Cyprus ####################################################################################################
+$1051
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+^%L%L0%D%D%D$~^%L%LO%D%D%D$
+
+^1%L%L%D%D%D$~^I%L%L%D%D%D$
+^%L1%L%D%D%D$~^%LI%L%D%D%D$
+^%L%L1%D%D%D$~^%L%LI%D%D%D$
+
+%L%L[%L,%0]%D%D%D
+
+# Trailers up to 2013
+%D%D%D%D[%D,%0]CT
+
+# Trailers after to 2013
+P%D%D%D%D%D
+
+# Diplomatic
+%D%DCD%D[%D,%0]
+%L%L%D%D%D
+
+# Temporary
+ZT%D%D%D%D%L
+
+# Visitor
+%D%D[%D,%0][%D,%0]V%D%D
+ZZ%D%D%D%D
+
+######## CzechRepublic ####################################################################################################
+$1052
+TrainingGroup:1
+
+# Before 2001
+
+^%L1%D%D%D%D~^%LI%D%D%D%D
+^%L1%L%D%D%D%D~^%LI%L%D%D%D%D
+
+^%L0%D%D%D%D~^%LO%D%D%D%D
+^%L0%L%D%D%D%D~^%LO%L%D%D%D%D
+
+^0%L%L%D%D%D%D~^O%L%L%D%D%D%D
+
+GOVCODE=[A,B,C,E,H,J,K,L,M,P,S,T,U,V,Z]
+
+# From 2001
+%D%{GOVCODE}[%D,%L]%D%D%D%D
+
+# From 1960
+%L%L[%L,%0]%D%D%D%D
+
+# Diplomatic
+%D%D%D%L%L%D%D
+
+# Electric
+EL%D%D%D%L%L######## Denmark ####################################################################################################
+$1053
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:4
+
+## "LL DDDDD" 
+^0%L%D%D%D~^O%L%D%D%D
+
+%L%L%D%D%D[%D,%0][%D,%0]
+
+######## Djibouti ####################################################################################################
+$1054
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Dominica ####################################################################################################
+$1055
+TrainingGroup:1
+
+PREFIX=[P,T,H]
+
+%{PREFIX}*%D%D%D
+######## DominicanRepublic ####################################################################################################
+$1056
+TrainingGroup:3
+
+%D%D%D%D%D%D
+[L,G]%L[%L,%0][%L,%0]%D%D[%D,%0][%D,%0]
+%L%D%D%D%D%D%D
+%L%L%D%D%D%D[%D,%0]
+
+
+######## EastTimor ####################################################################################################
+$1057
+TrainingGroup:1
+
+%D%D%D%D%D[G,%0]
+TR%D%D%D
+
+######## Ecuador ####################################################################################################
+$1058
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+##### State code and gov code variables 
+STATECODE=[A,B,U,C,X,H,O,E,W,G,I,L,R,M,V,N,S,P,Q,Y,J,K,T,Z]
+GOVCODE=[CC,CD,OI,AT,IT]
+
+%{STATECODE}%L%L%D%D%D[%D,%0]
+%{GOVCODE}%D%D%D%D
+
+######## Egypt ####################################################################################################
+$1059
+TrainingGroup:5
+
+^A%D%D~^1%D%D
+^%DA%D~^%D1%D
+^%D%DA~^%D%D1
+
+^%D%D%D%L1~^%D%D%D%LA
+^%D%D%D%L%L1~^%D%D%D%L%LA
+
+^%D%D%D%D1%L%L~^%D%D%D%DA%L%L
+^%D%D%D%D%L1~^%D%D%D%D%LA
+^%D%D%D%D%L%L1~^%D%D%D%D%L%LA
+
+# **** OLD VEHICLES ****
+
+%D%D%D%D%D[%D,%0]
+
+# **** NEW VEHICLES ****
+
+%D%D%D[%D,%0]%L%L%L
+%D%D%D%D%L%L
+%D%D%D%D%D[%D,%0]%L
+
+
+######## ElSalvador ####################################################################################################
+$1060
+TrainingGroup:3
+
+REG5=[A,B,C,M]
+
+[P,N]%D%D%D%D
+P%D%D%D%D%D%D
+%L%L%D%D%D%D%D
+
+%{REG5}%D%D%D%D%D
+
+
+
+######## EquatorialGuinea ####################################################################################################
+$1061
+TrainingGroup:1
+
+REGION=[AN,BN,BS,CS,KN,LT,WN]
+
+%{REGION}%D%D%D%L
+######## Eritrea ####################################################################################################
+$1062
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Estonia ####################################################################################################
+$1063
+TrainingGroup:1
+
+%D%D0%L%L$~%D%DO%L%L$
+
+%D%D%D%L%L
+[%D,%0]%D%D%L%L%L
+
+# Diplomatic
+CD%D%D%D%D
+
+# Motorcycles
+%L%L%D%D######## Ethiopia ####################################################################################################
+$1064
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## FalklandIslands ####################################################################################################
+$1065
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## FaroeIslands ####################################################################################################
+$1066
+TrainingGroup:1
+
+^TAX1~^TAXI
+^AUT0~^AUTO
+
+F%D%D%D%D%D
+TAXI%D[%D,%0][%D,%0]
+%L%L%D%D%D
+AUTO%D[%D,%0][%D,%0]
+
+######## Fiji ####################################################################################################
+$1067
+TrainingGroup:1
+
+%L*%D%D%D
+[G,L]%D%D%D
+GP%D%D%D
+%D%D%D%L
+######## Finland ####################################################################################################
+$1068
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:4
+
+#
+# WARNING
+# IO replacements managed by the OCR code
+#
+
+^%L%L%LI$~^%L%L%L1$
+
+FIRSTNUMBER=[1,2,3,4,5,6,7,8,9]
+SHORTLETTER=[A,B,C,D,E,F,G,H,J,K,L,M,N]
+
+AL%{FIRSTNUMBER}%D%D%D
+
+%L%L[%L,%0]%{FIRSTNUMBER}%D%D
+%L%L%L%{FIRSTNUMBER}[%D,%0]
+
+# Export
+%L%D%D%D%D
+
+# Short
+%{SHORTLETTER}[%{SHORTLETTER},%0]%D[%D,%0]
+
+
+
+
+######## France ##########################################################################################################
+$1069
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# New format, from 2009
+## "LL DDD LL" 
+%L%L%D%D%D%L%L
+
+# Pre 2009
+%D%D%D[%D,%0]%L[%L,%0][%L,%0]%D%D
+%D%D%L%L%L%D%D
+
+# Diplomatic
+%D[%D,%0][%D,%0]C[D,%0]%D[%D,%0][%D,%0]
+%D[%D,%0][%D,%0]CMD%D[%D,%0][%D,%0]
+%D[%D,%0][%D,%0]K%D[%D,%0][%D,%0]
+######## FrenchGuiana ####################################################################################################
+$1070
+TrainingGroup:1
+
+%D%D%D%L%L%L%D
+%L%L%D%D%D%L%L
+######## FrenchPolynesia ####################################################################################################
+$1071
+TrainingGroup:1
+
+%D%D%D%D%D[%D,%0]P
+
+%L%L%D%D%D%L%L
+
+WW%D%D%D%D
+%D%D%D%DWW######## FrenchSouthernTerritories ####################################################################################################
+$1072
+TrainingGroup:1
+
+KER[AS,%0]%D%D%D%D
+
+%L%L%D%D%D%L%L
+######## Gabon ####################################################################################################
+$1073
+TrainingGroup:1
+
+%D%D%D%DG%D%L
+
+%L%L%D%D%D%L%L
+
+######## Gambia ####################################################################################################
+$1074
+TrainingGroup:1
+
+REGION=[BJL,WD,WCR,NBD,NBR,LRD,LRR,CRD,CRR,URD,URR,KM]
+
+%{REGION}%D%D%D[%L,MC]
+######## Georgia ####################################################################################################
+$1075
+TrainingGroup:1
+
+^1%L%L%D%D%D$~^I%L%L%D%D%D$
+^%L1%L%D%D%D$~^%LI%L%D%D%D$
+^%L%L1%D%D%D$~^%L%LI%D%D%D$
+
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+^%L%L0%D%D%D$~^%L%LO%D%D%D$
+
+^%L1%D%D%D%L~^%LI%D%D%D%L
+^%L0%D%D%D%L~^%LO%D%D%D%L
+
+^1%L%D%D%D%L~^I%L%D%D%D%L
+^0%L%D%D%D%L~^O%L%D%D%D%L
+
+^%L%L%D%D%D%L0$~^%L%L%D%D%D%LO$
+^%L%L%D%D%D0%L$~^%L%L%D%D%DO%L$
+
+^%L%L%D%D%D%L1$~^%L%L%D%D%D%LI$
+^%L%L%D%D%D1%L$~^%L%L%D%D%DI%L$
+
+^%L%L%D%D%D00$~^%L%L%D%D%DOO$
+^%L%L%D%D%D11$~^%L%L%D%D%DII$
+
+^%D%D%D%D%L0$~^%D%D%D%D%LO$
+
+DIPLOMID=[D,CC,AS]
+
+# Old license plate
+%L%L%L%D%D%D
+
+# Current
+%L%L%D%D%D%L%L
+
+# EU style temporary and motorcycles
+%L%L%D%D%D%D
+
+# Transit
+%D%D%D%D%L%L
+
+# Diplomatics
+%D%D%DCMD%D
+%D%D%D%{DIPLOMID}%D%D[%D,%0]
+%D%D%D%L%L%D%D%D
+
+
+######## Germany #########################################################################################################
+$1076
+# secondary x 256 + primary: 5*256+1
+TrainingGroup:6
+
+#### REPLACEMENTS IN DISTRICTS ####
+
+#### DISTRICTS ####
+
+STATECODE1=[A,B,C,D,E,F,G,H,J,K,L,M,N,O,P,R,S,V,W,X,Y,Z]
+
+STATECODE2=[AA,AB,AC,AH,AE,AK,AL,AM,AN,AO,AP,AR,AS,AT,AU,AW,AZ,BA,BB,BC,BD,BE,BF,BG,BH,BI,BK,BL,BM,BN,BO,BO,BP,BR,BS,BT,BU,BW,BZ,CA,CB,CE,CO,CR,CW,DA,DB,DD,DE,DH,DI,DL,DM,DN,DO,DS,DT,DU,DW,DZ,EA,EB,ED,EE,EF,EG,EH,EI,EL,EM,EN,ER,ES,EU,EW,FB,FD,FF,FG,FH,FI,FL,FN,FO,FR,FS,FT,FU,FW,FZ,GA,GC,GD,GE,GF,GG,GI,GK,GL,GM,GN,GO,GP,GR,GS,GT,GU,GV,GW,GZ,HA,HB,HC,HD,HE,HF,HG,HH,HI,HK,HL,HM,HN,HO,HP,HR,HS,HU,HV,HW,HX,HY,HZ,IK,IL,IN,IS,IZ,JB,JE,JL,KA,KB,KC,KE,KF,KG,KH,KI,KK,KL,KM,KN,KO,KR,KS,KT,KU,KW,KY,LA,LB,LC,LD,LE,LF,LG,LH,LI,LK,LL,LM,LN,LO,LP,LR,LS,LU,MA,MB,MC,MD,ME,MG,MH,MI,MK,ML,MM,MN,MO,MQ,MR,MS,MT,MU,MW,MY,MZ,NB,ND,NE,NF,NH,NI,NK,NL,NM,NO,NP,NR,NU,NT,NW,NY,NZ,OA,OB,OC,OD,OE,OF,OG,OH,OK,OL,OP,OR,OS,OZ,PA,PB,PE,PF,PI,PK,PL,PM,PN,PR,PS,PW,PZ,RA,RC,RD,RE,RG,RH,RI,RL,RM,RN,RO,RS,RT,RV,RW,RY,RZ,SB,SC,SE,SF,SG,SH,SI,SK,SL,SM,SN,SO,SP,SR,ST,SU,SW,SY,SZ,TE,TF,TG,TO,TP,TR,TS,TT,TU,UB,UE,UH,UL,UM,UN,VB,VK,VL,VS,WA,WB,WD,WE,WF,WG,WI,WK,WL,WM,WN,WO,WR,WS,WT,WU,WW,WZ,ZE,ZI,ZP,ZR,ZS,ZW,ZZ]
+
+STATECODE3=[ABG,AIB,AIC,ALF,ALS,ALZ,ANA,ANG,ANK,APD,ARN,ART,ASD,ASL,ASZ,AUR,AZE,BAD,BAR,BBG,BBL,BCH,BED,BEI,BEL,BER,BGD,BGL,BID,BIN,BIR,BIT,BIW,BKS,BLB,BLK,BNA,BOG,BOH,BOR,BOT,BRA,BRB,BRG,BRI,BRK,BRL,BRV,BSB,BSK,BTF,BUD,BUL,BUR,BUS,BUZ,BWL,BYL,BZA,CAS,CHA,CLP,CLZ,COC,COE,CUX,DAH,DAN,DAU,DBR,DEG,DEL,DGF,DIL,DIN,DIZ,DKB,DLG,DON,DUD,DUW,EBE,EBN,EBS,ECK,EHI,EIC,EIH,EIL,EIN,EMD,EMS,ERB,ERH,ERK,ESA,ESB,ESW,EUT,FAL,FDB,FDS,FEU,FFB,FKB,FLO,FOR,FRG,FRI,FRW,FTL,FUS,GAN,GAP,GDB,GEL,GEM,GEO,GER,GHA,GHC,GLA,GMN,GNT,GOA,GOH,GRA,GRI,GRM,GRS,GRZ,GTH,GUB,GUN,GVM,HAB,HAL,HAM,HAS,HBN,HBS,HCH,HDH,HDL,HEB,HEF,HEI,HEL,HER,HET,HGN,HGW,HHM,HIG,HIP,HMU,HOG,HOH,HOL,HOM,HOR,HOS,HOT,HRO,HSK,HST,HUN,HUS,HVL,HWI,IGB,ILL,JEV,JUL,KAR,KEH,KEL,KEM,KIB,KLE,KLT,KLZ,KON,KOT,KRU,KUN,KUS,KYF,LAN,LAT,LAU,LBS,LBZ,LDK,LDS,LEO,LER,LEV,LIB,LIF,LIN,LIP,LOB,LOH,LOS,LRO,LSA,LSN,LSZ,LUD,LUK,LUN,LWL,MAB,MAI,MAK,MAL,MAR,MED,MEG,MEI,MEK,MEL,MEP,MER,MES,MET,MGH,MGN,MHL,MIL,MOD,MOL,MON,MOS,MSP,MST,MTK,MTL,MUB,MUL,MUN,MUR,MVL,MYK,MZG,NAB,NAI,NAU,NDH,NEA,NEB,NEC,NEN,NES,NEU,NEW,NIB,NMB,NMS,NOH,NOL,NOM,NOR,NRU,NRW,NVP,NWM,OAL,OBB,OBG,OCH,OHA,OHR,OHV,OHZ,OLD,OPR,OSL,OTT,OTW,OVI,OVL,OVP,PAF,PAN,PAR,PCH,PEG,PER,PIR,PLO,PRU,QFT,QLB,RDG,REG,REH,REI,RID,RIE,ROD,ROF,ROH,ROK,ROL,ROS,ROT,ROW,RPL,RSL,RUD,RUG,RWL,SAB,SAD,SAK,SAL,SAN,SAW,SBG,SBK,SCZ,SDH,SDL,SDT,SEB,SEE,SEF,SEL,SFA,SFB,SFT,SGH,SHA,SHG,SHK,SHL,SIG,SIM,SLE,SLF,SLG,SLN,SLS,SLU,SLZ,SMU,SNH,SOB,SOG,SOK,SOL,SOM,SON,SPB,SPN,SPR,SRB,SRO,STA,STB,STD,STE,STH,STL,STO,SUL,SUW,SWA,SZB,TBB,THL,THW,TIR,TOL,TON,TUT,UEM,UER,UFF,USI,VAI,VEC,VER,VIB,VIE,VIT,VOF,VOH,WAF,WAK,WAN,WAR,WAT,WBS,WDA,WEB,WEG,WEL,WEM,WEN,WER,WES,WHV,WIL,WIS,WIT,WIZ,WLG,WMS,WND,WOB,WOH,WOL,WOR,WOS,WRN,WSF,WST,WSW,WTL,WTM,WUG,WUM,WUN,WUR,WZL,ZEL,ZIG]
+
+STATECODE_ALL=[A,B,C,D,E,F,G,H,J,K,L,M,N,O,P,R,S,V,W,X,Y,Z,AA,AB,AC,AH,AE,AK,AL,AM,AN,AO,AP,AR,AS,AT,AU,AW,AZ,BA,BB,BC,BD,BE,BF,BG,BH,BI,BK,BL,BM,BN,BO,BO,BP,BR,BS,BT,BU,BW,BZ,CA,CB,CE,CO,CR,CW,DA,DB,DD,DE,DH,DI,DL,DM,DN,DO,DS,DT,DU,DW,DZ,EA,EB,ED,EE,EF,EG,EH,EI,EL,EM,EN,ER,ES,EU,EW,FB,FD,FF,FG,FH,FI,FL,FN,FO,FR,FS,FT,FU,FW,FZ,GA,GC,GD,GE,GF,GG,GI,GK,GL,GM,GN,GO,GP,GR,GS,GT,GU,GV,GW,GZ,HA,HB,HC,HD,HE,HF,HG,HH,HI,HK,HL,HM,HN,HO,HP,HR,HS,HU,HV,HW,HX,HY,HZ,IK,IL,IN,IS,IZ,JB,JE,JL,KA,KB,KC,KE,KF,KG,KH,KI,KK,KL,KM,KN,KO,KR,KS,KT,KU,KW,KY,LA,LB,LC,LD,LE,LF,LG,LH,LI,LK,LL,LM,LN,LO,LP,LR,LS,LU,MA,MB,MC,MD,ME,MG,MH,MI,MK,ML,MM,MN,MO,MQ,MR,MS,MT,MU,MW,MY,MZ,NB,ND,NE,NF,NH,NI,NK,NL,NM,NO,NP,NR,NU,NT,NW,NY,NZ,OA,OB,OC,OD,OE,OF,OG,OH,OK,OL,OP,OR,OS,OZ,PA,PB,PE,PF,PI,PK,PL,PM,PN,PR,PS,PW,PZ,RA,RC,RD,RE,RG,RH,RI,RL,RM,RN,RO,RS,RT,RV,RW,RY,RZ,SB,SC,SE,SF,SG,SH,SI,SK,SL,SM,SN,SO,SP,SR,ST,SU,SW,SY,SZ,TE,TF,TG,TO,TP,TR,TS,TT,TU,UB,UE,UH,UL,UM,UN,VB,VK,VL,VS,WA,WB,WD,WE,WF,WG,WI,WK,WL,WM,WN,WO,WR,WS,WT,WU,WW,WZ,ZE,ZI,ZP,ZR,ZS,ZW,ZZ,ABG,AIB,AIC,ALF,ALS,ALZ,ANA,ANG,ANK,APD,ARN,ART,ASD,ASL,ASZ,AUR,AZE,BAD,BAR,BBG,BBL,BCH,BED,BEI,BEL,BER,BGD,BGL,BID,BIN,BIR,BIT,BIW,BKS,BLB,BLK,BNA,BOG,BOH,BOR,BOT,BRA,BRB,BRG,BRI,BRK,BRL,BRV,BSB,BSK,BTF,BUD,BUL,BUR,BUS,BUZ,BWL,BYL,BZA,CAS,CHA,CLP,CLZ,COC,COE,CUX,DAH,DAN,DAU,DBR,DEG,DEL,DGF,DIL,DIN,DIZ,DKB,DLG,DON,DUD,DUW,EBE,EBN,EBS,ECK,EHI,EIC,EIH,EIL,EIN,EMD,EMS,ERB,ERH,ERK,ESA,ESB,ESW,EUT,FAL,FDB,FDS,FEU,FFB,FKB,FLO,FOR,FRG,FRI,FRW,FTL,FUS,GAN,GAP,GDB,GEL,GEM,GEO,GER,GHA,GHC,GLA,GMN,GNT,GOA,GOH,GRA,GRI,GRM,GRS,GRZ,GTH,GUB,GUN,GVM,HAB,HAL,HAM,HAS,HBN,HBS,HCH,HDH,HDL,HEB,HEF,HEI,HEL,HER,HET,HGN,HGW,HHM,HIG,HIP,HMU,HOG,HOH,HOL,HOM,HOR,HOS,HOT,HRO,HSK,HST,HUN,HUS,HVL,HWI,IGB,ILL,JEV,JUL,KAR,KEH,KEL,KEM,KIB,KLE,KLT,KLZ,KON,KOT,KRU,KUN,KUS,KYF,LAN,LAT,LAU,LBS,LBZ,LDK,LDS,LEO,LER,LEV,LIB,LIF,LIN,LIP,LOB,LOH,LOS,LRO,LSA,LSN,LSZ,LUD,LUK,LUN,LWL,MAB,MAI,MAK,MAL,MAR,MED,MEG,MEI,MEK,MEL,MEP,MER,MES,MET,MGH,MGN,MHL,MIL,MOD,MOL,MON,MOS,MSP,MST,MTK,MTL,MUB,MUL,MUN,MUR,MVL,MYK,MZG,NAB,NAI,NAU,NDH,NEA,NEB,NEC,NEN,NES,NEU,NEW,NIB,NMB,NMS,NOH,NOL,NOM,NOR,NRU,NRW,NVP,NWM,OAL,OBB,OBG,OCH,OHA,OHR,OHV,OHZ,OLD,OPR,OSL,OTT,OTW,OVI,OVL,OVP,PAF,PAN,PAR,PCH,PEG,PER,PIR,PLO,PRU,QFT,QLB,RDG,REG,REH,REI,RID,RIE,ROD,ROF,ROH,ROK,ROL,ROS,ROT,ROW,RPL,RSL,RUD,RUG,RWL,SAB,SAD,SAK,SAL,SAN,SAW,SBG,SBK,SCZ,SDH,SDL,SDT,SEB,SEE,SEF,SEL,SFA,SFB,SFT,SGH,SHA,SHG,SHK,SHL,SIG,SIM,SLE,SLF,SLG,SLN,SLS,SLU,SLZ,SMU,SNH,SOB,SOG,SOK,SOL,SOM,SON,SPB,SPN,SPR,SRB,SRO,STA,STB,STD,STE,STH,STL,STO,SUL,SUW,SWA,SZB,TBB,THL,THW,TIR,TOL,TON,TUT,UEM,UER,UFF,USI,VAI,VEC,VER,VIB,VIE,VIT,VOF,VOH,WAF,WAK,WAN,WAR,WAT,WBS,WDA,WEB,WEG,WEL,WEM,WEN,WER,WES,WHV,WIL,WIS,WIT,WIZ,WLG,WMS,WND,WOB,WOH,WOL,WOR,WOS,WRN,WSF,WST,WSW,WTL,WTM,WUG,WUM,WUN,WUR,WZL,ZEL,ZIG]
+
+## Current format
+%{STATECODE1}%L%L%D%D[%D,%0][%D,%0][%D,%0][E,%0][H,%0]
+%{STATECODE1}%L%D%D[%D,%0][%D,%0]
+%{STATECODE2}%L[%L,%0]%D[%D,%0][%D,%0][%D,%0][%D,%0][E,%0][H,%0]
+%{STATECODE3}%L[%L,%0]%D[%D,%0][%D,%0][%D,%0][%D,%0][E,%0][H,%0]
+
+## Police and others
+%{STATECODE_ALL}%D%D%D%D[%D,%0]
+
+######## Ghana ####################################################################################################
+$1077
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+STATECODE=[AS,BA,CR,ER,GR,NR,UE,UW,VR,WR,GT,GN,GS,GC,GW,GE,GX,GL,GM,GY]
+
+# 1995 series
+%{STATECODE}%D%D[%D,%0][%D,%0]%L
+
+# 2009 series
+%{STATECODE}%D%D[%D,%0][%D,%0]%D%D
+
+######## Gibraltar ####################################################################################################
+$1078
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^G%D%D%D%D1~^G%D%D%D%DI
+^G%D%D%D%D0~^G%D%D%D%DO
+
+# From 2001
+G%D%D%D%D[%L,%0]
+
+######## GreatBritain ####################################################################################################
+$1079
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:7
+
+# Last 3 characters 0-O
+%D%L%L0$~%D%L%LO$
+%D%L0%L$~%D%LO%L$
+%D%L00$~%D%LOO$
+%D0%L%L$~%DO%L%L$
+%D0%L0$~%DO%LO$
+%D00%L$~%DOO%L$
+
+# Last 3 digits Q-O
+%D%L%LQ$~%D%L%LO$
+%D%LQ%L$~%D%LO%L$
+%D%LQQ$~%D%LOO$
+%DQ%L%L$~%DO%L%L$
+%DQ%LQ$~%DO%LO$
+%DQQ%L$~%DOO%L$
+
+# First 2 letters 0-O
+^0%L%D%L%L~^O%L%D%L%L
+^%L0%D%L%L~^%LO%D%L%L
+^00%D%L%L~^OO%D%L%L
+^0%L%D%D%L%L~^O%L%D%D%L%L
+^%L0%D%D%L%L~^%LO%D%D%L%L
+^00%D%D%L%L~^OO%D%D%L%L
+
+# First 2 letters Q-O
+^Q%L%D%L%L~^O%L%D%L%L
+^%LQ%D%L%L~^%LO%D%L%L
+^QQ%D%L%L~^OO%D%L%L
+^Q%L%D%D%L%L~^O%L%D%D%L%L
+^%LQ%D%D%L%L~^%LO%D%D%L%L
+^QQ%D%D%L%L~^OO%D%D%L%L
+
+# First 3 letters 0-O
+^0%L%L%D%D%L~^O%L%L%D%D%L
+^%L0%L%D%D%L~^%LO%L%D%D%L
+^%L%L0%D%D%L~^%L%LO%D%D%L
+^0%L%L%D%D%D%L~^O%L%L%D%D%D%L
+^%L0%L%D%D%D%L~^%LO%L%D%D%D%L
+^%L%L0%D%D%D%L~^%L%LO%D%D%D%L
+
+# First 3 letters Q-O
+^Q%L%L%D%D%L~^O%L%L%D%D%L
+^%LQ%L%D%D%L~^%LO%L%D%D%L
+^%L%LQ%D%D%L~^%L%LO%D%D%L
+^Q%L%L%D%D%D%L~^O%L%L%D%D%D%L
+^%LQ%L%D%D%D%L~^%LO%L%D%D%D%L
+^%L%LQ%D%D%D%L~^%L%LO%D%D%D%L
+
+
+# NORTHERN IRELAND
+^1AZ%D%D%D%D~^IAZ%D%D%D%D
+^1BZ%D%D%D%D~^IBZ%D%D%D%D
+^1CZ%D%D%D%D~^ICZ%D%D%D%D
+^1DZ%D%D%D%D~^IDZ%D%D%D%D
+^1EZ%D%D%D%D~^IEZ%D%D%D%D
+^1FZ%D%D%D%D~^IFZ%D%D%D%D
+^1GZ%D%D%D%D~^IGZ%D%D%D%D
+^1HZ%D%D%D%D~^IHZ%D%D%D%D
+^11A%D%D%D%D~^IIA%D%D%D%D
+^11B%D%D%D%D~^IIB%D%D%D%D
+^11G%D%D%D%D~^IIG%D%D%D%D
+^11J%D%D%D%D~^IIJ%D%D%D%D
+^11L%D%D%D%D~^IIL%D%D%D%D
+^11W%D%D%D%D~^IIW%D%D%D%D
+^1J1%D%D%D%D~^IJI%D%D%D%D
+^1JZ%D%D%D%D~^IJZ%D%D%D%D
+^1KZ%D%D%D%D~^IKZ%D%D%D%D
+^1LZ%D%D%D%D~^ILZ%D%D%D%D
+^1MZ%D%D%D%D~^IMZ%D%D%D%D
+^1NZ%D%D%D%D~^INZ%D%D%D%D
+^101%D%D%D%D~^IOI%D%D%D%D
+^10Z%D%D%D%D~^IOZ%D%D%D%D
+^1PZ%D%D%D%D~^IPZ%D%D%D%D
+^1RZ%D%D%D%D~^IRZ%D%D%D%D
+^1SZ%D%D%D%D~^ISZ%D%D%D%D
+^1TZ%D%D%D%D~^ITZ%D%D%D%D
+^1U1%D%D%D%D~^IUI%D%D%D%D
+^1UZ%D%D%D%D~^IUZ%D%D%D%D
+^1VZ%D%D%D%D~^IVZ%D%D%D%D
+^1WZ%D%D%D%D~^IWZ%D%D%D%D
+^1X1%D%D%D%D~^IXI%D%D%D%D
+^1XZ%D%D%D%D~^IXZ%D%D%D%D
+^1YZ%D%D%D%D~^IYZ%D%D%D%D
+
+^0AZ%D%D%D%D~^OAZ%D%D%D%D
+^0BZ%D%D%D%D~^OBZ%D%D%D%D
+^0CZ%D%D%D%D~^OCZ%D%D%D%D
+^0DZ%D%D%D%D~^ODZ%D%D%D%D
+^0EZ%D%D%D%D~^OEZ%D%D%D%D
+^0FZ%D%D%D%D~^OFZ%D%D%D%D
+^0GZ%D%D%D%D~^OGZ%D%D%D%D
+^0HZ%D%D%D%D~^OHZ%D%D%D%D
+^01A%D%D%D%D~^OIA%D%D%D%D
+^01B%D%D%D%D~^OIB%D%D%D%D
+^01G%D%D%D%D~^OIG%D%D%D%D
+^01J%D%D%D%D~^OIJ%D%D%D%D
+^01L%D%D%D%D~^OIL%D%D%D%D
+^01W%D%D%D%D~^OIW%D%D%D%D
+^0J1%D%D%D%D~^OJI%D%D%D%D
+^0JZ%D%D%D%D~^OJZ%D%D%D%D
+^0KZ%D%D%D%D~^OKZ%D%D%D%D
+^0LZ%D%D%D%D~^OLZ%D%D%D%D
+^0MZ%D%D%D%D~^OMZ%D%D%D%D
+^0NZ%D%D%D%D~^ONZ%D%D%D%D
+^001%D%D%D%D~^OOI%D%D%D%D
+^00Z%D%D%D%D~^OOZ%D%D%D%D
+^0PZ%D%D%D%D~^OPZ%D%D%D%D
+^0RZ%D%D%D%D~^ORZ%D%D%D%D
+^0SZ%D%D%D%D~^OSZ%D%D%D%D
+^0TZ%D%D%D%D~^OTZ%D%D%D%D
+^0U1%D%D%D%D~^OUI%D%D%D%D
+^0UZ%D%D%D%D~^OUZ%D%D%D%D
+^0VZ%D%D%D%D~^OVZ%D%D%D%D
+^0WZ%D%D%D%D~^OWZ%D%D%D%D
+^0X1%D%D%D%D~^OXI%D%D%D%D
+^0XZ%D%D%D%D~^OXZ%D%D%D%D
+^0YZ%D%D%D%D~^OYZ%D%D%D%D
+
+IRISH_DISTRICT=[AZ,BZ,CZ,DZ,EZ,FZ,GZ,HZ,IA,IB,IG,IJ,IL,IW,JI,JZ,KZ,LZ,MZ,NZ,OI,OZ,PZ,RZ,SZ,TZ,UI,UZ,VZ,WZ,XI,XZ,YZ,QNI,LTZ]
+
+## From 2001 "LL DD LLL" 
+%L%L%D%D%L%L%L
+
+# From 1963 to 1982
+%L%L%L%D%D[%D,%0]%L
+
+# From 1983 to 2001
+%L%D[%D,%0][%D,%0]%L%L%L
+
+# Diplomatic
+%D%D%D%L%D%D%D
+
+## "L DD LLL" 
+# %L%D%D%L%L%L
+
+## "L DDD LLL" 
+# %L%D%D%D%L%L%L
+
+## "LLL DDD L", "LLL DDD D" 
+# %L%L%L%D%D%D
+# %L%L%L%D%D%D%L
+# %L%L%L%D%D%L
+
+## "LDLLL" 
+# %L%D%L%L%L
+
+## "DLDDLLL"
+#%D%L%D%D%L%L%L
+
+## "DDDLLL"
+#%D%D%D%L%L%L
+
+## "LDLDDDD"
+# %L%D%L%D%D%D%D
+
+# Northern Ireland
+%L%{IRISH_DISTRICT}%D%D%D%D
+
+## Gibraltar
+G%D%D%D%D%L
+
+
+
+
+
+
+######## Greece ####################################################################################################
+$1080
+
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^1~^I
+^0~^O
+
+^%L1~^%LI
+^%L0~^%LO
+
+^%L%L1%D%D%D%D~^%L%LI%D%D%D%D
+^%L%L0%D%D%D%D~^%L%LO%D%D%D%D
+
+LETTERS=[A,B,E,Z,H,I,K,M,N,O,P,T,Y,X]
+
+PREF1=[AA,AB,AE,AZ,AH,AI,AK,AM,AN,AO,AO,AP,AT,AY,AX,BA,BB,BE,BZ,BH,BI,BK,BM,BN,BO,BP,BT,BY,BX,EA,EB,EE,EE,EZ,EH,EI,EK,EM,EP,ET,EY,EY,EX,ZA,ZB,ZE]
+PREF2=[ZZ,ZH,ZI,ZK,ZM,ZN,ZO,ZP,ZT,ZY,ZX,HA,HB,HE,HZ,HH,HI,HK,HM,HN,HO,HP,HT,HY,HX,IA,IA,IB,IE,IZ,IH,II,IK,IM,IN,IO,IP,IT,IY,IX,KA,KB,KE,KZ,KH,KH,KI]
+PREF3=[KK,KM,KN,KO,KP,KT,KT,KT,KY,KX,KX,MA,MB,ME,MZ,MH,MH,MI,MK,MM,MN,MO,MO,MP,MT,MY,MX,NA,NB,NE,NZ,NH,NI,NK,NM,NN,NO,NP,NT,NY,NX,NX,NX,OA,OB,OE,OZ]
+PREF4=[OH,OI,OK,OM,ON,OO,OP,OT,OY,OX,PA,PA,PB,PE,PZ,PH,PI,PK,PM,PN,PN,PO,PP,PT,PY,PX,TA,TA,TB,TE,TZ,TH,TI,TK,TM,TN,TO,TP,TT,TY,TX,YA,YB,YE,YZ,YH,YI]
+PREF5=[YK,YM,YN,YO,YP,YT,YY,YX,XA,XB,XE,XZ,XH,XI,XK,XM,XN,XO,XP,XT,XY,XX]
+
+# From 1973
+%{PREF1}[%{LETTERS},%0]%D%D%D%D
+%{PREF2}[%{LETTERS},%0]%D%D%D%D
+%{PREF3}[%{LETTERS},%0]%D%D%D%D
+%{PREF4}[%{LETTERS},%0]%D%D%D%D
+%{PREF5}[%{LETTERS},%0]%D%D%D%D
+
+# Large trucks
+P%D%D%D%D[%D,%0]
+
+######## Greenland ####################################################################################################
+$1081
+TrainingGroup:1
+
+GR%D%D%D%D%D
+######## Grenada ####################################################################################################
+$1082
+TrainingGroup:7
+
+%L%D%D%D%D
+%L%L[%L,%0]%D%D%D
+######## Guadeloupe ####################################################################################################
+$1083
+TrainingGroup:1
+
+%D%D%D%L%L%L%D
+%L%L%D%D%D%L%L
+%D%D%D%D%L%L%L
+%D%D%D%L%L[%L,%0]%D%D%D
+######## Guam ####################################################################################################
+$1084
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Guatemala ####################################################################################################
+$1085
+TrainingGroup:3
+
+%L%D%D%D%D%D%D
+
+%L%D%D%D%L%L%L
+
+CD%D%D%D%D######## GuineaBissau ####################################################################################################
+$1086
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Guinea ####################################################################################################
+$1087
+TrainingGroup:1
+
+^C0%D%D%D~^CO%D%D%D
+
+REGION=[RC,BN,CO,NZ,01,02,05]
+
+%{REGION}%D%D%D[%L,%0][%L,%0]
+######## Guyana ####################################################################################################
+$1088
+TrainingGroup:1
+
+VEHICLE=[P,H,B,G,C,T,DPL,DC,DFB]
+
+%{VEHICLE}%L[%L,%0]%D%D[%D,%0][%D,%0]
+######## Haiti ####################################################################################################
+$1089
+TrainingGroup:1
+
+%L[%L,%0]%D%D%D%D
+######## HolySee ####################################################################################################
+$1090
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Honduras ####################################################################################################
+$1091
+TrainingGroup:3
+
+[A,P]%L%L%D%D%D
+C[C,D]%D%D%D%D
+N%D%D%D%D%D
+R%L%D%D%D%D
+PP%D%D%D%D%D
+
+######## HongKong ####################################################################################################
+$1092
+TrainingGroup:7
+
+I~1
+O~0
+
+SPECIALCODE=[A,F,T]
+
+%L%L%D%D[%D,%0][%D,%0][%D,%0]
+
+%{SPECIALCODE}%D%D%D[%D,%0][%D,%0]
+
+%L%D%D%D[%D,%0]
+
+# Trailer
+%D%D%D%D%D%L
+
+WKK[%D,%0][%D,%0]
+
+######## Hungary ####################################################################################################
+$1093
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# Replace 0 in new format
+^0%L%L%D%D%D~^O%L%L%D%D%D
+^%L0%L%D%D%D~^%LO%L%D%D%D
+
+# Replace 1 in new format
+^1%L%L%D%D%D~^I%L%L%D%D%D
+^%L1%L%D%D%D~^%LI%L%D%D%D
+
+^11%L%L%D%D%D~^1I%L%L%D%D%D
+
+# Bus replacement
+^BP1%D%D%D~^BPI%D%D%D
+
+# Replace 0 in old format
+^0%L%D%D%D%D~^O%L%D%D%D%D
+^%L0%D%D%D%D~^%LO%D%D%D%D
+
+TEMPORARY=[E,P,V,Z]
+
+## Standard Hungarian license plate as seen in 2007 and between 1990 and 2004
+%L%L%L%D%D%D
+
+## From 2022
+%L%L%L%L%D%D
+
+## Pre-1990 plate
+%L%L%D%D%D%D
+
+# Temporary
+%{TEMPORARY}%D%D%D%D%D
+
+# Rental car
+X%L%D%D%D%D
+
+# Official vehicles
+H[A,B]%D%D%D%D
+RB%D%D%D%D
+
+# Diplomatic
+DT%D%D%D%D
+C[K,D]%D%D%D%D
+
+# Foreign residence series
+C%L%D%D%D%D
+
+######## Iceland ####################################################################################################
+$1094
+TrainingGroup:7
+
+^0%L%L%D%D$~^O%L%L%D%D$
+^%L0%L%D%D$~^%LO%L%D%D$
+^%L%L0%D%D$~^%L%LO%D%D$
+
+^0%L%D%D%D$~^O%L%D%D%D$
+^%L0%D%D%D$~^%LO%D%D%D$
+
+^1%L%L%D%D$~^I%L%L%D%D$
+^%L1%L%D%D$~^%LI%L%D%D$
+^%L%L1%D%D$~^%L%LI%D%D$
+
+^1%L%D%D%D$~^I%L%D%D%D$
+^%L1%D%D%D$~^%LI%D%D%D$
+
+%L%L[%L,%D]%D%D
+CD%L%D%D
+######## India ####################################################################################################
+$1095
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^0D%D%D%L~^OD%D%D%L
+^0D%D%L~^OD%D%L
+
+STATECODE=[AN,AP,AR,AS,BH,BR,CH,CG,DD,DL,GA,GJ,HR,HP,JK,JH,KA,KL,LA,LD,MP,MH,MN,ML,MZ,NL,OD,PB,PY,PB,RJ,SK,TN,TS,TR,UP,UK,WB]
+
+VEHICLECODE=[S,C,E,P,R,T,V,Y]
+
+# General rule
+%{STATECODE}%D[%D,%0]%L[%L,%0]%D%D%D[%D,%0]
+
+# Bharat license plate format
+%D%DBH%D%D%D%D%L[%L,%0]
+
+# Some regions codes such as Delhi
+%{STATECODE}%D%{VEHICLECODE}%L%L%D%D%D[%D,%0]
+
+# Diplomatic
+[%D,%0]%DCD%D[%D,%0]
+######## Indonesia ####################################################################################################
+$1096
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+%L%D%D%D%D%L0~%L%D%D%D%D%LO
+%L%D%D%D%D%L%L0~%L%D%D%D%D%L%LO
+%L%D%D%D%D%L0%L~%L%D%D%D%D%LO%L
+
+%L%D%D%D%D%L1~%L%D%D%D%D%LI
+%L%D%D%D%D%L%L1~%L%D%D%D%D%L%LI
+%L%D%D%D%D%L1%L~%L%D%D%D%D%LI%L
+
+##### State code and gov code variables 
+STATECODE=[A,AA,AB,AD,AE,AG,B,BA,BB,BD,BE,BG,BH,BK,BL,BM,BN,BP,D,DA,DB,DC,DD,DE,DG,DH,DK,DL,DM,DN,DP,DR,DS,DT,DW,E,EA,EB,ED,F,G,H,K,KB,KH,KT,KU,L,M,N,P,PB,R,S,SKB,T,W,YB,YK,Z]
+
+## "LL DDDD LL"
+%{STATECODE}%D%D[%D,%0][%D,%0]%L[%L,%0]
+
+## "LL DDDD LLL"
+%{STATECODE}%D%D[%D,%0][%D,%0]%L%L%L
+
+# Diplomatic
+CD%D%D%D%D
+
+
+######## Iran ####################################################################################################
+$1097
+TrainingGroup:5
+
+[%L,%0]%D%D%D%D[%D,%0][%D,%0]
+
+
+######## Iraq ####################################################################################################
+$1098
+TrainingGroup:1
+
+STATE_CODE=[21,22,23,24]
+%{STATE_CODE}%L%D%D%D%D%D
+%{STATE_CODE}%D%D%D%D%D%D[%D,%0]
+
+######## Ireland ####################################################################################################
+$1099
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:7
+
+^%D%DM0%D~^%D%DMO%D
+^%D%DS0%D~^%D%DSO%D
+^%D%D0Y%D~^%D%DOY%D
+
+^%D%D%DM0%D~^%D%D%DMO%D
+^%D%D%DS0%D~^%D%D%DSO%D
+^%D%D%D0Y%D~^%D%D%DOY%D
+
+##### State code and gov code variables 
+STATECODE=[C,CE,CN,CW,D,DL,G,KE,KK,KY,L,LD,LH,LM,LS,MH,MN,MO,OY,RN,SO,T,W,WH,WX,WW,LK,TN,TS,WD]
+YY=[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+WW=[10,11,12]
+XX=[0,6,7,8,9]
+
+# From 2013
+%{YY}[1,2]%{STATECODE}%D[%D,%0][%D,%0][%D,%0][%D,%0][%D,%0]
+
+# From 2010-2012
+%{WW}%{STATECODE}%D[%D,%0][%D,%0][%D,%0][%D,%0][%D,%0]
+
+# From 1960-2009
+%{XX}%D%{STATECODE}%D[%D,%0][%D,%0][%D,%0][%D,%0][%D,%0]
+
+
+######## ISRAEL ###########################################################################################################
+$1100
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# Number only 6 to 8 digits
+%D%D%D%D%D%D[%D,%0][%D,%0]
+
+# Police and Military
+%D%D%D%D%D[%D,%0]%L
+%D%D%D%L%L
+CD%D%D%D%D%D%D%D
+
+
+
+######## Italy ###########################################################################################################
+$1101
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# Replacements for region codes
+^A0~^AO
+^B1~^BI
+^B0~^BO
+^C0~^CO
+^F1~^FI
+^G0~^GO
+^1M~^IM
+^1S~^IS
+^L1~^LI
+^L0~^LO
+^M1~^MI
+^M0~^MO
+^N0~^NO
+^0R~^OR
+^P1~^PI
+^P0~^PO
+^R1~^RI
+^R0~^RO
+^S1~^SI
+^S0~^SO
+^T0~^TO
+^V1~^VI
+
+%D%D%DR0MA$~%D%D%DROMA$
+
+##### State code
+STATECODE=[AG,AQ,BG,BR,CB,CO,EN,FM,IM,LI,MC,MS,OR,PG,PT,RC,RO,SO,TA,TR,VB,VT,AL,AR,BI,BS,CE,CR,FC,FR,IS,LO,ME,MT,PA,PI,PU,RE,R,SP,TE,TS,VC,VV,AN,AT,BL,BT,CH,CS,FE,GE,KR,LT,MI,NA,PC,PN,PV,RG,SA,SR,TN,TV,VE,AO,AV,BN,BZ,CL,CT,FG,GO,LC,LU,MN,NO,PD,PO,PZ,RI,SD,SS,TO,UD,VI,AP,BA,BO,CA,CN,CZ,FI,GR,LE,MB,MO,NU,PE,PR,RA,RN,SI,SV,TP,VA,VR]
+
+##### Mopped letters
+ML=[2,3,4,5,6,7,8,9,B,C,D,F,G,H,J,K,L,M,N,P,R,S,T,V,W,X,Y,Z]
+
+
+## 1994-present
+%L%L%D%D%D%L%L
+
+## "LLL DDDDD - 1976-1994" AND 1985-1994
+%{STATECODE}[%D,%L]%D%D%D%D%D
+%{STATECODE}%D[%D,%L]%D%D%D%D
+%{STATECODE}%D%D%D%D%D%L
+
+## 1932-1985 (some state codes may have changed from 1985...)
+%D%D%D%D%D%D%{STATECODE}
+%{STATECODE}%D%D%D%D%D[%D,%0]
+******ROMA
+
+## "LL DDDD L - 1994-Ahead special cases (BO, CH...)" 
+%L%L%D%D%D%D%L
+ 
+## Bus, Trailers, Police, Military, Motorcycles, Diplomatic
+%{STATECODE}%D%D%D[%D,%0]
+%L%L%D%D%D%D
+%L%L%L[%L,%0]%D%D%D
+%L%L%D%D%D%D%D
+CD%D%D%D[%D,%0]%L%L
+%L%D%D%D%D
+%L%L%D%D%D%L%L
+%D%D%D%L%L
+CC%L%L%D%L
+CC%L%L%D%D%D
+
+## "SCV DDD L - Vatican plates" 
+SCV%D%D%D%L
+
+## " CV DDDDD[D] - Vatican plates"
+CV%D%D%D%D[%D,%0]
+
+## "L[L] DDDD[D][D] - 1927-1976 "
+%L%D%D%D%D
+%D%D%D%D%L
+
+X%{ML}%{ML}%{ML}%{ML}%{ML}
+
+######## IvoryCoast ####################################################################################################
+$1102
+TrainingGroup:1
+
+%D%D%D1%L%D%D$~%D%D%DI%L%D%D$
+%D%D%D%L1%D%D$~%D%D%D%LI%D%D$
+%D%D%D0%L%D%D$~%D%D%DO%L%D%D$
+%D%D%D%LO%D%D$~%D%D%D%LO%D%D$
+
+^%L%D%D%D%DC1%D~^%L%D%D%D%DCI%D
+
+[%D,%0]%D%D%D%L%L%D%D
+%L%D%D%D%DCI%D
+%L%D%D%D%D%D
+######## Jamaica ####################################################################################################
+$1103
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:1
+
+# From 1973
+%L%L%D%D%D%D
+
+# From 1987
+%D%D%D%D%L%L
+
+######## Japan ####################################################################################################
+$1104
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+%D%D%D%D%D%D%D%D
+######## Jordan ####################################################################################################
+$1105
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# Executive, Legislative, Judicial
+[1,2,3,4]%D%D[%D,%0]
+
+# General
+%D%D%D%D%D[%D,%0][%D,%0]
+######## Kazakhstan ####################################################################################################
+$1106
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# New format replacement
+^%D%D%D0%L%L%D%D~^%D%D%DO%L%L%D%D
+^%D%D%D%L0%L%D%D~^%D%D%D%LO%L%D%D
+^%D%D%D%L%L0%D%D~^%D%D%D%L%LO%D%D
+
+# Old format replacement
+^%L%D%D%D0%L%L~^%L%D%D%DO%L%L
+^%L%D%D%D%L0%L~^%L%D%D%D%LO%L
+^%L%D%D%D%L%L0~^%L%D%D%D%L%LO
+
+# Private vehicles
+%D%D%D%L%L[%L,%0]%D%D
+
+# Squared
+%D%D%D%D%D%L%L%L
+
+# Old format
+%L%D%D%D%L%L%L
+######## Kenya ####################################################################################################
+$1107
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+STATECODE=[KB,KF,KG,KH,KK,KM,KN,KP,KQ,KR,KV,KA,KJ,KT,KC,KL,KD,KU,KE]
+
+# after 1989
+%{STATECODE}%L%D%D%D[%L,%0]
+
+######## Kiribati ####################################################################################################
+$1108
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Kosovo ####################################################################################################
+$1109
+TrainingGroup:1
+
+^%D%D%D%D%D1%L$~^%D%D%D%D%DI%L$
+^%D%D%D%D%D%L1$~^%D%D%D%D%D%LI$
+
+^%D%D%D%D%D0%L$~^%D%D%D%D%DO%L$
+^%D%D%D%D%D%L0$~^%D%D%D%D%D%LO$
+
+AREA=[01,02,03,04,05,06,07]
+
+P%L%D%D%D%D%D
+
+%D%D%DKS%D%D%D
+
+%{AREA}%D%D%D%L%L
+KSF%D%D%D%D%D
+TMK%D%D%DKS
+112%D%D%D%D%D
+%D%DCD%D%D%D
+######## Kuwait ####################################################################################################
+$1110
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+%D%D%D%D[%D,%0][%D,%0][%D,%0]
+
+######## Kyrgyzstan ####################################################################################################
+$1111
+TrainingGroup:1
+
+^%L%D%D%D%D0%L~^%L%D%D%D%DO%L
+^%L%D%D%D%D1%L~^%L%D%D%D%DI%L
+
+^%L%D%D%D%D%L0~^%L%D%D%D%D%LO
+^%L%D%D%D%D%L1~^%L%D%D%D%D%LI
+
+^1%D%D%D%D%L$~^I%D%D%D%D%L$
+^0%D%D%D%D%L$~^O%D%D%D%D%L$
+
+^1%D%D%D%D%L%L$~^I%D%D%D%D%L%L$
+^0%D%D%D%D%L%L$~^O%D%D%D%D%L%L$
+
+^0%D%D%D%D%L%L1~^0%D%D%D%D%L%LI
+^0%D%D%D%D%L1%L~^0%D%D%D%D%LI%L
+^0%D%D%D%D1%L%L~^0%D%D%D%D1%L%L
+
+^0%D%D%D%D%L%L0~^0%D%D%D%D%L%LO
+^0%D%D%D%D%L0%L~^0%D%D%D%D%LO%L
+^0%D%D%D%D0%L%L~^0%D%D%D%DO%L%L
+
+
+FLETTER=[H,P,M,K]
+DIPLO=[C,D,T]
+OLDREGION=[A,B,C,D,E,I,H,N,O,S,T,Z]
+
+# Old plates
+%L%D%D%D%D%L%L
+%{OLDREGION}%D%D%D%D%L
+
+# New plate
+0%D%D%D%D%L%L%L
+2:0%D%D%D%D%L%L
+
+# Government
+0%D%D%D%DPT
+
+# Foreign
+0%D%D%D%D%D%{FLETTER}
+
+# Diplomatic
+%{DIPLO}%D%D%D%D%D
+HC%D%D%D%D
+CMD%D%D%D
+
+
+
+######## Laos ####################################################################################################
+$1112
+TrainingGroup:9
+
+
+# Standard current plates
+%L%L%D%D%D%D
+
+######## Latvia ####################################################################################################
+$1113
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^%L0%D%D%D~^%LO%D%D%D
+^0%L%D%D%D~^O%L%D%D%D
+^00%D%D%D%D~^OO%D%D%D%D
+^%L1%D%D%D~^%LI%D%D%D
+^1%L%D%D%D~^I%L%D%D%D
+^11%D%D%D%D~^II%D%D%D%D
+
+# Standard vehicle
+%L%L%D%D%D%D
+
+# Truck
+%L%D%D%D%D
+
+# Short format
+%L%L%D%D
+
+######## Lebanon ####################################################################################################
+$1114
+TrainingGroup:1
+
+^0%D%D%D%D%D~^O%D%D%D%D%D
+
+PRIVATE=[A,B,Y,G,N,O,S,T,K,Z,M]
+
+%{PRIVATE}%D%D%D%D%D%D
+
+[C,D]%D%D%D%D%D
+[M,P]%D%D%D%D%D%D
+
+######## Lesotho ####################################################################################################
+$1115
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Liberia ####################################################################################################
+$1116
+TrainingGroup:1
+
+P[C,%0]%D%D%D%D
+%D%D%D%DP
+%L%D%D%D%D%D
+BUSP%D%D%D
+GV%D%D%D%D
+
+
+######## Libya ####################################################################################################
+$1117
+TrainingGroup:1
+
+REGION_0=[1,2,3,4,5,6]
+
+# Private vehicles
+%{REGION_0}[%D,%0]%D%D[%D,%0][%D,%0][%D,%0][%D,%0][%D,%0]
+
+# Foreigner owned private vehicles
+%D%D[%D,%0]%{REGION_0}[%D,%0]%D%D[%D,%0][%D,%0]
+
+# New plates
+%D[%D,%0]%{REGION_0}[%D,%0]%D%D[%D,%0][%D,%0]
+LY%{REGION_0}%D%D%D[%D,%0][%D,%0][%D,%0][%D,%0][%D,%0]
+######## Liechtenstein ####################################################################################################
+$1118
+TrainingGroup:1
+
+FL%D%D%D%D[%D,%0]
+FL%D%D%DZ######## Lithuania ####################################################################################################
+$1119
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^0%L%L%D%D%D~^O%L%L%D%D%D
+^%L0%L%D%D%D~^%LO%L%D%D%D
+^%L%L0%D%D%D~^%L%LO%D%D%D
+^%L00%D%D%D~^%LOO%D%D%D
+
+^1%L%L%D%D%D~^I%L%L%D%D%D
+^%L1%L%D%D%D~^%LI%L%D%D%D
+# Third option controlled by software
+#^%L%L1%D%D%D~^%L%LI%D%D%D
+
+# Motorcycles
+^%D%D%D%L1~^%D%D%D%LI
+^%D%D%D1%L~^%D%D%DI%L
+^%D%D%D%L0~^%D%D%D%LO
+^%D%D%D0%L~^%D%D%DO%L
+
+STATECODE=[A,M,K,V,J,L,T,S,P,U]
+
+# 1992-2004
+%L%{STATECODE}%L%D%D%D
+
+# After 2004
+%L%L%L%D%D%D
+
+# Electric car
+E%L%D%D%D%D
+
+# Trucks
+%L%L%D%D%D
+
+# Motocycles
+2:%D%D%D%L%L
+2:%D%D%L%L%L
+
+# Taxi
+T%D%D%D%D%D
+
+# Dealers and traders
+R%D%D%D%D%D%D
+P%D%D%D%D%D
+
+######## Luxembourg ####################################################################################################
+$1120
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# Standard
+%L%L%D%D%D[%D,%0]
+
+
+######## Macau ####################################################################################################
+$1121
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^M0%D%D%D%D~^MO%D%D%D%D
+^M1%D%D%D%D~^MI%D%D%D%D
+
+SPECIAL=[EX,ES,ZA,T]
+
+M%L[%L,%0]%D%D%D%D
+CM%D%D[%D,%L][%D,%L][%D,%L]
+%{SPECIAL}%D%D%D
+
+
+######## Macedonia ####################################################################################################
+$1122
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# Before 2012
+^K1%D%D%D%L%L~^KI%D%D%D%L%L
+^0H%D%D%D%L%L~^OH%D%D%D%L%L
+^K0%D%D%D%L%L~^KO%D%D%D%L%L
+^V1%D%D%D%L%L~^VI%D%D%D%L%L
+
+^%L%L%D%D%D%L1~^%L%L%D%D%D%LI
+^%L%L%D%D%D1%L~^%L%L%D%D%DI%L
+
+^%L%L%D%D%D%L0~^%L%L%D%D%D%LO
+^%L%L%D%D%D0%L~^%L%L%D%D%DO%L
+
+
+# After 2012
+^K1%D%D%D%D%L%L~^KI%D%D%D%D%L%L
+^0H%D%D%D%D%L%L~^OH%D%D%D%D%L%L
+^K0%D%D%D%D%L%L~^KO%D%D%D%D%L%L
+^V1%D%D%D%D%L%L~^VI%D%D%D%D%L%L
+
+^%L%L%D%D%D%D%L0~^%L%L%D%D%D%D%LO
+^%L%L%D%D%D%D0%L~^%L%L%D%D%D%DO%L
+
+STATECODE=[BT,GV,KU,OH,PP,SK,SR,ST,TE,VE,GE,KA,KI,KO,KP,RA,SU,BE,DE,NE,RE,SN,VI,VV,DB,DK,MB,MK,KR,PS,VA,DH,KS]
+
+%{STATECODE}%D%D%D[%D,%0]%L%L
+
+
+
+
+
+######## Madagascar ####################################################################################################
+$1123
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Malawi ####################################################################################################
+$1124
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# Private
+%L%L%D%D%D%D
+
+# Government
+%L%L%D%D%D%L%L
+
+######## Malaysia ####################################################################################################
+$1125
+# secondary x 256 + primary: 2*256+1
+TrainingGroup:2
+
+# Replacements
+^L1M0~^LIMO
+^0%L%L%D%D%D~^Q%L%L%D%D%D
+^5%L%L%D%D%D~^S%L%L%D%D%D
+^PATR10T~^PATRIOT
+^PATRI0T~^PATRIOT
+^PATR1OT~^PATRIOT
+^XXV1~^XXVI
+^R1MAU~^RIMAU
+^SUK0M~^SUKOM
+^MALAYS1A~^MALAYSIA
+^U1TM~^UITM
+^UN1MAS~^UNIMAS
+^UN1SZA~^UNISZA
+^11UM~^IIUM
+^S1S%D%D%D%D~^SIS%D%D%D%D
+
+STATELETTER=[A,B,C,D,F,J,K,M,N,P,R,T,V,W]
+PLAINLETTER=[A,B,C,D,E,F,G,H,J,K,L,M,N,P,Q,R,S,T,U,V,W,X,Y]
+TAXIS=[HA,HB,HC,HD,HE,HJ,HK,HL,HM,HN,HP,HQ,HR,HS,HT,HW]
+UNIVERSITY=[UT,UMT,UM,UNIMAS,UNISZA,UTM,UTEM,UKM,UUM,USM,UITM,UPM,UTHM,IIUM,UMK,UR,UC,UG,UQ]
+
+# Malaysia Peninsula
+%{STATELETTER}[%{PLAINLETTER},%0][%{PLAINLETTER},%0]%D%D[%D,%0][%D,%0][%{PLAINLETTER},%0]
+
+# Sarawak
+Q[%{PLAINLETTER},%0][%{PLAINLETTER},%0]%D%D[%D,%0][%D,%0][%{PLAINLETTER},%0]
+K%L%D%D%D%DQ
+
+# Sabah and Labuan
+S[%{PLAINLETTER},%0][%{PLAINLETTER},%0]%D%D[%D,%0][%D,%0][%{PLAINLETTER},%0]
+
+# Special cases
+G1M%D[%D,%0][%D,%0][%D,%0]
+1M4U%D%D%D%D
+GT%D%D%D%D
+U[S,U]%D%D%D%D
+
+# Trucks
+[E,U]%D%D%D%D
+YC%D%D%D%D
+SIS%D%D%D%D
+
+# Electric
+EV%D%D[%D,%0][%D,%0]
+II%D%D[%D,%0][%D,%0]
+%L%L%L%D%D%D%D
+
+# Taxis
+%{TAXIS}%{PLAINLETTER}%D%D[%D,%0][%D,%0]
+LIMO%D%D[%D,%0][%D,%0][B,W]
+
+# Vanity
+PUTRAJAYA%D%D[%D,%0][%D,%0]
+BAMBEE%D%D[%D,%0][%D,%0]
+PATRIOT%D%D[%D,%0][%D,%0]
+RIMAU%D%D[%D,%0][%D,%0]
+SUKOM%D%D[%D,%0][%D,%0]
+XXVI%D%D[%D,%0][%D,%0]
+X01C%D%D[%D,%0][%D,%0]
+MALAYSIA%D%D[%D,%0][%D,%0]
+%{UNIVERSITY}%D%D[%D,%0][%D,%0]
+######## Maldives ####################################################################################################
+$1126
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Mali ####################################################################################################
+$1127
+TrainingGroup:1
+
+%DRM%L%D%D%D%D
+
+%L[%L,%0]%D%D%D%D%L%L
+
+%D%DCD%D%D
+[GRM,PRM]%D%D%D%D
+######## Malta ####################################################################################################
+$1128
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^0%L%L%D%D%D~^O%L%L%D%D%D
+^%L0%L%D%D%D~^%LO%L%D%D%D
+^%L%L0%D%D%D~^%L%LO%D%D%D
+
+^00%L%D%D%D~^OO%L%D%D%D
+^0%L0%D%D%D~^O%LO%D%D%D
+^%L00%D%D%D~^%LOO%D%D%D
+
+# Common
+%L%L%L%D%D%D
+
+# Old plates
+%L%D%D%D%D
+######## MarshallIslands ####################################################################################################
+$1129
+TrainingGroup:3
+
+%D%D%D%D
+######## Martinique ####################################################################################################
+$1130
+TrainingGroup:1
+
+%D%D%D%L%L[%L,%0]%D
+
+%D%D%L%L%L%D%D
+######## Mauritania ####################################################################################################
+$1131
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+STATECODE=[00,01,02,03,04,05,06,07,08,09,10,11,12]
+
+^%D%D%D%D0%L%D%D~^%D%D%D%DO%L%D%D
+^%D%D%D%D%L0%D%D~^%D%D%D%D%LO%D%D
+
+^%D%D%D%D1%L%D%D~^%D%D%D%DI%L%D%D
+^%D%D%D%D%L1%D%D~^%D%D%D%D%LI%D%D
+
+%D%D%D%D%L%L%{STATECODE}
+
+######## Mauritius ####################################################################################################
+$1132
+TrainingGroup:1
+
+%D%D%D%D%L%L%D%D
+
+CP%D%D%D[%D,%0]
+
+%D%D[%D,%0]CD%D%D
+######## Mayotte ####################################################################################################
+$1133
+TrainingGroup:1
+
+%D%D%D%L%D%D%D
+
+%L%L%D%D%D%L%L######## Mexico ####################################################################################################
+$1134
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+## Particulares
+###################################################################
+%L%L%D%D%D%D%L
+%D%D%L%L%L%D%D
+%D%D%D%D%L%L%L
+%D%D%D%L%L%L%D
+%D%D%D%L%L[%L,%0]
+%L%D%D%L%L%L
+%L%L%L%D%D%D[%D,%0]
+%D%L%L%D%D%L
+%L%D%D%D%L[%L,%0]
+%L%L%D%D%D%D[%D,%0]
+%D%D%L%L%D
+%L%D%D%D%D%L
+
+## Auto transporte federal
+###################################################################
+%D%D%L%L%D%L
+%L%D%D%D%L%L
+%D%D%L%D%L%L
+%L%L%D%D%D
+%D%D%L%D%L%L
+
+## Motocycle
+###################################################################
+%D%L%D%L%L
+
+## Privado fronterizo
+###################################################################
+%L%D%D%L%L%L%D
+%L%L%L%D%D%D%L
+
+# Interstate truck
+%D%D%L%L%D%L
+%D%D%D%L%L%D
+
+## Policia y vigilancia
+###################################################################
+%L%L%D%D%D%L%D
+
+## Nuevo vehículo eléctrico
+###################################################################
+%D%D%L%D%D%D
+
+######## Micronesia ####################################################################################################
+$1135
+TrainingGroup:3
+
+FSM%D%D%D
+%D%D%D%D
+######## Moldova ####################################################################################################
+$1136
+TrainingGroup:1
+
+^1%L%L%D%D%D$~^I%L%L%D%D%D$
+^%L1%L%D%D%D$~^%LI%L%D%D%D$
+^%L%L1%D%D%D$~^%L%LI%D%D%D$
+
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+^%L%L0%D%D%D$~^%L%LO%D%D%D$
+
+^0%L%L%L%D%D%D$~^O%L%L%L%D%D%D$
+^%L0%L%L%D%D%D$~^%LO%L%L%D%D%D$
+^%L%L0%L%D%D%D$~^%L%LO%L%D%D%D$
+
+^1%L%L%L%D%D%D$~^I%L%L%L%D%D%D$
+^%L1%L%L%D%D%D$~^%LI%L%L%D%D%D$
+^%L%L1%L%D%D%D$~^%L%LI%L%D%D%D$
+
+REGION=[AN,BE,BL,BR,BS,C,CC,CG,CH,CL,CM,CN,CO,CR,CS,CT,CU,DB,DN,DR,ED,FL,FR,GE,GL,GR,HN,IL,K,LP,LV,NS,OC,OR,RB,RS,RZ,SD,SG,SL,SR,ST,SV,TG,TL,TR,TS,UN,VL]
+
+%{REGION}%L%L%D%D%D
+
+%L%L%L%D%D%D
+######## Monaco ####################################################################################################
+$1137
+TrainingGroup:7
+
+%L[%L,%D]%D%D
+%D%D%D%D
+%D%D%D%DWW[2,%0]MC
+%D%D%DE
+######## Mongolia ####################################################################################################
+$1138
+TrainingGroup:8
+
+# Mapping from Cyrillic to Latin
+# A, Б, В, Г, Д, З, И, К, Л, М, Н, О, Ө, П, Р, С, Т, У, Ү, Х, Ц, Ч, Э, Я, Е
+# A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y
+
+# Numbers F => 3
+^F%D%D%D~^3%D%D%D
+^%DF%D%D~^%D3%D%D
+^%D%DF%D~^%D%D3%D
+^%D%D%DF~^%D%D%D3
+
+# Numbers L => 0
+^L%D%D%D~^0%D%D%D
+^%DL%D%D~^%D0%D%D
+^%D%DL%D~^%D%D0%D
+^%D%D%DL~^%D%D%D0
+
+# Letter 0 => O
+^%D%D%D%D0~^%D%D%D%DL
+^%D%D%D%D%L0~^%D%D%D%D%LL
+^%D%D%D%D%L%L0~^%D%D%D%D%L%LL
+
+# Letter 3 => F
+^%D%D%D%D3~^%D%D%D%DF
+^%D%D%D%D%L3~^%D%D%D%D%LF
+^%D%D%D%D%L%L3~^%D%D%D%D%L%LF
+
+# Format
+%D%D%D%D%L%L[%L,%0]
+
+
+######## Montenegro ####################################################################################################
+$1139
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# Replacements
+^K0%L%L%D%D~^KO%L%L%D%D
+^R0%L%L%D%D~^RO%L%L%D%D
+
+STATECODE=[AN,BA,BD,BP,BR,CT,DG,GS,HN,KL,KO,MK,NK,PG,PL,PT,PZ,PV,RO,SN,TV,TZ,UL,ZB]
+DIPLOMAT=[A,M,P,E,C,CMD,CD]
+
+# Before 1992
+%{STATECODE}%D%D%D%D%D
+
+# Vehicle from 1992
+%{STATECODE}%L%L%D%D%D
+
+# Motorcycles
+2:%{STATECODE}%L%L%D%D
+
+# Officials
+%D[%D,%0]%{DIPLOMAT}%D%D%D
+
+
+######## Montserrat ####################################################################################################
+$1140
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Morocco ####################################################################################################
+$1141
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+MetaData:1
+
+%D%D[%D,%0][%D,%0][%D,%0]%L[%D,%0][%D,%0]
+%D%D%D%D%D%D%L[%L,%0]
+J%D%D%D%D%D%D
+
+# Trailer
+%D%D%D%D%D%D[%D,%0]
+
+# Temporary
+%D%D%D%D%DW18
+%D%D%D%D%D%DWW
+
+
+######## Mozambique ####################################################################################################
+$1142
+TrainingGroup:1
+
+^%L%L%L%D%D%D1B$~^%L%L%L%D%D%DIB$
+
+REGION=[GZ,IB,MC,MP,NP,NS,SF]
+
+%L%L%L%D%D%D%{REGION}
+
+######## Myanmar ####################################################################################################
+$1143
+TrainingGroup:1
+
+^BG0~^BGO
+^M0N~^MON
+^10%D%D%D%D$~^IO%D%D%D%D$
+
+
+STATECODE=[AYY,BGO,CHN,KYH,KCN,KYN,MGY,MDY,MON,NPW,RKE,SGG,SHN,TNI,YGN]
+
+%{STATECODE}%L%D%D%D%D
+%{STATECODE}%D[%D,%0]%D%L%D%D%D%D
+
+%{STATECODE}%L%L%D%D%D
+%{STATECODE}%D[%D,%0]%L%L%D%D%D
+
+MDY%D%D[U,W]%D%D%D%D[%D,%0]
+
+RLG%D%D%D[%D,%0]
+HSE%D%D%D[%D,%0]
+
+%D%L%D%D%D%D
+######## Namibia ####################################################################################################
+$1144
+TrainingGroup:1
+
+%D%D%D0H$~%D%D%DOH$
+%D%D%D0J$~%D%D%DOJ$
+%D%D%D0K$~%D%D%DOK$
+%D%D%D0M$~%D%D%DOM$
+%D%D%D0N$~%D%D%DON$
+%D%D%D0P$~%D%D%DOP$
+%D%D%D0R$~%D%D%DOR$
+%D%D%D0T$~%D%D%DOT$
+%D%D%D0V$~%D%D%DOV$
+
+%D%D%D%L0$~%D%D%D%LO$
+
+REGION1=[A,B,G,K,L,R,S,T,U]
+
+N%D%D%D[%D,%0][%D,%0][%D,%0]%{REGION1}
+
+N%D%D%D[%D,%0][%D,%0][%D,%0]%L%L
+
+######## Nauru ####################################################################################################
+$1145
+TrainingGroup:1
+
+[R,%D]%D%D%D
+CD%D%D
+
+######## Nepal ####################################################################################################
+$1146
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## NetherlandsAntilles ####################################################################################################
+$1148
+TrainingGroup:1
+
+B%D%D%D%D[%D,%0]
+%D%D%D%D[%D,%0]B
+
+[E,S]%D%D%D[%D,%0]
+MF%D%D%D
+V%D%D%D%D
+
+######## Netherlands ####################################################################################################
+$1147
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^0%L%D%D%L%L~^O%L%D%D%L%L
+
+##### Fixed letters
+SERIEC=[K,S,T,V,X,Z]
+SERIED=[G,H,J,K,L,N,P,R,S,T,X,Z]
+MOPED=[D,F]
+
+# 1951-1965
+%L%L%D%D%D%D
+
+# 1965-1973
+%D%D%D%D%L%L
+
+# 1973-1978
+%D%D%L%L%D%D
+
+# 1978-1991
+%L%L%D%D%L%L
+
+# 1991-1999
+%L%L%L%L%D%D
+
+# 1999-2008
+%D%D%L%L%L%L
+
+# 2008-2013
+%D%D%{SERIED}%L%L%D
+
+# 2006-present
+%D%{SERIEC}%L%L%D%D
+%L%L%D%D%D%L
+
+# From 2019 also...
+%{SERIEC}%D%D%D%L%L
+%{SERIED}%D%D%D%L%L
+
+# Bikes
+M%L%D%D%L%L
+M%L%L%L%D%D
+%D%DM%L%L%L
+
+# Mopeds
+%D%D%{MOPED}%L%L%D
+%{MOPED}%L%D%D%D%L
+%{MOPED}%D%D%D%L%L
+D%L%L%D%D%L
+
+# Lorries over 3.5tm
+%D%D%L%L%L%D
+ 
+#Lorries less than 3.5tm
+[V,W,X,Y,Z]%L%D%D%D%L
+[V,W,X,Y,Z]%D%D%D%L%L
+[V,W,X,Y,Z]%L%L%D%D%L
+ 
+# Trailers
+[W,X,Y,Z]%L%L%L%D%D
+%D%D[W,X,Y,Z]%L%L%L
+ 
+# Semi-Trailers
+O%L%D%D%L%L
+
+######## NewCaledonia ####################################################################################################
+$1149
+TrainingGroup:1
+
+%D%D%D%D%D%DNC
+
+%L%L%D%D%D%L%L
+######## NewZealand ####################################################################################################
+$1150
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# 0-O replacement
+^0%L%D%D%D%D~^O%L%D%D%D%D
+^%L0%D%D%D%D~^%LO%D%D%D%D
+^AA0%D%D%D~^AAO%D%D%D
+
+# 1-I replacement
+^1%L%D%D%D%D~^I%L%D%D%D%D
+^%L1%D%D%D%D~^%LI%D%D%D%D
+^AA1%D%D%D~^AAI%D%D%D
+
+# 1986 ...
+%L%L%D%D%D[%D,%0]
+
+# 2001 ...
+%L%L%L%D%D[%D,%0]
+%L%L%L%L%D[%D,%0]
+######## Nicaragua ####################################################################################################
+$1151
+TrainingGroup:1
+
+[%L,%0]%D%D%D%D%D%D
+
+%L%L%D%D%D[%D,%0]
+######## Niger ####################################################################################################
+$1152
+TrainingGroup:1
+
+REGION=[1,2,3,4,5,6,7,8]
+
+%{REGION}%L%D%D%D%D
+
+%L%L%D%D%D%D
+%L%L%D%D%D%D%L%L######## Nigeria ####################################################################################################
+$1153
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# 1992
+%L%L%D%D[%D,%0]%L%L%L
+
+# 2014
+%L%L%L%D%D%D%L%L
+
+######## Niue ####################################################################################################
+$1154
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## NorthKorea ####################################################################################################
+$1155
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## NorthernMarianaIslands ####################################################################################################
+$1156
+TrainingGroup:3
+
+%D%D%D%D[%D,%0]
+
+%L%L%L%D%D%D
+######## Norway ####################################################################################################
+$1157
+TrainingGroup:4
+
+# B/8 replacement
+^8%L~^B%L
+
+NORWAYLETTER=%L^I^O^G^M^Q
+NORWAYOLD=[A,B,C,D,E,F,G,Z,H,K,L,R,S,T,U,V,W,X,Y]
+
+## "LL DDDDD" 
+%{NORWAYLETTER}%{NORWAYLETTER}%D%D%D%D[%D,%0]
+
+## "L DDDD" 
+%{NORWAYOLD}%D%D%D%D
+
+
+######## Oman ####################################################################################################
+$1158
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+%D%D%D%DA0~%D%D%D%DAD
+%D%D%D%DM0~%D%D%D%DMD
+%D%D%D%DY0~%D%D%D%DYD
+%D%D%D%DA8~%D%D%D%DAB
+%D%D%D%DK8~%D%D%D%DKB
+%D%D%D%DY8~%D%D%D%DYB
+%D%D%D%DW8~%D%D%D%DWB
+
+STATECODE=[A,AA,AB,AD,AK,AM,AR,AS,AW,AY,B,BA,BB,BD,BH,BK,BM,BR,BS,BW,BY,D,DA,DD,DK,DR,DS,DW,DY,H,HA,HD,HH,HK,HM,HR,HS,HW,HY,K,KA,KB,KH,KK,M,MA,MB,MD,MH,MK,ML,MM,MR,MS,MW,MY,R,RA,RH,RK,RM,RR,RS,RW,RY,SS,S,T,TA,WW,TB,W,WA,WB,WK,Y,YA,YB,YD,YM,YR,YS,YW,YY]
+
+%D%D[%D,%0][%D,%0][%D,%0]%{STATECODE}
+######## Pakistan ####################################################################################################
+$1159
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# Azad Jammu & Kashmir
+%L%L%L%L%D%D%D
+
+# Balochistan
+# Khyber Pakhtunkhwa
+%L%L%D%D%D
+
+# Punjab
+%L%L%L%D%D%D%D%D
+
+# Sindh
+%L%L%L%D%D%D
+%L%L%D%D%D%D%D
+
+# Islamabad
+%L%L[%L,%0]%D%D%D
+######## Palau ####################################################################################################
+$1160
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Palestinia ####################################################################################################
+$1161
+TrainingGroup:1
+
+REGION=[A,B,C,D,E,F,G,H,J,K,L,M,N,P,Q,R,S,T]
+
+%D%D%D%D%D%D%D
+%D%D%D%D[%D,%0]%{REGION}
+######## Panama ####################################################################################################
+$1162
+TrainingGroup:3
+
+%L%L%D%D%D%D
+%D[%L,%D]%D%D%D%D
+
+T%D%D%D%D%D
+######## PapuaNewGuinea ####################################################################################################
+$1163
+TrainingGroup:1
+
+%L%L%D%D%D
+
+%L%L%L%D%D%D
+######## Paraguay ####################################################################################################
+$1164
+TrainingGroup:3
+
+%L%L%L[%L,%0]%D%D%D
+######## Peru ####################################################################################################
+$1165
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:1
+
+# 1975-1994
+%L%L%D%D%D%D
+
+# 1995-2009
+%L%L%L%D%D%D
+
+# 2010
+%L%D%L%D%D%D
+
+######## Philippines ####################################################################################################
+$1166
+TrainingGroup:1
+
+# Cars
+
+^0%L%L%D%D%D~^O%L%L%D%D%D
+^%L0%L%D%D%D~^%LO%L%D%D%D
+^00%L%D%D%D~^OO%L%D%D%D
+^%L%L0%D%D%D%D~^%L%LO%D%D%D%D
+
+^1%L%L%D%D%D~^I%L%L%D%D%D
+^%L1%L%D%D%D~^%LI%L%D%D%D
+^11%L%D%D%D~^II%L%D%D%D
+
+# Motorcycle
+
+^%D%D%D0%L%L~^%D%D%DO%L%L
+^%D%D%D%L0%L~^%D%D%D%LO%L
+^%D%D%D%L%L0~^%D%D%D%L%LO
+
+^%D%D%D1%L%L~^%D%D%DI%L%L
+^%D%D%D%L1%L~^%D%D%D%LI%L
+^%D%D%D%L%L1~^%D%D%D%L%LI
+
+^%D%D%D%D0%L~^%D%D%D%DO%L
+^%D%D%D%D%L0~^%D%D%D%D%LO
+
+^0%L%D%D%D%D%D$~^O%L%D%D%D%D%D$
+^%L0%D%D%D%D%D$~^%LO%D%D%D%D%D$
+
+# Cars permanent registration
+%L%L%L%D%D[%D,%0][%D,%0]
+%L%D%D%D%D%D
+%L%L%D%D%D%L
+
+# Temporary registration
+%D%D%D%D%D%D%D%D%D%D%D
+%D%D%D%D%D%D%D%D%D%D%D%D%D%D%D
+%D%D%D%D%D%D
+%L%D%L%D%D%D
+%L%L%D%D%D%D
+
+# Diplomats
+%D%D%D%D%D
+
+# Motorcycle
+%D%D%D%L%L%L
+%L%D%D%D%L%L
+%D%D%D%D%L%L
+%D%D%D%D%D%D%D%D%D%D%D
+%L%L%D%D%D%D%D
+######## PitcairnIsland ####################################################################################################
+$1167
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Poland ####################################################################################################
+$1168
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^0~^O
+^%L0~^%LO
+^%L1~^%LI
+
+PROVINCE=[Z,F,D,O,S,K,R,T,E,P,G,C,W,L,B,N]
+SERIES=[A,C,E,F,G,H,J,K,L,M,N,P,R,S,T,U,V,W,X,Y]
+
+# XY 12345 
+%{PROVINCE}%L%D%D%D%D[%D,%0]
+
+# XY 1234J
+%{PROVINCE}%L%D%D%D%D%L
+
+# XY 123JK
+%{PROVINCE}%L%D%D%D%L%L
+
+# XY 1J345
+%{PROVINCE}%L%D%L%D%D%D
+
+# XY 1JK45
+%{PROVINCE}%L%D%L%L%D%D
+
+# XYZ J234
+%{PROVINCE}%L%L%{SERIES}%D%D%D
+
+# XYZ 12JK
+%{PROVINCE}%L%L%D%D%L%L
+
+# XYZ 1J34
+%{PROVINCE}%L%L%D%L%D%D
+
+# XYZ 12J4
+%{PROVINCE}%L%L%D%D%L%D
+
+# XYZ 1JK4
+%{PROVINCE}%L%L%D%L%L%D
+
+# XYZ JK34
+%{PROVINCE}%L%L%{SERIES}%L%D%D
+
+# XYZ 12345
+%{PROVINCE}%L%L%D%D%D%D%D
+
+# XYZ 1234J
+%{PROVINCE}%L%L%D%D%D%D%L
+
+# XYZ 123JK
+%{PROVINCE}%L%L%D%D%D%L%L
+
+# XY 1234
+%{PROVINCE}%L%D%D%D%D
+
+# XY 123J
+%{PROVINCE}%L%D%D%D%L
+
+# XY 1J34 
+%{PROVINCE}%L%D%L%D%D
+
+# XY 12J4
+%{PROVINCE}%L%D%D%L%D
+
+# XY 12JK
+%{PROVINCE}%L%D%D%L%L
+
+# XY JK12
+%{PROVINCE}%L%{SERIES}%L%D%D
+
+# XYZ J234
+%{PROVINCE}%L%L%L%D%D%D
+
+# XYZ 12JK
+%{PROVINCE}%L%L%D%D%L%L
+
+# XYZ 1J34
+%{PROVINCE}%L%L%D%L%D%D
+
+# XYZ 12J4
+%{PROVINCE}%L%L%D%D%L%D
+
+# XYZ 1JK4 
+%{PROVINCE}%L%L%D%L%L%D
+
+# XYZ JK34
+%{PROVINCE}%L%L%{SERIES}%L%D%D
+
+# XYZ J23K
+%{PROVINCE}%L%L%{SERIES}%D%D%L
+
+# XYZ J2KL 
+%{PROVINCE}%L%L%{SERIES}%D%L%L
+
+# Cars reduced size
+
+%{PROVINCE}%D%D%D
+%{PROVINCE}%D%D%L
+%{PROVINCE}%D%L%D
+%{PROVINCE}%{SERIES}%D%D
+%{PROVINCE}%D%L%L
+%{PROVINCE}%{SERIES}%L%D
+%{PROVINCE}%{SERIES}%D%L
+
+# Classic cars
+
+%{PROVINCE}%L%D%D%{SERIES}
+%{PROVINCE}%L%D%D%D
+%{PROVINCE}%L%L%D%{SERIES}
+%{PROVINCE}%L%L%D%D
+%{PROVINCE}%L%L%{SERIES}%D
+
+# Professional plates
+
+%{PROVINCE}%D%D%D%DP%D%D
+
+# Diplomatic
+
+%{PROVINCE}%D%D%D%D%D%D
+######## PORTUGAL ########################################################################################################
+$1169
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# Befroe 2020 1/I replacement
+^%D%D1%L%D%D~^%D%DI%L%D%D
+^%D%D%L1%D%D~^%D%D%LI%D%D
+^1%L%D%D%D%D~^I%L%D%D%D%D
+^%L1%D%D%D%D~^%LI%D%D%D%D
+^%D%D11%D%D~^%D%DII%D%D
+%D%D%D%D1%L~%D%D%D%DI%L
+%D%D%D%D%L1~%D%D%D%D%LI
+
+# After 2020 1/I replacement
+^1%L%D%D%L%L~^I%L%D%D%L%L
+^%L1%D%D%L%L~^%LI%D%D%L%L
+^%L%L%D%D1%L~^%L%L%D%DI%L
+^%L%L%D%D%L1~^%L%L%D%D%LI
+
+# 0/O replacement
+^%D%D0%L%D%D~^%D%DO%L%D%D
+^%D%D%L0%D%D~^%D%D%LO%D%D
+^0%L%D%D%D%D~^O%L%D%D%D%D
+^%L0%D%D%D%D~^%LO%D%D%D%D
+^%D%D00%D%D~^%D%DOO%D%D
+%D%D%D%D0%L~%D%D%D%DO%L
+%D%D%D%D%L0~%D%D%D%D%LO
+
+# After 2020 1/I replacement
+^0%L%D%D%L%L~^O%L%D%D%L%L
+^%L0%D%D%L%L~^%LO%D%D%L%L
+^%L%L%D%D0%L~^%L%L%D%DO%L
+^%L%L%D%D%L0~^%L%L%D%D%LO
+
+# Left OI/IO
+^10%D%D%D%D~^IO%D%D%D%D
+^01%D%D%D%D~^OI%D%D%D%D
+
+# Central OI/IO
+^%D%D01%D%D~^%D%DOI%D%D
+^%D%D10%D%D~^%D%DIO%D%D
+
+# Right OI/IO
+^%D%D%D%D10~^%D%D%D%DIO
+^%D%D%D%D01~^%D%D%D%DOI
+
+## Before 2020 "DD LL DD" 
+%D%D%L%L%D%D
+
+## After 2020 "DD LL DD" 
+%L%L%D%D%L%L
+
+## "LL DD DD [D]" 
+%L%L%D%D%D%D[%D,%0]
+
+## "DD DD LL" 
+%D%D%D%D%L%L
+
+# Guard National Republic
+GNR%L%D%D%D%D
+
+## Diplomatic corp
+%D%D%DCD%D%D%D
+
+## "L DDDDD[D]"
+%L%D%D%D%D%D[%D,%0]
+######## Qatar ####################################################################################################
+$1171
+TrainingGroup:1
+
+%D%D%D[%D,%0][%D,%0][%D,%0]
+
+######## ReunionIsland ####################################################################################################
+$1172
+TrainingGroup:1
+
+%D%D%L%L%L%D
+%D%D%D%L%L[%L,%0]%D
+
+%L%L%D%D%D%L%L
+
+######## Romania ####################################################################################################
+$1173
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^1F%D%D%L~^IF%D%D%L
+^1F%D%D%D%L~^IF%D%D%D%L
+^1L%D%D%L~^IL%D%D%L
+^1L%D%D%D%L~^IL%D%D%D%L
+^1S%D%D%L~^IS%D%D%L
+^1S%D%D%D%L~^IS%D%D%D%L
+^1S%D%D%L~^IS%D%D%L
+^1S%D%D%D%L~^IS%D%D%D%L
+^0T%D%D%L~^OT%D%D%L
+^0T%D%D%D%L~^OT%D%D%D%L
+
+^%L%D%D%L0%L~^%L%D%D%LO%L
+^%L%D%D%L1%L~^%L%D%D%LI%L
+^%L%D%D%L%L0~^%L%D%D%L%LO
+^%L%D%D%L%L1~^%L%D%D%L%LI
+^%L%D%D%L00~^%L%D%D%LOO
+^%L%D%D%L11~^%L%D%D%LII
+
+^%L%D%D%D%L0%L~^%L%D%D%D%LO%L
+^%L%D%D%D%L1%L~^%L%D%D%D%LI%L
+^%L%D%D%D%L%L0~^%L%D%D%D%L%LO
+^%L%D%D%D%L%L1~^%L%D%D%D%L%LI
+^%L%D%D%D%L00~^%L%D%D%D%LOO
+^%L%D%D%D%L11~^%L%D%D%D%LII
+
+^%L%L%D%D%L0%L~^%L%L%D%D%LO%L
+^%L%L%D%D%L1%L~^%L%L%D%D%LI%L
+^%L%L%D%D%L%L0~^%L%L%D%D%L%LO
+^%L%L%D%D%L%L1~^%L%L%D%D%L%LI
+^%L%L%D%D%L00~^%L%L%D%D%LOO
+^%L%L%D%D%L11~^%L%L%D%D%LII
+
+STATECODE=[AB,AG,AR,B,BC,BH,BN,BR,BT,BV,BZ,CJ,CL,CS,CT,CV,DB,DJ,GJ,GL,GR,HD,HR,IF,IL,IS,MH,MM,MS,NT,OT,PH,SB,SJ,SM,SV,TL,TM,TR,VL,VN,VS]
+
+## "D L DDDD - 1969-1992" 
+%D[%D,%0]%{STATECODE}%D%D%D%D
+
+## From 1992 "LL DD LLL" 
+%{STATECODE}%D%D[%D,%0]%L%L%L
+
+
+######## Russia ####################################################################################################
+$1174
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# B/8 replacement
+^0%D~^O%D
+^%L%D%D%D0~^%L%D%D%DO
+^%L%D%D%D%L0~^%L%D%D%D%LO
+
+LETTERS=[A,B,E,K,M,H,O,P,C,T,Y,X]
+
+
+# Russian registration plate
+# LDDDLL DD or DDD
+%{LETTERS}%D%D%D%{LETTERS}%{LETTERS}%D%D[%D,%0]
+######## Rwanda ####################################################################################################
+$1175
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# 2007
+R%L%L%D%D%D%L
+
+
+######## SaintKittsandNevis ####################################################################################################
+$1176
+TrainingGroup:3
+
+PREFIX=[B,BA,CD,G,GT,H,HA,HB,P,PA,PB,P,R,RA,T,TA,TB]
+
+%{PREFIX}%D%D%D[%D,%0]
+
+######## SaintLucia ####################################################################################################
+$1177
+TrainingGroup:1
+
+%L%L%D%D%D%D
+[M,SLG]%D%D%D
+
+######## SaintVincentandtheGrenadines ####################################################################################################
+$1178
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Samoa ####################################################################################################
+$1179
+TrainingGroup:1
+
+^P0L%D~^POL%D
+
+%D%D%D%D[%D,%0]
+DC%D%D%D
+[T,D]%D%D%D
+POL%D[%D,%0][%D,%0]
+
+
+######## SanMarino ####################################################################################################
+$1180
+TrainingGroup:1
+
+%D%D%D%D%D
+%L%D%D%D[%D,%0]
+
+[CD,CRS]%D%D
+
+VE%D%D%D[%D,%0][%D,%0]
+
+
+######## SaoTomeandPrincipe ####################################################################################################
+$1181
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## SaudiArabia ####################################################################################################
+$1182
+TrainingGroup:1
+
+STATECODE=[A,B,J,D,R,S,X,T,E,G,K,L,Z,N,H,U,V]
+
+%D[%D,%0][%D,%0][%D,%0]%{STATECODE}%{STATECODE}%{STATECODE}
+
+######## Senegal ####################################################################################################
+$1183
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^%D%D%D1T%D%D%D~^%D%D%DIT%D%D%D
+
+# 1978-1989
+%D%D%D%D%L%D%L
+
+# 1989...
+%L%L%D%D%D%D%L[%L,%0]
+
+# Diplomatic
+%D%D%DCD%D%D%D
+%D%D%DCMD%D%D%D
+%L%L%D%D%DCD
+%D%D%DIT%D%D%D
+######## Serbia ####################################################################################################
+$1184
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^B0%D%D%D%D%D~^BO%D%D%D%D%D
+^1N%D%D%D%D%D~^IN%D%D%D%D%D
+^K1%D%D%D%D%D~^KI%D%D%D%D%D
+^K0%D%D%D%D%D~^KO%D%D%D%D%D
+^L0%D%D%D%D%D~^LO%D%D%D%D%D
+^N1%D%D%D%D%D~^NI%D%D%D%D%D
+^P1%D%D%D%D%D~^PI%D%D%D%D%D
+^P0%D%D%D%D%D~^PO%D%D%D%D%D
+^S1%D%D%D%D%D~^SI%D%D%D%D%D
+^S0%D%D%D%D%D~^SO%D%D%D%D%D
+
+^B0%D%D%D%L%L~^BO%D%D%D%L%L
+^1N%D%D%D%L%L~^IN%D%D%D%L%L
+^K1%D%D%D%L%L~^KI%D%D%D%L%L
+^K0%D%D%D%L%L~^KO%D%D%D%L%L
+^L0%D%D%D%L%L~^LO%D%D%D%L%L
+^N1%D%D%D%L%L~^NI%D%D%D%L%L
+^P1%D%D%D%L%L~^PI%D%D%D%L%L
+^P0%D%D%D%L%L~^PO%D%D%D%L%L
+^S1%D%D%D%L%L~^SI%D%D%D%L%L
+^S0%D%D%D%L%L~^SO%D%D%D%L%L
+
+STATECODE1=[AL,AR,AC,BB,BG,BO,BP,BT,BC,BU,BC,VA,VB,VL,VP,VR,VS,GM,DE,ZA,ZR,IN,IC,JA,KA,KV,KG,KZ,KI,KL,KO,KS,LB,LE,LO,LU,NV,NG,NI]
+STATECODE2=[NP,NS,PA,PB,PZ,PI,PK,PN,PO,PP,PT,RA,RU,SA,SM,SV,SD,SJ,SO,SP,ST,SU,SC,TO,TS,TT,CU,UB,UE,UR,CA,SA,SI]
+
+# 1990 series
+%{STATECODE1}%D%D%D%D%D
+%{STATECODE2}%D%D%D%D%D
+
+# 2011 series
+%{STATECODE1}%D%D%D%L%L
+%{STATECODE2}%D%D%D%L%L
+
+######## Seychelles ####################################################################################################
+$1185
+TrainingGroup:1
+
+[G,%0]S%D%D%D%D[%D,%0]
+######## SierraLeone ####################################################################################################
+$1186
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Singapore ####################################################################################################
+$1187
+# secondary x 256 + primary: 1*256+2
+TrainingGroup:2
+
+# Replacements
+^5%L~^S%L
+^S0%L%D%D%D%D%L~^SQ%L%D%D%D%D%L
+^S%L0%D%D%D%L~^S%LQ%D%D%D%L
+^S%L0%D%D%D%D%L~^S%LQ%D%D%D%D%L
+^SB5%D%D%D%D%L~^SBS%D%D%D%D%L
+^SM8%D%D%D%D%L~^SMB%D%D%D%D%L
+^S6%D%D%D%D%L~^SG%D%D%D%D%L
+
+M1D$~MID$
+
+# Checksum letter
+CHECKSUMLETTER=%L^F^N^Q^V^W
+
+# 1- S � Vehicle class BA � Alphabetical series ("I" and "O" are not used to avoid confusion with "1" and "0")
+# 2- 1234 � Numerical series 
+# 3- A � Checksum letter ("F", "I", "N", "O", "Q", "V" and "W" are never used as checksum letters; 
+#        absent on special government vehicle plates and events vehicle plates)
+# Taxis, Off-Peak, Vintage...
+S%L[%L,%0]%D[%D,%0][%D,%0][%D,%0]%{CHECKSUMLETTER}
+SH[%L,%0]%D%D%D%D%{CHECKSUMLETTER}
+[A,E][%L,%0]%D[%D,%0][%D,%0][%D,%0]%{CHECKSUMLETTER}
+S%D%D[%D,%0][%D,%0]%{CHECKSUMLETTER}
+EX%D[%D,%0]%{CHECKSUMLETTER}
+
+# Special prefix for the first 100 locally assembled
+EVS%D[%D,%0][%D,%0][%D,%0]%{CHECKSUMLETTER}
+
+# Motorcycles 
+F%L[%L,%0]%D[%D,%0][%D,%0][%D,%0]%{CHECKSUMLETTER}
+LTA%D[%D,%0][%D,%0][%D,%0]%{CHECKSUMLETTER}
+
+# Light Goods vehicles
+G%L[%L,%0]%D[%D,%0][%D,%0][%D,%0]%{CHECKSUMLETTER}
+
+# Private buses
+[PA,PB,PC,PD,PH,PZ]%D[%D,%0][%D,%0][%D,%0]%{CHECKSUMLETTER}
+
+# Public buses
+SBS%D%D%D[%D,%0]%{CHECKSUMLETTER}
+SG%D%D%D[%D,%0]%{CHECKSUMLETTER}
+
+# School buses
+CB%D%D%D[%D,%0]%{CHECKSUMLETTER}
+
+# Pulau Ubin Vehicle
+PU%D%D[%D,%0]%{CHECKSUMLETTER}
+
+# Engineering plant vehicles and very heavy goods vehicles
+[W,X,TR,Y]%L%D%D[%D,%0][%D,%0]%{CHECKSUMLETTER}
+
+# Consular and diplomatic
+S%D%D%D[%D,%0]C[C,D]
+
+# controlled for specific types of vehicle
+
+#  Singapore Armed Forces vehicles
+%D%D%D%D[%D,%0]MID
+Q[X,Y]%D%D%D[%D,%0]%{CHECKSUMLETTER}
+S%D%D%D%D[CC,CD,TE]
+TP%D%D%D%D%{CHECKSUMLETTER}
+
+# Restricted vehicles and R&D Vehicles
+R[U,D]%D%D%D%D%L
+
+# Government
+SEP1
+SPF1
+
+# City Shuttle Service buses
+CSS%D%D%D[%D,%0]%{CHECKSUMLETTER}
+
+
+
+
+
+
+######## Slovakia ####################################################################################################
+$1188
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# Replacements
+^1L%D%D%D%L%L~^IL%D%D%D%L%L
+^B1%D%D%D%L%L~^BI%D%D%D%L%L
+^K1%D%D%D%L%L~^KI%D%D%D%L%L
+^M1%D%D%D%L%L~^MI%D%D%D%L%L
+^S1%D%D%D%L%L~^SI%D%D%D%L%L
+^Z1%D%D%D%L%L~^ZI%D%D%D%L%L
+
+^N0%D%D%D%L%L~^NO%D%D%D%L%L
+^P0%D%D%D%L%L~^PO%D%D%D%L%L
+^S0%D%D%D%L%L~^SO%D%D%D%L%L
+^T0%D%D%D%L%L~^TO%D%D%D%L%L
+
+^%L%L%D%D%D%L1~^%L%L%D%D%D%LI
+^%L%L%D%D%D1%L~^%L%L%D%D%DI%L
+
+^%L%L%D%D%D%L0~^%L%L%D%D%D%LO
+^%L%L%D%D%D0%L~^%L%L%D%D%DO%L
+
+STATECODE=[BA,BD,BE,BI,BL,BT,BB,BC,BK,BJ,BN,BR,BS,BY,CA,DK,DS,DT,GA,GL,HC,HE,IL,KA,KE,KC,KI,KK,KM,KN,KS,LC,LE,LM,LV,LL,MA,MI,ML,MT,MY,NR,NI,NT,NM,NO,NZ,NC,PB,PD,PE,PK,PN,PO,PV,PS,PP,PT,PU,RA,RK,RS,RV,SA,SB,SC,SE,SI,SK,SL,SN,SO,SP,SV,TT,TA,TB,TN,TC,TE,TO,TR,TS,TV,VK,VT,ZA,ZI,ZL,ZC,ZH,ZM,ZV]
+
+# From 1997
+%{STATECODE}%D%D%D%L%L
+
+# Personalized
+%{STATECODE}%L%L%L%L[%L,%D]
+%{STATECODE}%L%L%L%D%D
+
+# Diplomatic
+EE%D%D%D%D
+ZZ%D%D%D%D
+
+# Officials
+%{STATECODE}X%D%D%D
+
+
+
+
+
+######## Slovenia ####################################################################################################
+$1189
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^G0%L%D%D%D%D~^GO%L%D%D%D%D
+^G0%L%L%D%D%D~^GO%L%L%D%D%D
+^P0%L%D%D%D%D~^PO%L%D%D%D%D
+^P0%L%L%D%D%D~^PO%L%L%D%D%D
+
+^%L%L%D%D%L1%L~^%L%L%D%D%LI%L
+^%L%L%D%D%L%L1~^%L%L%D%D%L%LI
+
+STATECODE=[CE,GO,KK,KP,KR,LJ,MB,MS,NM,PO,SG]
+
+# From 1992
+%{STATECODE}%L[%L,%D]%D%D[%D,%L]
+%{STATECODE}%D%D%L%L%L
+
+# Old
+%{STATECODE}%D%D%D%D%L
+%{STATECODE}%D%D%D%L%L
+######## SolomonIslands ####################################################################################################
+$1190
+TrainingGroup:1
+
+[A,B]%D%D%D%D
+G%D%D%D%D
+M%L%D%D%D%D
+######## Somalia ####################################################################################################
+$1191
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## SouthAfrica ####################################################################################################
+$1192
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+STATECODE=[MP,EC,L,NC,FS,NW]
+
+# Western Cape Province and KwaZulu-Natal Province
+[C,N]%L[%L,%0]%D%D%D[%D,%0][%D,%0][%D,%0]
+
+# Mpumalanga Province
+# Eastern Cape Province
+# Limpopo Province
+# Northern Cape Province
+# Free State Province
+# North West Province
+%L%L%L%D%D%D%{STATECODE}
+****[%L,%0][%L,%0][FS,ZN]
+
+# Gauteng Province
+%L%L%L%D%D%DGP
+%L%L%D%D%L%LGP
+
+# Diplomatic vehicles
+%D%D%D[D,S]%D%D%DD
+[D,S]BBB%D%D%DD
+
+# National government
+G%L%L%D%D%DG
+
+# Police
+B%L%L%D%D%DB
+
+# Military
+%L%L%L%D%D%DM
+
+
+
+
+
+######## SouthKorea ####################################################################################################
+$1193
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+%D%D%D%D[%D,%0][%D,%0][%D,%0]
+
+######## SouthSudan ####################################################################################################
+$1194
+TrainingGroup:1
+
+^NG0%D%D%D~^NGO%D%D%D
+
+SS%L[%L,%0]%D%D%D%L[%L,%0]
+
+WE%D%D%D%DM
+
+NGO%D%D%D%DRSS
+######## SPAIN ###########################################################################################################
+$1195
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^0%D%D%D%D%L%L~^O%D%D%D%D%L%L
+^0%L%D%D%D%D~^O%L%D%D%D%D
+^P0%D%D%D%D~^PO%D%D%D%D
+^C0%D%D%D%D~^CO%D%D%D%D
+^T0%D%D%D%D~^TO%D%D%D%D
+
+# Old squared plates
+^0%L%L%D%D%D%D~^O%L%L%D%D%D%D
+
+%L%D%D%D%D0%L$~%L%D%D%D%DO%L$
+%L%D%D%D%D%L0$~%L%D%D%D%D%LO$
+
+^B1%D%D%D%D%L~^BI%D%D%D%D%L
+^G1%D%D%D%D%L~^GI%D%D%D%D%L
+^V1%D%D%D%D%L~^VI%D%D%D%D%L
+^1B%D%D%D%D%L~^IB%D%D%D%D%L
+
+^B1%L%L%D%D%D%D~^BI%L%L%D%D%D%D
+^G1%L%L%D%D%D%D~^GI%L%L%D%D%D%D
+^V1%L%L%D%D%D%D~^VI%L%L%D%D%D%D
+
+^C0%L%L%D%D%D%D~^CO%L%L%D%D%D%D
+^L0%L%L%D%D%D%D~^LO%L%L%D%D%D%D
+^T0%L%L%D%D%D%D~^TO%L%L%D%D%D%D
+^0%L%L%D%D%D%D~^O%L%L%D%D%D%D
+
+##### State code and gov code variables 
+STATECODE=[VI,AB,A,AL,AV,BA,BI,IB,B,BU,CC,CA,CS,CE,CR,CO,C,CU,GE,GI,GR,GU,SS,H,HU,J,LE,L,LO,LU,M,MA,ML,MU,NA,OR,OU,O,P,PME,GC,PA,PO,SA,TF,S,SG,SE,SO,T,TE,TO,V,VA,ZA,Z]
+GOVCODE=[PGC,CNP,EA,ET,FN,MF,MMA,PME,CME,FAE]
+ENDLETTERS_OLD=[A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,S,T,U,V,W,X,Y,Z]
+ENDLETTERS_NEW=[B,C,D,F,G,H,J,K,L,M,N,P,R,S,T,V,W,X,Y,Z]
+
+# Red/Green temporal plates
+[S,P]%D%D%D%DB%L%L
+
+## "LL DDDD LL"
+%{STATECODE}%D%D%D%D%{ENDLETTERS_OLD}[%{ENDLETTERS_OLD},%0]
+
+## "LLL DDDD LL"
+%{GOVCODE}%D%D%D%D%{ENDLETTERS_OLD}[%{ENDLETTERS_OLD},%0]
+%{GOVCODE}%D%D%D%D%D[%D,%0]
+CD%D%D%D%D[%D,%0][%D,%0]
+CC%D%D%D%D[%D,%0][%D,%0]
+
+## Cars
+%D%D%D%D%{ENDLETTERS_NEW}%{ENDLETTERS_NEW}%{ENDLETTERS_NEW}
+
+# Police motorbikes
+2:PME%L%D%D%D%D
+
+# SQUARE OLD FORMAT PLATES
+2:%{STATECODE}%{ENDLETTERS_OLD}[%{ENDLETTERS_OLD},%0]%D%D%D%D
+
+## "L DDDDD VE"
+%L[%L,%0]%D%D%D%D[%D,%0][%D,%0]VE
+
+## "E DDDD LLL" 
+E%D%D%D%D[%D,%0][%D,%0]%L%L[%L,%0]
+
+# Trailers
+%{STATECODE}%D%D%D%D[%D,%0]R
+R%D%D%D%D%{ENDLETTERS_NEW}%{ENDLETTERS_NEW}%{ENDLETTERS_NEW}
+
+# Mopped vehicle
+3:%L%D%D%D%D%{ENDLETTERS_NEW}%{ENDLETTERS_NEW}%{ENDLETTERS_NEW}
+
+# Ministerio Fomento
+MF%D%D%D%D%D
+
+# Ministerio de Medioambiente
+MMA%D%D%D%D%D
+
+# Servicio P blico
+TA%D%D%D%D%D[%D,%0]
+SP%D%D%D%D%L%L%L
+%D%D%D%D%L%L%LSP
+S%D%D%D%D%L%L%L
+P%D%D%D%D%L[%L,%0][%L,%0]
+
+
+
+######## SriLanka ####################################################################################################
+$1196
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^0%L%D%D%D~^O%L%D%D%D
+^%L0%D%D%D%D~^%LO%D%D%D%D
+^1%L%D%D%D~^I%L%D%D%D
+^%L1%D%D%D%D~^%LI%D%D%D%D
+
+^%L%LD%D%D%D~^%L%L0%D%D%D
+^%L%L%DD%D%D~^%L%L%D0%D%D
+^%L%L%D%DD%D~^%L%L%D%D0%D
+^%L%L%D%D%DD~^%L%L%D%D%D0
+
+^KQ%D%D%D%D~^KO%D%D%D%D
+
+# Old plates
+%D%D%D%D%D%D
+
+# From 2000
+%L%L[%L,%0]%D%D%D%D
+
+
+
+######## Sudan ####################################################################################################
+$1197
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Suriname ####################################################################################################
+$1198
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Swaziland ####################################################################################################
+$1199
+TrainingGroup:1
+
+^0SD%D%D%D%L~^OSD%D%D%D%L
+^1SD%D%D%D%L~^ISD%D%D%D%L
+
+SD%D%D%D%D%D
+SD%D%D%D%L%L
+SD%L%L%D%D%D
+
+%LSD%D%D%D%L%L
+######## Sweden ####################################################################################################
+$1200
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:4
+
+^%L%L0%D%D~^%L%LO%D%D
+^%L0%L%D%D~^%LO%L%D%D
+^%L00%D%D~^%LOO%D%D
+^0%L%L%D%D~^O%L%L%D%D
+^0%L0%D%D~^O%LO%D%D
+^00%L%D%D~^OO%L%D%D
+
+LETTERS=[A,B,C,D,E,F,G,H,J,K,L,M,N,O,P,R,S,T,U,W,X,Y,Z]
+END_LETTERS=[A,B,C,D,E,F,G,H,J,K,L,M,N,P,R,S,T,U,W,X,Y,Z]
+
+## "LLL DDDD" 
+%{LETTERS}%{LETTERS}%{LETTERS}%D%D%D
+
+## New from 2019
+%{LETTERS}%{LETTERS}%{LETTERS}%D%D%{END_LETTERS}######## Switzerland ####################################################################################################
+$1201
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^A1%D%D%D%D~^AI%D%D%D%D
+^0W%D%D%D%D~^OW%D%D%D%D
+^S0%D%D%D%D~^SO%D%D%D%D
+^T1%D%D%D%D~^TI%D%D%D%D
+ 
+STATECODE=[AG,AI,AR,BE,BL,BS,FR,GE,GL,GR,JU,LU,NE,NW,OW,SG,SH,SO,SZ,TG,TI,UR,VD,VS,ZG,ZH]
+ 
+# Dealers and workshops, temporary, others
+%{STATECODE}%D%D%D[%D,%0][%D,%0]%L
+
+## "STATE + 6 digits
+%{STATECODE}%D%D%D[%D,%0][%D,%0][%D,%0]
+
+######## Syria ####################################################################################################
+$1202
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Taiwan ####################################################################################################
+$1203
+# Primary 8, Secondary 1: 8*256+1
+TrainingGroup:1
+
+# Ordinary light vehicles
+%L%L%L%D%D%D[%D,%0]
+
+# Motorcycles Ordinary heavy-duty motorcycle
+%D%D%D%L%L%L
+
+# Others (detected from Axis Video)
+[%D,%0]%D%D%D%L%D
+%D%L%D%D%D[%D,%0]
+R%D%D%D%D%D
+
+%D%D%D%D%L[%L,%0]
+%L%L%D%D%D%D
+%L%D%D%D%D%D
+%D%D%D%L%L
+
+# New plates
+%D%L%L%D%D%D
+%L%D%L%D%D%D######## Tajikistan ####################################################################################################
+$1204
+TrainingGroup:1
+
+^%D%D%D%D1%L0%D$~^%D%D%D%DI%L0%D$
+^%D%D%D%D0%L0%D$~^%D%D%D%DO%L0%D$
+
+^%D%D%D%D%L10%D$~^%D%D%D%D%LI0%D$
+^%D%D%D%D%L00%D$~^%D%D%D%D%LO0%D$
+
+# 1996
+%L[%L,%0]%D%D%D%D0%D
+
+# From 2009
+%D%D%D%D%L[%L,%0]0%D
+
+# Trailer	
+%L%D%D%D%DL%0%D
+0%D%L%L%D%D%D%D
+
+# Motorcycle
+2:%D%D%D%L0%D
+
+# Public transport
+%D%D%D%DTT%D%D
+
+# Special
+%D%D%D[M,N,P]%D%D%D
+%D%D%D[D,S,CMD]%D
+%D%D%DTJ
+
+
+######## Tanzania ####################################################################################################
+$1205
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^T%D%D%D1%L%L~^T%D%D%DI%L%L
+^T%D%D%D%L1%L~^T%D%D%D%LI%L
+^T%D%D%D%L%L1~^T%D%D%D%L%LI
+
+^T%D%D%D0%L%L~^T%D%D%DO%L%L
+^T%D%D%D%L0%L~^T%D%D%D%LO%L
+^T%D%D%D%L%L0~^T%D%D%D%L%LO
+
+# 1990
+%L%L%L%D%D%D%D
+
+# 2000
+T%D%D%D%L%L%L
+
+######## Thailand ####################################################################################################
+$1206
+# secondary x 256 + primary
+TrainingGroup:10
+
+# Standard current plates
+[%D,%0]%L[%L,%0]%D%D[%D,%0][%D,%0]
+
+# Bus and trucks
+%D%D%D%D%D%D
+
+# Motorcycle
+%L%L%L%D%D%D
+
+######## Tibet ####################################################################################################
+$1207
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## TimorLeste ####################################################################################################
+$1208
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Togo ####################################################################################################
+$1209
+TrainingGroup:1
+
+^%D%D%D%D%L1$~^%D%D%D%D%LI$
+^%D%D%D%D1%L$~^%D%D%D%DI%L$
+
+^%D%D%D%D%L0$~^%D%D%D%D%LO$
+^%D%D%D%D0%L$~^%D%D%D%DO%L$
+
+RT%D%D%D%D%L
+%D%D%L%L%L%L
+
+%D%D%D%D%L%L
+######## Tokelau ####################################################################################################
+$1210
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Tonga ####################################################################################################
+$1211
+TrainingGroup:1
+
+WORDS=[C,J,L,P]
+
+%{WORDS}%D%D[%D,%0][%D,%0][%D,%0]
+
+
+######## TrinidadandTobago ####################################################################################################
+$1212
+TrainingGroup:1
+
+WORDS=[P,R,H,X,T]
+
+%{WORDS}%L%L%D%D%D[%D,%0]
+######## Tunisia ####################################################################################################
+$1213
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Turkey ####################################################################################################
+$1214
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+%D%D%L1%L%D%D~%D%D%LI%L%D%D
+
+## "NN L NNNN[N]" 
+%D%D%L%D%D%D%D[%D,%0]
+
+## "NN LL NNN[N]" 
+%D%D%L%L%D%D%D[%D,%0]
+
+## "NN LLL NN[N]" 
+%D%D%L%L%L%D%D[%D,%0]
+
+## "NNNNN LL" 
+%D%D%D%D%D%L%L
+
+
+######## Turkmenistan ####################################################################################################
+$1215
+TrainingGroup:1
+
+^%L1%D%D%D%D%L~^%LI%D%D%D%D%L
+^%L0%D%D%D%D%L~^%LO%D%D%D%D%L
+
+^1%L%D%D%D%D%L~^I%L%D%D%D%D%L
+^0%L%D%D%D%D%L~^O%L%D%D%D%D%L
+
+SUFFIX=[AG,AH,BN,DZ,LB,MR]
+
+%L[%L,%0]%D%D%D%D%{SUFFIX}
+
+%D%DCD%D%D%D
+%DH%D%D%D%D%D
+%DHT%D%D%D%D
+######## TurksandCaicosIslands ####################################################################################################
+$1216
+TrainingGroup:3
+
+%D%D%D%D%D
+
+TC%D%D%D%D[%D,%0]
+
+######## Tuvalu ####################################################################################################
+$1217
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## USDOT ####################################################################################################
+$1236
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# Raplacings 0 by O
+^U%LD0T~^USDOT
+^U%DD0T~^USDOT
+^USD%LT~^USDOT
+^USD%DT~^USDOT
+^D0T~^DOT
+
+# State replacements
+^H1~^HI
+^1D~^ID
+^1L~^IL
+^1N~^IN
+^1A~^IA
+^M1~^MI
+^R1~^RI
+^W1~^WI
+^C0~^CO
+^M0~^MO
+^0H~^OH
+^0K~^OK
+^0R~^OR
+
+H1$~HI$
+1D$~ID$
+1L$~IL$
+1N$~IN$
+1A$~IA$
+M1$~MI$
+R1$~RI$
+W1$~WI$
+C0$~CO$
+M0$~MO$
+0H$~OH$
+0K$~OK$
+0R$~OR$
+
+# US States
+STATECODE=[AL,AK,AZ,AR,CA,CO,CT,DE,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY,DC]
+
+# DOT format
+DOT%D%D%D%D%D[%D,%0][%D,%0][%D,%0]
+DOT%D%D%D%D%D[%D,%0][%D,%0][%D,%0]%{STATECODE}
+
+# USADOT format
+USDOT%D%D%D%D%D[%D,%0][%D,%0][%D,%0]
+USDOT%D%D%D%D%D[%D,%0][%D,%0][%D,%0]%{STATECODE}
+
+# State based code
+%{STATECODE}%D%D%D%D%D%D[%D,%0][%D,%0]
+######## Uganda ####################################################################################################
+$1218
+TrainingGroup:1
+
+U%L%L%D%D%D[%D,%L]
+%D%D%D%L%LU
+U%D%D%D%D%D%L
+CD%D%D%D%DU
+######## Ukraine ####################################################################################################
+$1219
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+^A0%D%D%D%D~^AO%D%D%D%D
+^B0%D%D%D%D~^BO%D%D%D%D
+^K0%D%D%D%D~^KO%D%D%D%D
+^H0%D%D%D%D~^HO%D%D%D%D
+
+^A1%D%D%D%D~^AI%D%D%D%D
+^B1%D%D%D%D~^BI%D%D%D%D
+^K1%D%D%D%D~^KI%D%D%D%D
+^H1%D%D%D%D~^HI%D%D%D%D
+^1A%D%D%D%D~^IA%D%D%D%D
+
+^%L%L%D%D%D%D0%L~^%L%L%D%D%D%DO%L
+^%L%L%D%D%D%D%L0~^%L%L%D%D%D%D%LO
+
+^%L%L%D%D%D%D1%L~^%L%L%D%D%D%DI%L
+^%L%L%D%D%D%D%L1~^%L%L%D%D%D%D%LI
+
+^%L%L%D%D%D%D00~^%L%L%D%D%D%DOO
+^%L%L%D%D%D%D11~^%L%L%D%D%D%DII
+^%L%L%D%D%D%D01~^%L%L%D%D%D%DOI
+^%L%L%D%D%D%D10~^%L%L%D%D%D%DIO
+
+^%D%D%D%D%D0%L~^%D%D%D%D%DO%L
+^%D%D%D%D%D%L0~^%D%D%D%D%D%LO
+
+^%D%D%D%D%D1%L~^%D%D%D%D%DI%L
+^%D%D%D%D%D%L1~^%D%D%D%D%D%LI
+
+STATECODE=[AA,AB,AC,AE,AH,AI,AK,AM,AO,AP,AT,AX,BA,BB,BC,BE,BH,BI,BK,BM,BO,BP,BT,BX,CA,CB,CC,CE,CH,KA,KB,KC,KE,KH,KI,KK,KM,KO,KP,KT,KX,HA,HB,HC,HE,HH,HI,HK,HM,HO,HP,HT,HX,IA,IB,IC,IE,IH]
+
+# Former 1995 plates
+%D%D%D%D%D%L%L
+
+# From 2004
+%{STATECODE}%D%D%D%D%L%L
+
+# 2 lines optimized plate
+%{STATECODE}%L%L%D%D%D%D
+
+
+######## UnitedArabEmirates ####################################################################################################
+$1220
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+# Dubai and Fujairah, Um al Quwain
+[%L,%0]%L%D%D%D[%D,%0][%D,%0]
+
+# Abu Dhabi, Sharjah, 
+%D%D%D%D[%D,%0][%D,%0][%D,%0]
+
+# Ajman
+%D%D%D[%D,%0][%D,%0]%L
+
+
+
+
+
+######## UnitedKingdom ####################################################################################################
+$1221
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:7
+
+# Last 3 characters 0-O
+%D%L%L0$~%D%L%LO$
+%D%L0%L$~%D%LO%L$
+%D%L00$~%D%LOO$
+%D0%L%L$~%DO%L%L$
+%D0%L0$~%DO%LO$
+%D00%L$~%DOO%L$
+
+# Last 3 digits Q-O
+%D%L%LQ$~%D%L%LO$
+%D%LQ%L$~%D%LO%L$
+%D%LQQ$~%D%LOO$
+%DQ%L%L$~%DO%L%L$
+%DQ%LQ$~%DO%LO$
+%DQQ%L$~%DOO%L$
+
+# First 2 letters 0-O
+^0%L%D%L%L~^O%L%D%L%L
+^%L0%D%L%L~^%LO%D%L%L
+^00%D%L%L~^OO%D%L%L
+^0%L%D%D%L%L~^O%L%D%D%L%L
+^%L0%D%D%L%L~^%LO%D%D%L%L
+^00%D%D%L%L~^OO%D%D%L%L
+
+# First 2 letters Q-O
+^Q%L%D%L%L~^O%L%D%L%L
+^%LQ%D%L%L~^%LO%D%L%L
+^QQ%D%L%L~^OO%D%L%L
+^Q%L%D%D%L%L~^O%L%D%D%L%L
+^%LQ%D%D%L%L~^%LO%D%D%L%L
+^QQ%D%D%L%L~^OO%D%D%L%L
+
+# First 3 letters 0-O
+^0%L%L%D%D%L~^O%L%L%D%D%L
+^%L0%L%D%D%L~^%LO%L%D%D%L
+^%L%L0%D%D%L~^%L%LO%D%D%L
+^0%L%L%D%D%D%L~^O%L%L%D%D%D%L
+^%L0%L%D%D%D%L~^%LO%L%D%D%D%L
+^%L%L0%D%D%D%L~^%L%LO%D%D%D%L
+
+# First 3 letters Q-O
+^Q%L%L%D%D%L~^O%L%L%D%D%L
+^%LQ%L%D%D%L~^%LO%L%D%D%L
+^%L%LQ%D%D%L~^%L%LO%D%D%L
+^Q%L%L%D%D%D%L~^O%L%L%D%D%D%L
+^%LQ%L%D%D%D%L~^%LO%L%D%D%D%L
+^%L%LQ%D%D%D%L~^%L%LO%D%D%D%L
+
+
+# NORTHERN IRELAND
+^1AZ%D%D%D%D~^IAZ%D%D%D%D
+^1BZ%D%D%D%D~^IBZ%D%D%D%D
+^1CZ%D%D%D%D~^ICZ%D%D%D%D
+^1DZ%D%D%D%D~^IDZ%D%D%D%D
+^1EZ%D%D%D%D~^IEZ%D%D%D%D
+^1FZ%D%D%D%D~^IFZ%D%D%D%D
+^1GZ%D%D%D%D~^IGZ%D%D%D%D
+^1HZ%D%D%D%D~^IHZ%D%D%D%D
+^11A%D%D%D%D~^IIA%D%D%D%D
+^11B%D%D%D%D~^IIB%D%D%D%D
+^11G%D%D%D%D~^IIG%D%D%D%D
+^11J%D%D%D%D~^IIJ%D%D%D%D
+^11L%D%D%D%D~^IIL%D%D%D%D
+^11W%D%D%D%D~^IIW%D%D%D%D
+^1J1%D%D%D%D~^IJI%D%D%D%D
+^1JZ%D%D%D%D~^IJZ%D%D%D%D
+^1KZ%D%D%D%D~^IKZ%D%D%D%D
+^1LZ%D%D%D%D~^ILZ%D%D%D%D
+^1MZ%D%D%D%D~^IMZ%D%D%D%D
+^1NZ%D%D%D%D~^INZ%D%D%D%D
+^101%D%D%D%D~^IOI%D%D%D%D
+^10Z%D%D%D%D~^IOZ%D%D%D%D
+^1PZ%D%D%D%D~^IPZ%D%D%D%D
+^1RZ%D%D%D%D~^IRZ%D%D%D%D
+^1SZ%D%D%D%D~^ISZ%D%D%D%D
+^1TZ%D%D%D%D~^ITZ%D%D%D%D
+^1U1%D%D%D%D~^IUI%D%D%D%D
+^1UZ%D%D%D%D~^IUZ%D%D%D%D
+^1VZ%D%D%D%D~^IVZ%D%D%D%D
+^1WZ%D%D%D%D~^IWZ%D%D%D%D
+^1X1%D%D%D%D~^IXI%D%D%D%D
+^1XZ%D%D%D%D~^IXZ%D%D%D%D
+^1YZ%D%D%D%D~^IYZ%D%D%D%D
+
+^0AZ%D%D%D%D~^OAZ%D%D%D%D
+^0BZ%D%D%D%D~^OBZ%D%D%D%D
+^0CZ%D%D%D%D~^OCZ%D%D%D%D
+^0DZ%D%D%D%D~^ODZ%D%D%D%D
+^0EZ%D%D%D%D~^OEZ%D%D%D%D
+^0FZ%D%D%D%D~^OFZ%D%D%D%D
+^0GZ%D%D%D%D~^OGZ%D%D%D%D
+^0HZ%D%D%D%D~^OHZ%D%D%D%D
+^01A%D%D%D%D~^OIA%D%D%D%D
+^01B%D%D%D%D~^OIB%D%D%D%D
+^01G%D%D%D%D~^OIG%D%D%D%D
+^01J%D%D%D%D~^OIJ%D%D%D%D
+^01L%D%D%D%D~^OIL%D%D%D%D
+^01W%D%D%D%D~^OIW%D%D%D%D
+^0J1%D%D%D%D~^OJI%D%D%D%D
+^0JZ%D%D%D%D~^OJZ%D%D%D%D
+^0KZ%D%D%D%D~^OKZ%D%D%D%D
+^0LZ%D%D%D%D~^OLZ%D%D%D%D
+^0MZ%D%D%D%D~^OMZ%D%D%D%D
+^0NZ%D%D%D%D~^ONZ%D%D%D%D
+^001%D%D%D%D~^OOI%D%D%D%D
+^00Z%D%D%D%D~^OOZ%D%D%D%D
+^0PZ%D%D%D%D~^OPZ%D%D%D%D
+^0RZ%D%D%D%D~^ORZ%D%D%D%D
+^0SZ%D%D%D%D~^OSZ%D%D%D%D
+^0TZ%D%D%D%D~^OTZ%D%D%D%D
+^0U1%D%D%D%D~^OUI%D%D%D%D
+^0UZ%D%D%D%D~^OUZ%D%D%D%D
+^0VZ%D%D%D%D~^OVZ%D%D%D%D
+^0WZ%D%D%D%D~^OWZ%D%D%D%D
+^0X1%D%D%D%D~^OXI%D%D%D%D
+^0XZ%D%D%D%D~^OXZ%D%D%D%D
+^0YZ%D%D%D%D~^OYZ%D%D%D%D
+
+^%L1%L%D%D%D~^%LI%L%D%D%D
+^%L0%L%D%D%D~^%LO%L%D%D%D
+
+IRISH_DISTRICT=[AZ,BZ,CZ,DZ,EZ,FZ,GZ,HZ,IA,IB,IG,IJ,IL,IW,JI,JZ,KZ,LZ,MZ,NZ,OI,OZ,PZ,RZ,SZ,TZ,UI,UZ,VZ,WZ,XI,XZ,YZ,QNI,LTZ]
+
+## From 2001 "LL DD LLL" 
+%L%L%D%D%L%L%L
+
+# From 1963 to 1982
+%L%L%L%D%D[%D,%0]%L
+%D%D%D%L%L%L
+
+# From 1983 to 2001
+%L%D[%D,%0][%D,%0]%L%L%L
+
+# Scottish
+%D%L%L%L
+
+# Diplomatic
+%D%D%D%L%D%D%D
+
+# Northern Ireland
+%L%{IRISH_DISTRICT}%D%D%D%D
+
+## Gibraltar
+G%D%D%D%D%L
+
+
+
+
+
+
+######## UnitedStates ####################################################################################################
+$1222
+TrainingGroup:3
+
+[%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+######## Unused_01 ####################################################################################################
+$1170
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Unused_02 ####################################################################################################
+$1236
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Uruguay ####################################################################################################
+$1223
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+## "LLL DDDX" 
+%L%L%L%D[%D,%0][%D,%0][%D,%0][%D,%0][%D,%0]
+
+## "L DDDDDX" 
+%L%D[%D,%0][%D,%0][%D,%0][%D,%0][%D,%0][%D,%0][%D,%0]
+
+## "DDDDDD" 
+%D[%D,%0][%D,%0][%D,%0][%D,%0][%D,%0][%D,%0][%D,%0][%D,%0][%D,%0]
+
+######## Uzbekistan ####################################################################################################
+$1224
+TrainingGroup:1
+
+^%D%D%L%D%D%D0%L$~^%D%D%L%D%D%DO%L$
+^%D%D%L%D%D%D%L0$~^%D%D%L%D%D%D%LO$
+^%D%D%L%D%D%D1%L$~^%D%D%L%D%D%DI%L$
+^%D%D%L%D%D%D%L1$~^%D%D%L%D%D%D%LI$
+
+^%D%D%D%D%D0%L$~^%D%D%D%D%DO%L$
+^%D%D%D%D%D%L0$~^%D%D%D%D%D%LO$
+
+^%D%D%D%D%D0%L%L$~^%D%D%D%D%DO%L%L$
+^%D%D%D%D%D%L0%L$~^%D%D%D%D%D%LO%L$
+^%D%D%D%D%D%L%L0$~^%D%D%D%D%D%L%LO$
+
+^%D%D%D%D%D1%L%L$~^%D%D%D%D%DI%L%L$
+^%D%D%D%D%D%L1%L$~^%D%D%D%D%D%LI%L$
+^%D%D%D%D%D%L%L1$~^%D%D%D%D%D%L%LI$
+
+# 1996
+%D%D%L[%L,%D]%D%D%D
+
+# From 1996, private vehicle
+%D%D%L%D%D%D%L%L
+
+# Motorcycle
+2:%D%D%D%D%D%L%L
+
+# State vehicles
+%D%D%D%D%D%L%L%L
+2:%D%D%D%L%L%L%D%D
+
+# Diplomatic
+CMD%D%D%D
+[D,T,X]%D%D%D%D%D%D
+
+# Foreign
+%D%D[H,M]%D%D%D%D%D%D
+2:[H,M]%D%D%D%D%D%D%D%D
+
+# Trailer
+%D%D%D%D%L%L%D%D
+
+# Temporary
+T%D%D%D%D%D%D%D%D
+2:%D%D%D%D%D%DT%D%D
+
+######## Vanuatu ####################################################################################################
+$1225
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Vatican ####################################################################################################
+$1226
+TrainingGroup:1
+
+CV%D%D%D%D
+SCV%D
+SCV%D%D%D%D[*,%0]
+######## Venezuela ####################################################################################################
+# From http://historico.tsj.gob.ve/gaceta/junio/030608/030608-38944-24.html 
+$1227
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+%L%L%D%L%D%D%L
+%L%L%D%D%D%L%L
+%L%D%D%L%L%D%L
+%L%D%D%L%D%L
+
+######## Vietnam ####################################################################################################
+$1228
+# secondary x 256 + primary: 3*256+1
+TrainingGroup:1
+
+STATECODE=[11,12,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,43,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,88,89,90,92,93,94,95,97,98,99]
+LETTER=[A,B,C,D,E,F,G,H,K,L,M,N,P,R,S,T,U,V,X,Y,Z]
+DIPLOMATIC=[NG,NN,QT]
+
+# 1984�2003
+%{STATECODE}%{LETTER}%{LETTER}%D%D%D%D[%D,%0][%D,%0]
+%{STATECODE}%{LETTER}%D%D%D%D[%D,%0][%D,%0]
+
+# Diplomatic
+%D%D%D%D%D%{DIPLOMATIC}%D%D
+%{STATECODE}%{DIPLOMATIC}%D%D%D%D%D
+
+# Temporary
+T%{STATECODE}%D%D%D%D%D
+
+
+
+
+
+######## VirginIslandsBritish ####################################################################################################
+$1229
+TrainingGroup:1
+
+^TAX1%D%D%D~^TAXI%D%D%D
+
+PV%D%D%D%D[%D,%0]
+[TX,TAXI]%D%D%D%D
+RT%D%D%D%D[%D,%0]
+[CM,GV]%D%D%D%D[%D,%0]
+
+
+######## VirginIslandsUSA ####################################################################################################
+$1230
+TrainingGroup:1
+
+PREFIX1=[C,T,J]
+
+%{PREFIX1}%D%D%D%D[%D,%0]
+
+%{PREFIX1}%L%L%D%D%D
+######## WallisandFutunaIslands ####################################################################################################
+$1231
+TrainingGroup:1
+
+%D%D%D%DWF
+WF%D%D%D%D
+######## WesternSahara ####################################################################################################
+$1232
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Yemen ####################################################################################################
+$1233
+TrainingGroup:1
+
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+[%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D][%L,%D]
+
+######## Zambia ####################################################################################################
+$1234
+TrainingGroup:1
+
+%L%L%L%D%D%D[%D,%0]
+%L%L%L%D%D%D%DT
+
+######## Zimbabwe ####################################################################################################
+$1235
+TrainingGroup:1
+
+%D%D%D%D%D%D%L
+%L%L%L%D%D%D%D
+
+######## Alabama ####################################################################################################
+$2000
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# Global O/0 replacement
+O~0
+
+# Exceptions
+^%D%D%D%D%DC0$~^%D%D%D%D%DCO$
+^D%D%DC0$~^D%D%DC0$
+^P0W%D%D%D%D$~^POW%D%D%D%D$
+^P0W%D%L%L$~^POW%D%L%L$
+
+######## Alaska ####################################################################################################
+$2001
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# Replacing 0 by O in the standard regulated plates
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+^%L%L0%D%D%D$~^%L%LO%D%D%D$
+
+######## Arizona ####################################################################################################
+$2002
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+######## Arkansas ####################################################################################################
+$2003
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# O/0 present different shapes, no rule
+
+######## California ####################################################################################################
+$2004
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# O/0 present different shapes, no rule
+
+######## Colorado ####################################################################################################
+$2005
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# O/0 present different shapes, no rule
+######## Connecticut ####################################################################################################
+$2006
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# Replacing 0 by O in the standard regulated plates
+^%D%D%D%L0%L$~^%D%D%D%LO%L$
+^%D%D%D%L%L0$~^%D%D%D%L%LO$
+
+######## Delaware ####################################################################################################
+$2007
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+######## District Columbia ####################################################################################################
+$2008
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# Replacing 0 by O in the standard regulated plates
+^0%L%D%D%D%D$~^O%L%D%D%D%D$
+^%L0%D%D%D%D$~^%LO%D%D%D%D$
+
+######## Florida ####################################################################################################
+$2009
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# O is not allowed
+O~0
+
+######## Georgia ####################################################################################################
+$2010
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# Replacing 0 by O in the standard regulated plates
+
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+^%L%L0%D%D%D$~^%L%LO%D%D%D$
+
+^0%L%L%D%D%D%D$~^O%L%L%D%D%D%D$
+^%L0%L%D%D%D%D$~^%LO%L%D%D%D%D$
+^%L%L0%D%D%D%D$~^%L%LO%D%D%D%D$
+
+######## Hawaii ####################################################################################################
+$2011
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+######## Idaho ####################################################################################################
+$2012
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# Letter O not allowed
+O~0
+^10%D%D%D%D*$~^1O%D%D%D%D*$
+^20%D%D%D%D*$~^2O%D%D%D%D*$
+######## Illinois ####################################################################################################
+$2013
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# O/0 present different shapes, no rule
+######## Indiana ####################################################################################################
+$2014
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# O/0 present different shapes, no rule
+
+######## Iowa ####################################################################################################
+$2015
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# O not used as third letter
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+
+^%D%D%D0%L%L$~^%D%D%DO%L%L$
+^%D%D%D%L0%L$~^%D%D%D%LO%L$
+^%D%D%D%L%L0$~^%D%D%D%L%LO$
+
+######## Kansas ####################################################################################################
+$2016
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# Plates before 2012 can have O
+
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+^%L%L0%D%D%D$~^%L%LO%D%D%D$
+
+######## Kentucky ####################################################################################################
+$2017
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# New series from 2022
+^%LO%L%D%D%D$~^%L0%L%D%D%D$
+######## Louisiana ####################################################################################################
+$2018
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# O-0 replacements
+
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+^%L%L0%D%D%D$~^%L%LO%D%D%D$
+
+^%D%D%D0%L%L$~^%D%D%DO%L%L$
+^%D%D%D%L0%L$~^%D%D%D%LO%L$
+^%D%D%D%L%L0$~^%D%D%D%L%LO$
+
+######## Maine ####################################################################################################
+$2019
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+######## Maryland ####################################################################################################
+$2020
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# O-0 replacements
+
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+^%L%L0%D%D%D$~^%L%LO%D%D%D$
+
+^O%L%L%D%D%D%D$~^0%L%L%D%D%D%D$
+
+######## Massachusetts ####################################################################################################
+$2021
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+^%D%D%D%L%LO$~^%D%D%D%L%L0$
+^%D%D%D%L%LI$~^%D%D%D%L%L1$
+
+######## Michigan ####################################################################################################
+$2022
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# Global O/0 replacement
+O~0
+######## Minnesota ####################################################################################################
+$2023
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+######## Mississippi ####################################################################################################
+$2024
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+^%L%L0%D%D%D$~^%L%LO%D%D%D$
+
+^0%L%L%D%D%D%D$~^O%L%L%D%D%D%D$
+^%L0%L%D%D%D%D$~^%LO%L%D%D%D%D$
+^%L%L0%D%D%D%D$~^%L%LO%D%D%D%D$
+
+######## Missouri ####################################################################################################
+$2025
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+^O%L%L%D%D%L$~^0%L%L%D%D%L$
+^%L%LO%L%D%L$~^%L%L0%L%D%L$
+^%L%L%D%LO%L$~^%L%L%D%L0%L$
+
+######## Montana ####################################################################################################
+$2026
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+######## Nebraska ####################################################################################################
+$2027
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+######## Nevada ####################################################################################################
+$2028
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+
+######## New Hampshire ####################################################################################################
+$2029
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+
+######## New Jersey ####################################################################################################
+$2030
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+######## New Mexico ####################################################################################################
+$2031
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+^%L%L0%D%D%D$~^%L%LO%D%D%D$
+
+^%D%D%D%L%L0$~^%D%D%D%L%LO$
+^%D%D%D%L0%L$~^%D%D%D%LO%L$
+^%D%D%D0%L%L$~^%D%D%DO%L%L$
+######## New York ####################################################################################################
+$2032
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# Replacing 0 by O in the standard regulated plates
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^1%L%L%D%D%D$~^I%L%L%D%D%D$
+
+^%D%D%D%D%L%L0$~^%D%D%D%D%L%LO$
+^%D%D%D%D%L0%L$~^%D%D%D%D%LO%L$######## North Carolina ####################################################################################################
+$2033
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+######## North Dakota ####################################################################################################
+$2034
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+^%L%L0%D%D%D$~^%L%LO%D%D%D$
+
+^%D%D%D%L%L0$~^%D%D%D%L%LO$
+^%D%D%D%L0%L$~^%D%D%D%LO%L$
+^%D%D%D0%L%L$~^%D%D%DO%L%L$
+######## Ohio ####################################################################################################
+$2035
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+^%L0%L%D%D%D%D$~^%LO%L%D%D%D%D$
+
+^%D%D%D%L0%L$~^%D%D%D%LO%L$
+
+^%L%LO%D%L%L$~^%L%L0%D%L%L$
+^%L%L%DO%L%L$~^%L%L%D0%L%L$
+
+######## Oklahoma ####################################################################################################
+$2036
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+^%L%L0%D%D%D$~^%L%LO%D%D%D$
+
+^%D%D%D%L%L0$~^%D%D%D%L%LO$
+^%D%D%D%L0%L$~^%D%D%D%LO%L$
+^%D%D%D0%L%L$~^%D%D%DO%L%L$
+######## Oregon ####################################################################################################
+$2037
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+^O%L%D%D%D%D$~^0%L%D%D%D%D$
+
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+^%L%L0%D%D%D$~^%L%LO%D%D%D$
+######## Pennsylvania ####################################################################################################
+$2038
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+######## Puerto Rico ####################################################################################################
+$2039
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# Replacing 0 by O in the standard regulated plates
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+^%L%L0%D%D%D$~^%L%LO%D%D%D$
+
+######## Rhode Island ####################################################################################################
+$2040
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+^0%L%D%D%D$~^O%L%D%D%D$
+
+######## South Carolina ####################################################################################################
+$2041
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+######## South Dakota ####################################################################################################
+$2042
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+^%D%LO%D%D%D$~^%D%L0%D%D%D$
+^%DO%L%D%D%D$~^%D0%L%D%D%D$
+
+^C0%D%D%D~^CO%D%D%D
+^0ST%D%D%D~^OST%D%D%D
+
+
+
+
+######## Tennessee ####################################################################################################
+$2043
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# blue plate can have O
+
+^0%L%L%D%D%D%D$~^O%L%L%D%D%D%D$
+^%L0%L%D%D%D%D$~^%LO%L%D%D%D%D$
+^%L%L0%D%D%D%D$~^%L%LO%D%D%D%D$
+
+^%D%D%D%D0%L%L$~^%D%D%D%DO%L%L$
+^%D%D%D%D%L0%L$~^%D%D%D%D%LO%L$
+^%D%D%D%D%L%L0$~^%D%D%D%D%L%LO$
+
+######## Texas ####################################################################################################
+$2044
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# 1985
+^%D%D%DO%L%L$~^%D%D%D0%L%L$
+
+# 1986-1997
+^%L%LO%D%D%D$~^%L%L0%D%D%D$
+
+# 2000-2004
+^O%L%L%L%D%D$~^%0%L%L%L%D%D$
+
+# 2005-2009
+^%D%D%DO%L%L$~^%D%D%D0%L%L$
+^%D%D%D%LO%L$~^%D%D%D%L0%L$
+^%D%D%D%L%LO$~^%D%D%D%L%L0$
+^%D%D%DOO%L$~^%D%D%D00%L$
+^%D%D%D%LOO$~^%D%D%D%L00$
+^%D%D%DO%LO$~^%D%D%D0%L0$
+^%D%D%DOOO$~^%D%D%D000$
+
+# From 2009
+^%L%LO%D%D%D%D$~^%L%L0%D%D%D%D$
+^%D0%L%D%D$~^%DO%L%D%D$
+
+######## Utah ####################################################################################################
+$2045
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+# Letter O not used
+O~0
+
+
+######## Vermont ####################################################################################################
+$2046
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+^%D0%D%D%D$~^%DO%D%D%D$
+^%D%D%D0%D$~^%D%D%DO%D$
+
+^%D%L0%D%D$~^%D%LO%D%D$
+^%D%D%L0%D$~^%D%D%LO%D$
+######## Virginia ####################################################################################################
+$2047
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+^0%L%L%D%D%D$~^O%L%L%D%D%D$
+^%L0%L%D%D%D$~^%LO%L%D%D%D$
+^%L%L0%D%D%D$~^%L%LO%D%D%D$
+
+######## Washington ####################################################################################################
+$2048
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+^%D%D%D%L0%L$~^%D%D%D%LO%L$
+^%D%D%D%L%L0$~^%D%D%D%L%LO$
+^%D%D%D%L00$~^%D%D%D%LOO$
+
+^0%L%L%D%D%D%D$~^O%L%L%D%D%D%D$
+^%L0%L%D%D%D%D$~^%LO%L%D%D%D%D$
+######## West Virginia ####################################################################################################
+$2049
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+######## Wisconsin ####################################################################################################
+$2050
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+######## Wyoming ####################################################################################################
+$2051
+# secondary x 256 + primary: 1*256+3
+TrainingGroup:3
+
+

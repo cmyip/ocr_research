@@ -1,0 +1,182 @@
+file       kind            size  details
+----------------------------------------------------------------------------------------------------
+rec_00.bin text            1158  193 lines: 1001 | 1002 | 1003
+rec_01.bin text          133035  4106 lines: ######## ADR ###############################################
+rec_02.bin text           25648  789 lines: A;Augsburg, Bavaria | AA;Aalen & Ostalbkreis, Baden Württemb
+rec_03.bin text            1007  66 lines: A;Alicante | AB;Albacete | AL;Almería
+rec_04.bin floatblob     481256  header=[30, 3, 112, 96, 64, 36]  -> alphabet N=36
+rec_05.bin floatblob     480996  header=[30, 3, 112, 96, 64, 35]  -> alphabet N=35
+rec_06.bin floatblob     481256  header=[30, 3, 112, 96, 64, 36]  -> alphabet N=36
+rec_07.bin floatblob     481256  header=[30, 3, 112, 96, 64, 36]  -> alphabet N=36
+rec_08.bin floatblob     478916  header=[30, 3, 112, 96, 64, 27]  -> alphabet N=27
+rec_09.bin floatblob     481516  header=[30, 3, 112, 96, 64, 37]  -> alphabet N=37
+rec_10.bin floatblob     481256  header=[30, 3, 112, 96, 64, 36]  -> alphabet N=36
+rec_11.bin floatblob     481256  header=[30, 3, 112, 96, 64, 36]  -> alphabet N=36
+rec_12.bin floatblob     479956  header=[30, 3, 112, 96, 64, 31]  -> alphabet N=31
+rec_13.bin floatblob     360656  header=[25, 3, 112, 96, 64, 46]  -> alphabet N=46
+rec_14.bin floatblob     478916  header=[30, 3, 112, 96, 64, 27]  -> alphabet N=27
+rec_15.bin mnn         15033336  in=[(1, 3, 224, 224)] out=[(1, 4193), (1, 2)]
+rec_16.bin text           66668  4193 lines: 3-2 (Bahai)	AH B50 | 3-2 (Bahai)	HC B40 | AC	Ace
+rec_17.bin raw           150528  
+rec_18.bin text              15  2 lines: Frontal | Rear
+rec_19.bin mnn          3136172  in=[(1, 3, 224, 224)] out=[(1, 14)]
+rec_20.bin text             183  14 lines: black	Black | white	White | grey	Grey
+rec_21.bin mnn          6118236  in=[(1, 3, 224, 224)] out=[(1, 8)]
+rec_22.bin text             119  8 lines: BIGTRUCK	Large Truck | BUS	Bus | CAR	Car
+rec_23.bin mnn          1920772  in=[(1, 3, 48, 96)] out=[(1, 55)]
+rec_24.bin text             590  55 lines: 1035 | 1134 | 1222	2000
+rec_25.bin raw            13824  
+rec_26.bin mnn          1918460  in=[(1, 3, 48, 96)] out=[(1, 53)]
+rec_27.bin text             318  53 lines: 1238 | 1001 | 1004
+rec_28.bin raw            13824  
+rec_29.bin mnn          1869908  in=[(1, 3, 48, 96)] out=[(1, 11)]
+rec_30.bin text              66  11 lines: 1033 | 1092 | 1096
+rec_31.bin raw            13824  
+rec_32.bin mnn          1869908  in=[(1, 3, 48, 96)] out=[(1, 11)]
+rec_33.bin text             111  11 lines: 1012	2200 | 1012	2201 | 1012	2202
+rec_34.bin raw            13824  
+rec_35.bin mnn          1871064  in=[(1, 3, 48, 96)] out=[(1, 12)]
+rec_36.bin text              72  12 lines: 1016 | 1059 | 1097
+rec_37.bin raw            13824  
+rec_38.bin mnn          1866440  in=[(1, 3, 48, 96)] out=[(1, 8)]
+rec_39.bin text              48  8 lines: 1095 | 1106 | 1111
+rec_40.bin raw            13824  
+rec_41.bin mnn          1947360  in=[(1, 3, 48, 96)] out=[(1, 78)]
+rec_42.bin text             468  78 lines: 4000 | 4001 | 4002
+rec_43.bin raw            13824  
+rec_44.bin mnn          1861816  in=[(1, 3, 48, 96)] out=[(1, 4)]
+rec_45.bin text              24  4 lines: 1028 | 1044 | 1048
+rec_46.bin raw            13824  
+rec_47.bin mnn          1912680  in=[(1, 3, 48, 96)] out=[(1, 48)]
+rec_48.bin text             288  48 lines: 4400 | 4401 | 4402
+rec_49.bin raw            13824  
+rec_50.bin mnn          2453816  in=[(1, 3, 48, 96)] out=[(1, 18, 37)]
+rec_51.bin mnn          2446752  in=[(1, 3, 48, 96)] out=[(1, 18, 29)]
+rec_52.bin mnn          2447100  in=[(1, 3, 48, 96)] out=[(1, 18, 31)]
+rec_53.bin mnn          2453816  in=[(1, 3, 48, 96)] out=[(1, 18, 37)]
+rec_54.bin mnn          2446752  in=[(1, 3, 48, 96)] out=[(1, 18, 29)]
+rec_55.bin mnn          2454080  in=[(1, 3, 48, 96)] out=[(1, 18, 38)]
+rec_56.bin mnn          2447480  in=[(1, 3, 48, 96)] out=[(1, 18, 13)]
+rec_57.bin mnn          2453820  in=[(1, 3, 48, 96)] out=[(1, 18, 37)]
+rec_58.bin mnn          2455400  in=[(1, 3, 48, 96)] out=[(1, 18, 43)]
+rec_59.bin mnn          2454348  in=[(1, 3, 48, 96)] out=[(1, 18, 39)]
+rec_60.bin mnn          2727160  in=[(1, 3, 48, 96)] out=[(1, 18, 37)]
+rec_61.bin mnn          2451952  in=[(1, 3, 48, 96)] out=[(1, 18, 49)]
+rec_62.bin mnn          2445192  in=[(1, 3, 48, 96)] out=[(1, 18, 23)]
+rec_63.bin mnn          2453816  in=[(1, 3, 48, 96)] out=[(1, 18, 37)]
+rec_64.bin mnn          2451440  in=[(1, 3, 48, 96)] out=[(1, 18, 28)]
+rec_65.bin mnn          2448832  in=[(1, 3, 48, 96)] out=[(1, 18, 37)]
+rec_66.bin mnn          2453816  in=[(1, 3, 48, 96)] out=[(1, 18, 37)]
+rec_67.bin mnn          2454608  in=[(1, 3, 48, 96)] out=[(1, 18, 40)]
+rec_68.bin mnn          2453816  in=[(1, 3, 48, 96)] out=[(1, 18, 37)]
+rec_69.bin mnn          2453816  in=[(1, 3, 48, 96)] out=[(1, 18, 37)]
+rec_70.bin dummy              5  
+rec_71.bin mnn          3109720  in=[(1, 3, 48, 96)] out=[(1, 8)]
+rec_72.bin onnx        12139888  in=[(1, 3, 320, 320)] out=[(1, 6, 2100)]
+rec_73.bin text              16  2 lines: plate | vehicle
+rec_74.bin raw           307200  
+rec_75.bin onnx        12265970  in=[(1, 3, 640, 640)] out=[(1, 6, 8400)]
+rec_76.bin text              16  2 lines: plate | vehicle
+rec_77.bin raw          1228800  
+rec_78.bin mnn          3094772  in=[(1, 3, 224, 224)] out=[(1, 4)]
+rec_79.bin dummy              5  
+rec_80.bin dummy              5  
+rec_81.bin dummy              5  
+rec_82.bin mnn          1859504  in=[(1, 3, 48, 96)] out=[(1, 2)]
+rec_83.bin text              12  2 lines: 4100 | 4101
+rec_84.bin raw            13824  
+rec_85.bin text             849  65 lines: 1;Executive | 2;Legislative | 3;Legislative
+rec_86.bin text             544  41 lines: 01;Astana | Z;Astana | 02;Almaty
+
+PAIRINGS (model -> following files until next model)
+----------------------------------------------------------------------------------------------------
+rec_15.bin  input=(1, 3, 224, 224)
+    head predictions_mmr/Softmax                                 classes=4193   MATCH ['rec_16.bin']
+    head predictions_pose/Softmax                                classes=2      MATCH ['rec_18.bin']
+    sample rec_17.bin (150528 B) MATCH input
+rec_19.bin  input=(1, 3, 224, 224)
+    head MobilenetV3/Predictions/Softmax/Softmax                 classes=14     MATCH ['rec_20.bin']
+rec_21.bin  input=(1, 3, 224, 224)
+    head Predictions/Softmax/Softmax                             classes=8      MATCH ['rec_22.bin']
+rec_23.bin  input=(1, 3, 48, 96)
+    head Predictions/Softmax/Softmax                             classes=55     MATCH ['rec_24.bin']
+    sample rec_25.bin (13824 B) MATCH input
+rec_26.bin  input=(1, 3, 48, 96)
+    head Predictions/Softmax/Softmax                             classes=53     MATCH ['rec_27.bin']
+    sample rec_28.bin (13824 B) MATCH input
+rec_29.bin  input=(1, 3, 48, 96)
+    head Predictions/Softmax/Softmax                             classes=11     MATCH ['rec_30.bin']
+    sample rec_31.bin (13824 B) MATCH input
+rec_32.bin  input=(1, 3, 48, 96)
+    head Predictions/Softmax/Softmax                             classes=11     MATCH ['rec_33.bin']
+    sample rec_34.bin (13824 B) MATCH input
+rec_35.bin  input=(1, 3, 48, 96)
+    head Predictions/Softmax/Softmax                             classes=12     MATCH ['rec_36.bin']
+    sample rec_37.bin (13824 B) MATCH input
+rec_38.bin  input=(1, 3, 48, 96)
+    head Predictions/Softmax/Softmax                             classes=8      MATCH ['rec_39.bin']
+    sample rec_40.bin (13824 B) MATCH input
+rec_41.bin  input=(1, 3, 48, 96)
+    head Predictions/Softmax/Softmax                             classes=78     MATCH ['rec_42.bin']
+    sample rec_43.bin (13824 B) MATCH input
+rec_44.bin  input=(1, 3, 48, 96)
+    head Predictions/Softmax/Softmax                             classes=4      MATCH ['rec_45.bin']
+    sample rec_46.bin (13824 B) MATCH input
+rec_47.bin  input=(1, 3, 48, 96)
+    head Predictions/Softmax/Softmax                             classes=48     MATCH ['rec_48.bin']
+    sample rec_49.bin (13824 B) MATCH input
+rec_50.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=37     no label file with that count
+rec_51.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=29     no label file with that count
+rec_52.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=31     no label file with that count
+rec_53.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=37     no label file with that count
+rec_54.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=29     no label file with that count
+rec_55.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=38     no label file with that count
+rec_56.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=13     no label file with that count
+rec_57.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=37     no label file with that count
+rec_58.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=43     no label file with that count
+rec_59.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=39     no label file with that count
+rec_60.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=37     no label file with that count
+rec_61.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=49     no label file with that count
+rec_62.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=23     no label file with that count
+rec_63.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=37     no label file with that count
+rec_64.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=28     no label file with that count
+rec_65.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=37     no label file with that count
+rec_66.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=37     no label file with that count
+rec_67.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=40     no label file with that count
+rec_68.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=37     no label file with that count
+rec_69.bin  input=(1, 3, 48, 96)
+    head logits                                                  classes=37     no label file with that count
+rec_71.bin  input=(1, 3, 48, 96)
+    head model/corners/Sigmoid                                   classes=8      no label file with that count
+rec_72.bin  input=(1, 3, 320, 320)
+    head output0                                                 classes=2      MATCH ['rec_73.bin']
+    sample rec_74.bin (307200 B) MATCH input
+rec_75.bin  input=(1, 3, 640, 640)
+    head output0                                                 classes=2      MATCH ['rec_76.bin']
+    sample rec_77.bin (1228800 B) MATCH input
+rec_78.bin  input=(1, 3, 224, 224)
+    head bbox/Sigmoid                                            classes=4      no label file with that count
+rec_82.bin  input=(1, 3, 48, 96)
+    head Predictions/Softmax/Softmax                             classes=2      MATCH ['rec_83.bin']
+    sample rec_84.bin (13824 B) MATCH input
+    text   rec_85.bin (65 lines) unmatched
+    text   rec_86.bin (41 lines) unmatched
