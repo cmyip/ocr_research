@@ -1,0 +1,1190 @@
+{
+ "records": [
+  {
+   "id": 0,
+   "file": "rec_00.bin",
+   "kind": "text",
+   "role": "idlist",
+   "title": "Country ID list (193 entries, 1001…)",
+   "size": 965
+  },
+  {
+   "id": 1,
+   "file": "rec_01.bin",
+   "kind": "text",
+   "role": "config",
+   "title": "ADR hazardous-goods plate format config",
+   "size": 128158
+  },
+  {
+   "id": 2,
+   "file": "rec_02.bin",
+   "kind": "text",
+   "role": "lookup",
+   "title": "German district codes",
+   "size": 24859,
+   "lookup": "de_district"
+  },
+  {
+   "id": 3,
+   "file": "rec_03.bin",
+   "kind": "text",
+   "role": "lookup",
+   "title": "Spanish province codes",
+   "size": 941,
+   "lookup": "es_province"
+  },
+  {
+   "id": 4,
+   "file": "rec_04.bin",
+   "kind": "floatblob",
+   "role": "unknown",
+   "title": "Custom float OCR blob, alphabet N=36",
+   "size": 481256,
+   "notes": "Loader unknown; not runnable"
+  },
+  {
+   "id": 5,
+   "file": "rec_05.bin",
+   "kind": "floatblob",
+   "role": "unknown",
+   "title": "Custom float OCR blob, alphabet N=35",
+   "size": 480996,
+   "notes": "Loader unknown; not runnable"
+  },
+  {
+   "id": 6,
+   "file": "rec_06.bin",
+   "kind": "floatblob",
+   "role": "unknown",
+   "title": "Custom float OCR blob, alphabet N=36",
+   "size": 481256,
+   "notes": "Loader unknown; not runnable"
+  },
+  {
+   "id": 7,
+   "file": "rec_07.bin",
+   "kind": "floatblob",
+   "role": "unknown",
+   "title": "Custom float OCR blob, alphabet N=36",
+   "size": 481256,
+   "notes": "Loader unknown; not runnable"
+  },
+  {
+   "id": 8,
+   "file": "rec_08.bin",
+   "kind": "floatblob",
+   "role": "unknown",
+   "title": "Custom float OCR blob, alphabet N=27",
+   "size": 478916,
+   "notes": "Loader unknown; not runnable"
+  },
+  {
+   "id": 9,
+   "file": "rec_09.bin",
+   "kind": "floatblob",
+   "role": "unknown",
+   "title": "Custom float OCR blob, alphabet N=37",
+   "size": 481516,
+   "notes": "Loader unknown; not runnable"
+  },
+  {
+   "id": 10,
+   "file": "rec_10.bin",
+   "kind": "floatblob",
+   "role": "unknown",
+   "title": "Custom float OCR blob, alphabet N=36",
+   "size": 481256,
+   "notes": "Loader unknown; not runnable"
+  },
+  {
+   "id": 11,
+   "file": "rec_11.bin",
+   "kind": "floatblob",
+   "role": "unknown",
+   "title": "Custom float OCR blob, alphabet N=36",
+   "size": 481256,
+   "notes": "Loader unknown; not runnable"
+  },
+  {
+   "id": 12,
+   "file": "rec_12.bin",
+   "kind": "floatblob",
+   "role": "unknown",
+   "title": "Custom float OCR blob, alphabet N=31",
+   "size": 479956,
+   "notes": "Loader unknown; not runnable"
+  },
+  {
+   "id": 13,
+   "file": "rec_13.bin",
+   "kind": "floatblob",
+   "role": "unknown",
+   "title": "Custom float OCR blob, alphabet N=46",
+   "size": 360656,
+   "notes": "Loader unknown; not runnable"
+  },
+  {
+   "id": 14,
+   "file": "rec_14.bin",
+   "kind": "floatblob",
+   "role": "unknown",
+   "title": "Custom float OCR blob, alphabet N=27",
+   "size": 478916,
+   "notes": "Loader unknown; not runnable"
+  },
+  {
+   "id": 15,
+   "file": "rec_15.bin",
+   "kind": "mnn",
+   "role": "mmr",
+   "title": "Vehicle make/model + pose",
+   "size": 15033336,
+   "input": [
+    1,
+    3,
+    224,
+    224
+   ],
+   "preprocess": "vehicle crop 224×224, [-1,1]",
+   "labels": [
+    16,
+    18
+   ],
+   "sample": 17,
+   "outputs": [
+    "predictions_mmr (4193)",
+    "predictions_pose (2)"
+   ]
+  },
+  {
+   "id": 16,
+   "file": "rec_16.bin",
+   "kind": "text",
+   "role": "labels",
+   "title": "Make/model labels (4193)",
+   "size": 62475
+  },
+  {
+   "id": 17,
+   "file": "rec_17.bin",
+   "kind": "raw",
+   "role": "sample",
+   "title": "Sample 224×224 vehicle (BGR)",
+   "size": 150528,
+   "shape": [
+    224,
+    224,
+    3
+   ],
+   "truth": "Mitsubishi Outlander, rear"
+  },
+  {
+   "id": 18,
+   "file": "rec_18.bin",
+   "kind": "text",
+   "role": "labels",
+   "title": "Pose labels: Frontal, Rear",
+   "size": 13
+  },
+  {
+   "id": 19,
+   "file": "rec_19.bin",
+   "kind": "mnn",
+   "role": "colour",
+   "title": "Vehicle colour (14)",
+   "size": 3136172,
+   "input": [
+    1,
+    3,
+    224,
+    224
+   ],
+   "preprocess": "vehicle crop 224×224, [-1,1]",
+   "labels": [
+    20
+   ]
+  },
+  {
+   "id": 20,
+   "file": "rec_20.bin",
+   "kind": "text",
+   "role": "labels",
+   "title": "Colour labels (14)",
+   "size": 169
+  },
+  {
+   "id": 21,
+   "file": "rec_21.bin",
+   "kind": "mnn",
+   "role": "vtype",
+   "title": "Vehicle type (8)",
+   "size": 6118236,
+   "input": [
+    1,
+    3,
+    224,
+    224
+   ],
+   "preprocess": "vehicle crop 224×224, [-1,1]",
+   "labels": [
+    22
+   ]
+  },
+  {
+   "id": 22,
+   "file": "rec_22.bin",
+   "kind": "text",
+   "role": "labels",
+   "title": "Vehicle type labels (8)",
+   "size": 111
+  },
+  {
+   "id": 23,
+   "file": "rec_23.bin",
+   "kind": "mnn",
+   "role": "region",
+   "title": "Region classifier, group 2033",
+   "size": 1920772,
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, raw 0–255",
+   "labels": [
+    24
+   ],
+   "sample": 25,
+   "group": "2033",
+   "crnn": 50
+  },
+  {
+   "id": 24,
+   "file": "rec_24.bin",
+   "kind": "text",
+   "role": "idlist",
+   "title": "Region IDs for group 2033",
+   "size": 535
+  },
+  {
+   "id": 25,
+   "file": "rec_25.bin",
+   "kind": "raw",
+   "role": "sample",
+   "title": "Sample plate crop 96×48 (FHW7186)",
+   "size": 13824,
+   "shape": [
+    48,
+    96,
+    3
+   ],
+   "truth": "FHW7186",
+   "group": "2033"
+  },
+  {
+   "id": 26,
+   "file": "rec_26.bin",
+   "kind": "mnn",
+   "role": "region",
+   "title": "Region classifier, group 1195",
+   "size": 1918460,
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, raw 0–255",
+   "labels": [
+    27
+   ],
+   "sample": 28,
+   "group": "1195",
+   "crnn": null
+  },
+  {
+   "id": 27,
+   "file": "rec_27.bin",
+   "kind": "text",
+   "role": "idlist",
+   "title": "Region IDs for group 1195",
+   "size": 265
+  },
+  {
+   "id": 28,
+   "file": "rec_28.bin",
+   "kind": "raw",
+   "role": "sample",
+   "title": "Sample plate crop 96×48 (0907CDS)",
+   "size": 13824,
+   "shape": [
+    48,
+    96,
+    3
+   ],
+   "truth": "0907CDS",
+   "group": "1195"
+  },
+  {
+   "id": 29,
+   "file": "rec_29.bin",
+   "kind": "mnn",
+   "role": "region",
+   "title": "Region classifier, group 1187",
+   "size": 1869908,
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, raw 0–255",
+   "labels": [
+    30
+   ],
+   "sample": 31,
+   "group": "1187",
+   "crnn": 57
+  },
+  {
+   "id": 30,
+   "file": "rec_30.bin",
+   "kind": "text",
+   "role": "idlist",
+   "title": "Region IDs for group 1187",
+   "size": 55
+  },
+  {
+   "id": 31,
+   "file": "rec_31.bin",
+   "kind": "raw",
+   "role": "sample",
+   "title": "Sample plate crop 96×48 (SH7194K)",
+   "size": 13824,
+   "shape": [
+    48,
+    96,
+    3
+   ],
+   "truth": "SH7194K",
+   "group": "1187"
+  },
+  {
+   "id": 32,
+   "file": "rec_32.bin",
+   "kind": "mnn",
+   "role": "region",
+   "title": "Region classifier, group 2207",
+   "size": 1869908,
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, raw 0–255",
+   "labels": [
+    33
+   ],
+   "sample": 34,
+   "group": "2207",
+   "crnn": 53
+  },
+  {
+   "id": 33,
+   "file": "rec_33.bin",
+   "kind": "text",
+   "role": "idlist",
+   "title": "Region IDs for group 2207",
+   "size": 100
+  },
+  {
+   "id": 34,
+   "file": "rec_34.bin",
+   "kind": "raw",
+   "role": "sample",
+   "title": "Sample plate crop 96×48 (RTL015)",
+   "size": 13824,
+   "shape": [
+    48,
+    96,
+    3
+   ],
+   "truth": "RTL015",
+   "group": "2207"
+  },
+  {
+   "id": 35,
+   "file": "rec_35.bin",
+   "kind": "mnn",
+   "role": "region",
+   "title": "Region classifier, group 1110",
+   "size": 1871064,
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, raw 0–255",
+   "labels": [
+    36
+   ],
+   "sample": 37,
+   "group": "1110",
+   "crnn": 55
+  },
+  {
+   "id": 36,
+   "file": "rec_36.bin",
+   "kind": "text",
+   "role": "idlist",
+   "title": "Region IDs for group 1110",
+   "size": 60
+  },
+  {
+   "id": 37,
+   "file": "rec_37.bin",
+   "kind": "raw",
+   "role": "sample",
+   "title": "Sample plate crop 96×48 (343466)",
+   "size": 13824,
+   "shape": [
+    48,
+    96,
+    3
+   ],
+   "truth": "343466",
+   "group": "1110"
+  },
+  {
+   "id": 38,
+   "file": "rec_38.bin",
+   "kind": "mnn",
+   "role": "region",
+   "title": "Region classifier, group 1106",
+   "size": 1866440,
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, raw 0–255",
+   "labels": [
+    39
+   ],
+   "sample": 40,
+   "group": "1106",
+   "crnn": 60
+  },
+  {
+   "id": 39,
+   "file": "rec_39.bin",
+   "kind": "text",
+   "role": "idlist",
+   "title": "Region IDs for group 1106",
+   "size": 40
+  },
+  {
+   "id": 40,
+   "file": "rec_40.bin",
+   "kind": "raw",
+   "role": "sample",
+   "title": "Sample plate crop 96×48 (990SKR09)",
+   "size": 13824,
+   "shape": [
+    48,
+    96,
+    3
+   ],
+   "truth": "990SKR09",
+   "group": "1106"
+  },
+  {
+   "id": 41,
+   "file": "rec_41.bin",
+   "kind": "mnn",
+   "role": "region",
+   "title": "Region classifier, group 4001",
+   "size": 1947360,
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, raw 0–255",
+   "labels": [
+    42
+   ],
+   "sample": 43,
+   "group": "4001",
+   "crnn": null
+  },
+  {
+   "id": 42,
+   "file": "rec_42.bin",
+   "kind": "text",
+   "role": "idlist",
+   "title": "Region IDs for group 4001",
+   "size": 390
+  },
+  {
+   "id": 43,
+   "file": "rec_43.bin",
+   "kind": "raw",
+   "role": "sample",
+   "title": "Sample plate crop 96×48 ((Thai)8572)",
+   "size": 13824,
+   "shape": [
+    48,
+    96,
+    3
+   ],
+   "truth": "(Thai)8572",
+   "group": "4001"
+  },
+  {
+   "id": 44,
+   "file": "rec_44.bin",
+   "kind": "mnn",
+   "role": "region",
+   "title": "Region classifier, group 1044",
+   "size": 1861816,
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, raw 0–255",
+   "labels": [
+    45
+   ],
+   "sample": 46,
+   "group": "1044",
+   "crnn": null
+  },
+  {
+   "id": 45,
+   "file": "rec_45.bin",
+   "kind": "text",
+   "role": "idlist",
+   "title": "Region IDs for group 1044",
+   "size": 20
+  },
+  {
+   "id": 46,
+   "file": "rec_46.bin",
+   "kind": "raw",
+   "role": "sample",
+   "title": "Sample plate crop 96×48 (ASI927)",
+   "size": 13824,
+   "shape": [
+    48,
+    96,
+    3
+   ],
+   "truth": "ASI927",
+   "group": "1044"
+  },
+  {
+   "id": 47,
+   "file": "rec_47.bin",
+   "kind": "mnn",
+   "role": "region",
+   "title": "Region classifier, group 4416",
+   "size": 1912680,
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, raw 0–255",
+   "labels": [
+    48
+   ],
+   "sample": 49,
+   "group": "4416",
+   "crnn": null
+  },
+  {
+   "id": 48,
+   "file": "rec_48.bin",
+   "kind": "text",
+   "role": "idlist",
+   "title": "Region IDs for group 4416",
+   "size": 240
+  },
+  {
+   "id": 49,
+   "file": "rec_49.bin",
+   "kind": "raw",
+   "role": "sample",
+   "title": "Sample plate crop 96×48 (C9998)",
+   "size": 13824,
+   "shape": [
+    48,
+    96,
+    3
+   ],
+   "truth": "C9998",
+   "group": "4416"
+  },
+  {
+   "id": 50,
+   "file": "rec_50.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=37",
+   "size": 2453816,
+   "notes": "0-9A-Z + blank",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 37,
+   "group": "2033"
+  },
+  {
+   "id": 51,
+   "file": "rec_51.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=29",
+   "size": 2446752,
+   "notes": "alphabet unknown; shows indices",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 29
+  },
+  {
+   "id": 52,
+   "file": "rec_52.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=31",
+   "size": 2447100,
+   "notes": "alphabet unknown; shows indices",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 31
+  },
+  {
+   "id": 53,
+   "file": "rec_53.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=37",
+   "size": 2453816,
+   "notes": "0-9A-Z + blank",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 37,
+   "group": "2207"
+  },
+  {
+   "id": 54,
+   "file": "rec_54.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=29",
+   "size": 2446752,
+   "notes": "alphabet unknown; shows indices",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 29
+  },
+  {
+   "id": 55,
+   "file": "rec_55.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=38",
+   "size": 2454080,
+   "notes": "0-9A-Z + separator + blank",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 38,
+   "group": "1110"
+  },
+  {
+   "id": 56,
+   "file": "rec_56.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=13",
+   "size": 2447480,
+   "notes": "alphabet unknown; shows indices",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 13
+  },
+  {
+   "id": 57,
+   "file": "rec_57.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=37",
+   "size": 2453820,
+   "notes": "0-9A-Z + blank",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 37,
+   "group": "1187"
+  },
+  {
+   "id": 58,
+   "file": "rec_58.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=43",
+   "size": 2455400,
+   "notes": "alphabet unknown; shows indices",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 43
+  },
+  {
+   "id": 59,
+   "file": "rec_59.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=39",
+   "size": 2454348,
+   "notes": "alphabet unknown; shows indices",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 39
+  },
+  {
+   "id": 60,
+   "file": "rec_60.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=37",
+   "size": 2727160,
+   "notes": "0-9A-Z + blank",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 37,
+   "group": "1106"
+  },
+  {
+   "id": 61,
+   "file": "rec_61.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=49",
+   "size": 2451952,
+   "notes": "alphabet unknown; shows indices",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 49
+  },
+  {
+   "id": 62,
+   "file": "rec_62.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=23",
+   "size": 2445192,
+   "notes": "alphabet unknown; shows indices",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 23
+  },
+  {
+   "id": 63,
+   "file": "rec_63.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=37",
+   "size": 2453816,
+   "notes": "0-9A-Z + blank",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 37
+  },
+  {
+   "id": 64,
+   "file": "rec_64.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=28",
+   "size": 2451440,
+   "notes": "alphabet unknown; shows indices",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 28
+  },
+  {
+   "id": 65,
+   "file": "rec_65.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=37",
+   "size": 2448832,
+   "notes": "0-9A-Z + blank",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 37
+  },
+  {
+   "id": 66,
+   "file": "rec_66.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=37",
+   "size": 2453816,
+   "notes": "0-9A-Z + blank",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 37
+  },
+  {
+   "id": 67,
+   "file": "rec_67.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=40",
+   "size": 2454608,
+   "notes": "alphabet unknown; shows indices",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 40
+  },
+  {
+   "id": 68,
+   "file": "rec_68.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=37",
+   "size": 2453816,
+   "notes": "0-9A-Z + blank",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 37
+  },
+  {
+   "id": 69,
+   "file": "rec_69.bin",
+   "kind": "mnn",
+   "role": "ocr",
+   "title": "CRNN OCR, C=37",
+   "size": 2453816,
+   "notes": "0-9A-Z + blank",
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, /255",
+   "classes": 37
+  },
+  {
+   "id": 70,
+   "file": "rec_70.bin",
+   "kind": "dummy",
+   "role": "dummy",
+   "title": "dummy",
+   "size": 5
+  },
+  {
+   "id": 71,
+   "file": "rec_71.bin",
+   "kind": "mnn",
+   "role": "corners",
+   "title": "Plate 4-corner keypoints",
+   "size": 3109720,
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate + context margin, 96×48 BGR, [-1,1]",
+   "notes": "Order TL, BL, BR, TR (verified visually)"
+  },
+  {
+   "id": 72,
+   "file": "rec_72.bin",
+   "kind": "onnx",
+   "role": "detector",
+   "title": "Plate + vehicle detector 320",
+   "size": 12139888,
+   "input": [
+    1,
+    3,
+    320,
+    320
+   ],
+   "preprocess": "RGB letterbox top-left, pad 114, /255",
+   "labels": [
+    73
+   ],
+   "sample": 74
+  },
+  {
+   "id": 73,
+   "file": "rec_73.bin",
+   "kind": "text",
+   "role": "labels",
+   "title": "Detector classes: plate, vehicle",
+   "size": 14
+  },
+  {
+   "id": 74,
+   "file": "rec_74.bin",
+   "kind": "raw",
+   "role": "sample",
+   "title": "Sample detector input 320×320",
+   "size": 307200,
+   "shape": [
+    320,
+    320,
+    3
+   ]
+  },
+  {
+   "id": 75,
+   "file": "rec_75.bin",
+   "kind": "onnx",
+   "role": "detector",
+   "title": "Plate + vehicle detector 640",
+   "size": 12265970,
+   "input": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "preprocess": "RGB letterbox top-left, pad 114, /255",
+   "labels": [
+    76
+   ],
+   "sample": 77
+  },
+  {
+   "id": 76,
+   "file": "rec_76.bin",
+   "kind": "text",
+   "role": "labels",
+   "title": "Detector classes: plate, vehicle",
+   "size": 14
+  },
+  {
+   "id": 77,
+   "file": "rec_77.bin",
+   "kind": "raw",
+   "role": "sample",
+   "title": "Sample detector input 640×640",
+   "size": 1228800,
+   "shape": [
+    640,
+    640,
+    3
+   ]
+  },
+  {
+   "id": 78,
+   "file": "rec_78.bin",
+   "kind": "mnn",
+   "role": "vbox",
+   "title": "Vehicle box refiner",
+   "size": 3094772,
+   "input": [
+    1,
+    3,
+    224,
+    224
+   ],
+   "preprocess": "vehicle crop 224×224, [-1,1]",
+   "notes": "Outputs x1,y1,x2,y2 normalised to the crop (inferred)"
+  },
+  {
+   "id": 79,
+   "file": "rec_79.bin",
+   "kind": "dummy",
+   "role": "dummy",
+   "title": "dummy",
+   "size": 5
+  },
+  {
+   "id": 80,
+   "file": "rec_80.bin",
+   "kind": "dummy",
+   "role": "dummy",
+   "title": "dummy",
+   "size": 5
+  },
+  {
+   "id": 81,
+   "file": "rec_81.bin",
+   "kind": "dummy",
+   "role": "dummy",
+   "title": "dummy",
+   "size": 5
+  },
+  {
+   "id": 82,
+   "file": "rec_82.bin",
+   "kind": "mnn",
+   "role": "region",
+   "title": "Region classifier, group 4101",
+   "size": 1859504,
+   "input": [
+    1,
+    3,
+    48,
+    96
+   ],
+   "preprocess": "plate 96×48 BGR, raw 0–255",
+   "labels": [
+    83
+   ],
+   "sample": 84,
+   "group": "4101",
+   "crnn": null
+  },
+  {
+   "id": 83,
+   "file": "rec_83.bin",
+   "kind": "text",
+   "role": "idlist",
+   "title": "Region IDs for group 4101",
+   "size": 10
+  },
+  {
+   "id": 84,
+   "file": "rec_84.bin",
+   "kind": "raw",
+   "role": "sample",
+   "title": "Sample plate crop 96×48 (3581KEA)",
+   "size": 13824,
+   "shape": [
+    48,
+    96,
+    3
+   ],
+   "truth": "3581KEA",
+   "group": "4101"
+  },
+  {
+   "id": 85,
+   "file": "rec_85.bin",
+   "kind": "text",
+   "role": "lookup",
+   "title": "Jordanian plate categories",
+   "size": 784,
+   "lookup": "jo_category"
+  },
+  {
+   "id": 86,
+   "file": "rec_86.bin",
+   "kind": "text",
+   "role": "lookup",
+   "title": "Kazakh region codes",
+   "size": 503,
+   "lookup": "kz_region"
+  }
+ ]
+}

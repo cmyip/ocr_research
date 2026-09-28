@@ -1,0 +1,637 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "67e2ef6b39cd1a267c322b8c587d2e0b",
+    "entities": [
+      {
+        "tableName": "session",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `started_at` INTEGER NOT NULL, `ended_at` INTEGER, `mode` TEXT NOT NULL, `note` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startedAt",
+            "columnName": "started_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endedAt",
+            "columnName": "ended_at",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "mode",
+            "columnName": "mode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "capture",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `timestamp` INTEGER NOT NULL, `source` TEXT NOT NULL, `dir` TEXT NOT NULL, `image_path` TEXT NOT NULL, `width` INTEGER NOT NULL, `height` INTEGER NOT NULL, `lat` REAL, `lon` REAL, `session_id` INTEGER, `video_path` TEXT, `video_offset_ms` INTEGER, `original_name` TEXT, `config_json` TEXT NOT NULL, `timings_json` TEXT NOT NULL, `total_ms` REAL NOT NULL, `models_run` TEXT NOT NULL, FOREIGN KEY(`session_id`) REFERENCES `session`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "source",
+            "columnName": "source",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dir",
+            "columnName": "dir",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imagePath",
+            "columnName": "image_path",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "width",
+            "columnName": "width",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "height",
+            "columnName": "height",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lat",
+            "columnName": "lat",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "lon",
+            "columnName": "lon",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "sessionId",
+            "columnName": "session_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "videoPath",
+            "columnName": "video_path",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "videoOffsetMs",
+            "columnName": "video_offset_ms",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "originalName",
+            "columnName": "original_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "configJson",
+            "columnName": "config_json",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timingsJson",
+            "columnName": "timings_json",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalMs",
+            "columnName": "total_ms",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modelsRun",
+            "columnName": "models_run",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_capture_session_id",
+            "unique": false,
+            "columnNames": [
+              "session_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_capture_session_id` ON `${TABLE_NAME}` (`session_id`)"
+          },
+          {
+            "name": "index_capture_timestamp",
+            "unique": false,
+            "columnNames": [
+              "timestamp"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_capture_timestamp` ON `${TABLE_NAME}` (`timestamp`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "session",
+            "onDelete": "SET NULL",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "session_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "vehicle",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `capture_id` INTEGER NOT NULL, `x1` REAL NOT NULL, `y1` REAL NOT NULL, `x2` REAL NOT NULL, `y2` REAL NOT NULL, `score` REAL NOT NULL, `make_model` TEXT, `make_model_conf` REAL, `pose` TEXT, `pose_conf` REAL, `colour` TEXT, `colour_conf` REAL, `type` TEXT, `type_conf` REAL, `refined_box` TEXT, `crop_path` TEXT, FOREIGN KEY(`capture_id`) REFERENCES `capture`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "captureId",
+            "columnName": "capture_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "x1",
+            "columnName": "x1",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "y1",
+            "columnName": "y1",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "x2",
+            "columnName": "x2",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "y2",
+            "columnName": "y2",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "score",
+            "columnName": "score",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "makeModel",
+            "columnName": "make_model",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "makeModelConf",
+            "columnName": "make_model_conf",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "pose",
+            "columnName": "pose",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "poseConf",
+            "columnName": "pose_conf",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "colour",
+            "columnName": "colour",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "colourConf",
+            "columnName": "colour_conf",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "typeConf",
+            "columnName": "type_conf",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "refinedBox",
+            "columnName": "refined_box",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "cropPath",
+            "columnName": "crop_path",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_vehicle_capture_id",
+            "unique": false,
+            "columnNames": [
+              "capture_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_vehicle_capture_id` ON `${TABLE_NAME}` (`capture_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "capture",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "capture_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "plate",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `capture_id` INTEGER NOT NULL, `vehicle_id` INTEGER, `x1` REAL NOT NULL, `y1` REAL NOT NULL, `x2` REAL NOT NULL, `y2` REAL NOT NULL, `det_score` REAL NOT NULL, `predicted_text` TEXT NOT NULL, `predicted_conf` REAL NOT NULL, `ocr_model` INTEGER, `strategy` TEXT NOT NULL, `char_conf_json` TEXT NOT NULL, `region_group` TEXT, `region_label` TEXT, `region_conf` REAL, `region_json` TEXT, `rectified` INTEGER NOT NULL, `deshear` REAL NOT NULL, `pad` REAL NOT NULL, `corners_json` TEXT, `hints_json` TEXT, `corrected_text` TEXT, `corrected_at` INTEGER, `raw_crop_path` TEXT NOT NULL, `input_crop_path` TEXT NOT NULL, `rectified_crop_path` TEXT, FOREIGN KEY(`capture_id`) REFERENCES `capture`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`vehicle_id`) REFERENCES `vehicle`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "captureId",
+            "columnName": "capture_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vehicleId",
+            "columnName": "vehicle_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "x1",
+            "columnName": "x1",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "y1",
+            "columnName": "y1",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "x2",
+            "columnName": "x2",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "y2",
+            "columnName": "y2",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "detScore",
+            "columnName": "det_score",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "predictedText",
+            "columnName": "predicted_text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "predictedConf",
+            "columnName": "predicted_conf",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ocrModel",
+            "columnName": "ocr_model",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "strategy",
+            "columnName": "strategy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "charConfJson",
+            "columnName": "char_conf_json",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "regionGroup",
+            "columnName": "region_group",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "regionLabel",
+            "columnName": "region_label",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "regionConf",
+            "columnName": "region_conf",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "regionJson",
+            "columnName": "region_json",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "rectified",
+            "columnName": "rectified",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deshear",
+            "columnName": "deshear",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pad",
+            "columnName": "pad",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cornersJson",
+            "columnName": "corners_json",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "hintsJson",
+            "columnName": "hints_json",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "correctedText",
+            "columnName": "corrected_text",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "correctedAt",
+            "columnName": "corrected_at",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "rawCropPath",
+            "columnName": "raw_crop_path",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inputCropPath",
+            "columnName": "input_crop_path",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rectifiedCropPath",
+            "columnName": "rectified_crop_path",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_plate_capture_id",
+            "unique": false,
+            "columnNames": [
+              "capture_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_plate_capture_id` ON `${TABLE_NAME}` (`capture_id`)"
+          },
+          {
+            "name": "index_plate_vehicle_id",
+            "unique": false,
+            "columnNames": [
+              "vehicle_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_plate_vehicle_id` ON `${TABLE_NAME}` (`vehicle_id`)"
+          },
+          {
+            "name": "index_plate_predicted_text",
+            "unique": false,
+            "columnNames": [
+              "predicted_text"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_plate_predicted_text` ON `${TABLE_NAME}` (`predicted_text`)"
+          },
+          {
+            "name": "index_plate_corrected_text",
+            "unique": false,
+            "columnNames": [
+              "corrected_text"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_plate_corrected_text` ON `${TABLE_NAME}` (`corrected_text`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "capture",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "capture_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "vehicle",
+            "onDelete": "SET NULL",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "vehicle_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "plate_read",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `plate_id` INTEGER NOT NULL, `model` INTEGER NOT NULL, `text` TEXT NOT NULL, `conf` REAL NOT NULL, `classes` INTEGER NOT NULL, `decodable` INTEGER NOT NULL, `indices_json` TEXT NOT NULL, `ms` REAL NOT NULL, FOREIGN KEY(`plate_id`) REFERENCES `plate`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "plateId",
+            "columnName": "plate_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "model",
+            "columnName": "model",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "conf",
+            "columnName": "conf",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "classes",
+            "columnName": "classes",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "decodable",
+            "columnName": "decodable",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "indicesJson",
+            "columnName": "indices_json",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ms",
+            "columnName": "ms",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_plate_read_plate_id",
+            "unique": false,
+            "columnNames": [
+              "plate_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_plate_read_plate_id` ON `${TABLE_NAME}` (`plate_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "plate",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "plate_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '67e2ef6b39cd1a267c322b8c587d2e0b')"
+    ]
+  }
+}

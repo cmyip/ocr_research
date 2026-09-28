@@ -156,3 +156,14 @@ Only `--help` was run (exits before `put_log`), so no data was uploaded. The aut
 5. **Region-ID names**: map `1xxx` country IDs (193 entries, likely UN list order?) and `2xxx`/`4xxx` sub-regions.
 6. **Further speed**: TensorRT EP (multi-GB install, expect detector ~2–3 ms); batch frames across cameras; do letterbox resize on GPU; OCR on GPU would need MNN built from source with CUDA (OCR is only ~3 ms, low priority).
 7. Try the 640² detector (rec_75) for small/distant plates.
+
+## Android app (`android/`) — 2026-09-28
+
+Kitchen-sink Android app "Axios LPR" on these weights; see [`android/README.md`](android/README.md).
+Corrections to the notes above, verified on-device and against the Python PoC:
+
+- **MMC models (rec_15/19/21) need 224×224 RGB in [-1, 1]**, not raw 0–255 (raw → every car "Large Truck"; [-1,1] → BRL4104 = Toyota Corolla Cross, frontal, SUV). rec_17 is stored **RGB**.
+- **rec_71 corners** work with the plate box expanded by 0.2·w / 0.5·h, 96×48 BGR in [-1, 1]; order TL, BL, BR, TR. Quad-warp + rec_57 with no shear reads all three samples, incl. PUTRAJAYA541 (the 0.3-shear preset gives PUTRAJAYA1541).
+- **Region routing**: group 1187's classifier (rec_29) tags Malaysian plates as 1125 → rec_57. Only classifiers with a 9999 class should route.
+- **rec_78** is a vehicle-box refiner inside a 224 vehicle crop, not plate-in-vehicle.
+- MNN Vulkan on the emulator gives wrong rec_57 output; the app validates GPU sessions against CPU and falls back.
