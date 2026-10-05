@@ -1,0 +1,31 @@
+[package]
+name = "lpr-api"
+version = "0.1.0"
+edition = "2021"
+description = "HTTP layer and benchmark harness over the extracted ANPR models, speaking the camera provider's event payload"
+publish = false
+
+[dependencies]
+anyhow = "1"
+axum = { version = "0.8", features = ["multipart"] }
+base64 = "0.22"
+chrono = "0.4"
+clap = { version = "4", features = ["derive", "env"] }
+image = { version = "0.25", default-features = false, features = ["jpeg", "png"] }
+ort = "=2.0.0-rc.13"
+reqwest = { version = "0.12", default-features = false, features = ["json", "multipart", "rustls-tls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "signal", "sync"] }
+toml = "0.8"
+
+[features]
+# Lets --detector-backend openvino run the detector through ONNX Runtime's OpenVINO provider.
+# Needs an ONNX Runtime built with OpenVINO: see scripts/build-openvino-ubuntu.sh.
+openvino = ["ort/openvino"]
+
+[build-dependencies]
+cmake = "0.1"
+
+[profile.release]
+opt-level = 3

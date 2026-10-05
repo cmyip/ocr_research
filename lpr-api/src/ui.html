@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LPR Channels</title>
+<style>
+  :root {
+    --bg: #f4f5f7; --panel: #fff; --line: #dcdfe5; --text: #1c2330; --muted: #667085;
+    --accent: #1f6feb; --accent-text: #fff; --ok: #1a7f4b; --warn: #b26a00; --bad: #c0362c; --field: #fff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #12151b; --panel: #1b2029; --line: #2e3542; --text: #e6e9ef; --muted: #98a2b3;
+            --accent: #4c8dff; --accent-text: #0b1220; --ok: #4cc38a; --warn: #f0b24a; --bad: #ff7b72; --field: #141821; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { display: flex; align-items: center; gap: 16px; padding: 12px 20px; background: var(--panel); border-bottom: 1px solid var(--line); }
+  header h1 { font-size: 17px; margin: 0; }
+  header .note { color: var(--muted); font-size: 13px; margin-left: auto; text-align: right; }
+  main { padding: 16px 20px; max-width: 1500px; margin: 0 auto; display: grid; gap: 16px; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  h2 { font-size: 13px; text-transform: none; margin: 0 0 10px; color: var(--muted); font-weight: 600; }
+  button { font: inherit; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--line); background: var(--field); color: var(--text); cursor: pointer; }
+  button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); font-weight: 600; }
+  button.danger { color: var(--bad); }
+  button:disabled { opacity: .5; cursor: default; }
+  nav { display: flex; gap: 6px; }
+  nav button.current { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
+  .tile { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; cursor: pointer; padding: 0; text-align: left; color: inherit; display: block; width: 100%; }
+  .tile:hover, .tile:focus-visible { border-color: var(--accent); }
+  .tile .preview { border-radius: 0; }
+  .tile-foot { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 2px 8px; align-items: center; padding: 9px 12px; }
+  .tile-foot .name { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tile-foot .plate { font-size: 17px; }
+  .tile-foot .sub { grid-column: 2 / -1; color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .back { margin-bottom: 12px; }
+  .preview.drawing { cursor: crosshair; outline: 2px solid var(--warn); }
+  .region-buttons { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .region-buttons span { color: var(--muted); font-size: 13px; }
+  .resolved { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; overflow-wrap: anywhere; }
+  #settingsForm { display: block; max-width: 640px; margin-top: 0; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }
+  .dot.running { background: var(--ok); } .dot.error { background: var(--bad); } .dot.connecting, .dot.starting { background: var(--warn); }
+  .empty { color: var(--muted); padding: 8px 0; }
+  .live { display: grid; grid-template-columns: minmax(0, 1fr) 230px; gap: 16px; }
+  @media (max-width: 1000px) { .live { grid-template-columns: 1fr; } }
+  .preview { position: relative; background: #000; border-radius: 6px; overflow: hidden; aspect-ratio: 16 / 9; display: grid; place-items: center; color: #9aa4b2; }
+  .preview img, .preview svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .preview img { object-fit: fill; }
+  .stats { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: 13px; align-content: start; }
+  .stats dt { color: var(--muted); } .stats dd { margin: 0; overflow-wrap: anywhere; }
+  .plate { font: 600 22px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 1px; }
+  .crop { width: 192px; height: 96px; image-rendering: pixelated; border: 1px solid var(--line); border-radius: 4px; background: #000; display: block; }
+  .msg { margin-top: 10px; padding: 8px 10px; border-radius: 6px; font-size: 13px; overflow-wrap: anywhere; }
+  .msg.bad { background: color-mix(in srgb, var(--bad) 14%, transparent); color: var(--bad); }
+  .msg.warn { background: color-mix(in srgb, var(--warn) 16%, transparent); color: var(--warn); }
+  form { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 16px; }
+  fieldset { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; margin: 0; min-width: 0; }
+  legend { font-weight: 600; padding: 0 6px; }
+  label { display: block; margin: 8px 0 3px; font-size: 13px; color: var(--muted); }
+  label.check { display: flex; gap: 8px; align-items: baseline; color: var(--text); margin: 6px 0; }
+  input[type=text], input[type=number], select { width: 100%; font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--field); color: var(--text); }
+  input[type=range] { width: 100%; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .hint { color: var(--muted); font-size: 12px; margin: 3px 0 0; }
+  .grid-checks { display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px; }
+  .presets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .presets button { padding: 3px 9px; font-size: 12px; }
+  .actions { grid-column: 1 / -1; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .actions .spacer { flex: 1; }
+  #formError { color: var(--bad); } #formOk { color: var(--ok); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  th { color: var(--muted); font-weight: 600; }
+  td img { height: 28px; image-rendering: pixelated; border-radius: 3px; display: block; }
+  td.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 600; }
+  .hidden { display: none !important; }
+  .wide { grid-column: 1 / -1; }
+</style>
+</head>
+<body>
+<header>
+  <h1>LPR Channels</h1>
+  <nav>
+    <button type="button" id="navLive">Live view</button>
+    <button type="button" id="addBtn">Add channel</button>
+    <button type="button" id="navSettings">Settings</button>
+  </nav>
+  <div class="note" id="serverNote"></div>
+</header>
+<main>
+  <section id="viewLive">
+    <div id="noChannels" class="panel empty hidden">No channels yet. Add a channel to start reading an RTSP stream.</div>
+    <div class="wall" id="wall"></div>
+  </section>
+
+  <section id="viewSettings" class="panel hidden">
+    <h2>Where reads are sent</h2>
+    <form id="settingsForm" autocomplete="off">
+      <label for="targetUrl">HTTP URL</label>
+      <input type="text" id="targetUrl" placeholder="http://localhost:5200" spellcheck="false">
+      <p class="hint">A parking API's base URL posts to its <code>/api/alpr/events</code>. A URL with a path is used exactly as written. Leave empty to keep reads here only.</p>
+      <label class="check"><input type="checkbox" id="allowRemote"> This URL is on another machine, and I intend reads to go there</label>
+      <p class="hint">Needed for any host other than this computer. A read sent to a live site is real: it can raise a ticket and open a barrier.</p>
+      <label>Currently posting to</label>
+      <div class="resolved" id="resolvedUrl">-</div>
+      <p class="hint">Channels post only when "Post events" is ticked on the channel. The <code>/v1/trigger</code> endpoint uses the same URL.</p>
+      <div class="actions" style="margin-top:14px">
+        <button type="submit" class="primary" id="settingsSave">Save</button>
+        <span id="settingsError" style="color:var(--bad)"></span><span id="settingsOk" style="color:var(--ok)"></span>
+      </div>
+    </form>
+  </section>
+
+  <section id="viewChannel" class="hidden">
+    <div class="panel" id="editor">
+      <button type="button" class="back" id="backBtn">&larr; Live view</button>
+      <div id="detail" class="hidden">
+        <div class="live" id="livePanel">
+          <div class="preview" id="preview"><span id="previewText">No frame yet</span><img id="snapshot" alt="" class="hidden"><svg id="overlay" preserveAspectRatio="none"></svg><svg id="regionLayer" viewBox="0 0 1000 1000" preserveAspectRatio="none"></svg></div>
+          <div>
+            <dl class="stats">
+              <dt>State</dt><dd id="stState"></dd>
+              <dt>Last read</dt><dd><span class="plate" id="stPlate">-</span></dd>
+              <dt>Confidence</dt><dd id="stConf">-</dd>
+              <dt>Frames</dt><dd id="stFrames">-</dd>
+              <dt>Per frame</dt><dd id="stMs">-</dd>
+              <dt>Events</dt><dd id="stEvents">-</dd>
+            </dl>
+            <label>What the OCR read (after skew correction)</label>
+            <img class="crop" id="crop" alt="">
+          </div>
+        </div>
+        <div id="statusMsg" class="msg hidden"></div>
+
+        <form id="form" autocomplete="off">
+          <fieldset>
+            <legend>Stream</legend>
+            <label for="name">Name</label>
+            <input type="text" id="name" maxlength="60" required>
+            <label for="url">RTSP URL</label>
+            <input type="text" id="url" placeholder="rtsp://user:password@192.168.1.64:554/Streaming/Channels/101" spellcheck="false" required>
+            <p class="hint" id="urlHint">A saved password shows as ***; leave it to keep the stored one.</p>
+            <div class="row">
+              <div><label for="transport">Transport</label>
+                <select id="transport"><option value="tcp">TCP</option><option value="udp">UDP</option></select></div>
+              <div><label for="fps">Frames read per second</label>
+                <input type="number" id="fps" min="0.2" max="30" step="any"></div>
+            </div>
+            <label class="check"><input type="checkbox" id="enabled"> Listen on this channel</label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Models</legend>
+            <label for="detector">Plate detector</label>
+            <select id="detector"></select>
+            <label for="ocr">OCR strategy</label>
+            <select id="ocr">
+              <option value="pinned">One model for every plate</option>
+              <option value="routed">Region classifiers choose the model</option>
+              <option value="ensemble">Several models, most confident wins</option>
+            </select>
+            <div id="pinnedBox">
+              <label for="ocrModel">OCR model</label>
+              <select id="ocrModel"></select>
+            </div>
+            <div id="ensembleBox">
+              <label id="ensembleLabel">Models in the ensemble</label>
+              <div class="grid-checks" id="ensembleModels"></div>
+            </div>
+            <div id="regionBox">
+              <label class="check" id="regionToggle"><input type="checkbox" id="region"> Also report the plate's region</label>
+              <div id="regionList">
+                <label>Region classifiers</label>
+                <div class="grid-checks" id="regionClassifiers"></div>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Skew correction</legend>
+            <div class="presets">
+              <button type="button" data-preset="corners">Corner rectification</button>
+              <button type="button" data-preset="shear">Shear only</button>
+              <button type="button" data-preset="off">Off</button>
+            </div>
+            <label class="check"><input type="checkbox" id="rectify"> Find the plate's corners and warp it flat</label>
+            <div class="row" id="marginRow">
+              <div><label for="marginX">Corner context, width</label>
+                <input type="number" id="marginX" min="0" max="1" step="any"></div>
+              <div><label for="marginY">Corner context, height</label>
+                <input type="number" id="marginY" min="0" max="1.5" step="any"></div>
+            </div>
+            <label for="deshear">Shear <span id="deshearValue"></span></label>
+            <input type="range" id="deshear" min="-1" max="1" step="0.05">
+            <p class="hint">Positive straightens right-leaning italic characters. Usually 0 with corner rectification; 0.3 suited Malaysian plates without it.</p>
+            <label for="cropPad">Padding around the plate</label>
+            <input type="number" id="cropPad" min="0" max="0.5" step="any">
+            <p class="hint">The crop on the right shows the result on the next plate after saving.</p>
+          </fieldset>
+
+          <fieldset>
+            <legend>Detection area</legend>
+            <div class="region-buttons">
+              <button type="button" id="drawBtn">Draw region</button>
+              <button type="button" id="doneBtn" class="primary hidden">Done</button>
+              <button type="button" id="undoBtn" class="hidden">Undo point</button>
+              <button type="button" id="cancelBtn" class="hidden">Cancel</button>
+              <button type="button" id="clearBtn">Use whole picture</button>
+              <span id="regionState"></span>
+            </div>
+            <p class="hint" id="regionHint">Click points on the picture above to outline the lane. Plates are only looked for inside it, which makes them larger to the detector and ignores other traffic. Save to apply.</p>
+            <label class="check"><input type="checkbox" id="skipUnchanged"> Skip frames where nothing has changed</label>
+            <div id="changeBox">
+              <label for="changePercent">Share of the area that must change (%)</label>
+              <input type="number" id="changePercent" min="0.1" max="50" step="any">
+              <p class="hint">Lower is more sensitive. Reading continues for 2 seconds after the last change, and one frame is read every 5 seconds regardless.</p>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Events</legend>
+            <div class="row">
+              <div><label for="minConf">Minimum confidence (%)</label>
+                <input type="number" id="minConf" min="0" max="100" step="1"></div>
+              <div><label for="stable">Frames that must agree</label>
+                <input type="number" id="stable" min="1" max="20" step="1"></div>
+            </div>
+            <label for="dedupe">Ignore the same plate for (seconds)</label>
+            <input type="number" id="dedupe" min="0" max="86400" step="1">
+            <label for="cameraId">Camera ID sent with events</label>
+            <input type="text" id="cameraId" maxlength="80" placeholder="Defaults to the channel name">
+            <label class="check"><input type="checkbox" id="trigger"> <span id="triggerLabel">Post events to the HTTP URL</span></label>
+            <p class="hint" id="triggerHint"></p>
+          </fieldset>
+
+          <div class="actions">
+            <button type="submit" class="primary" id="saveBtn">Save</button>
+            <button type="button" id="toggleBtn">Stop</button>
+            <span id="formError"></span><span id="formOk"></span>
+            <span class="spacer"></span>
+            <button type="button" class="danger" id="deleteBtn">Delete channel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="panel" id="readsPanel">
+    <h2>Recent reads</h2>
+    <div id="noEvents" class="empty">No plates read yet.</div>
+    <table id="eventsTable" class="hidden">
+      <thead><tr><th>Time</th><th>Channel</th><th>Plate</th><th>Confidence</th><th>Model</th><th>Crop</th><th>Sent</th></tr></thead>
+      <tbody id="events"></tbody>
+    </table>
+  </section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const el = (tag, props = {}, ...kids) => { const e = Object.assign(document.createElement(tag), props); e.append(...kids); return e; };
+const SVG = 'http://www.w3.org/2000/svg';
+// view: 'live' (every channel's capture), 'channel' (one channel's settings) or 'settings'.
+let models = null, settings = { url: '', allow_remote: false, events_url: null }, channels = [];
+let view = 'live', selected = null, loadedFor = undefined;
+const tiles = new Map();
+// The detection region being edited: points as fractions of the picture. `drawing` holds a new outline in progress.
+let region = [], drawing = null;
+
+async function api(path, method = 'GET', body) {
+  const res = await fetch(path, { method, headers: body ? { 'content-type': 'application/json' } : {}, body: body ? JSON.stringify(body) : undefined });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || `The server answered ${res.status}`);
+  return data;
+}
+
+function checks(container, items, prefix) {
+  container.replaceChildren(...items.map(m => el('label', { className: 'check', title: m.note || '' },
+    el('input', { type: 'checkbox', value: m.id, id: `${prefix}${m.id}`, disabled: !m.available }), `rec_${m.id}`)));
+}
+const checked = container => [...container.querySelectorAll('input:checked')].map(i => Number(i.value));
+const setChecked = (container, ids) => container.querySelectorAll('input').forEach(i => i.checked = ids.includes(Number(i.value)));
+
+function buildModelInputs() {
+  $('detector').replaceChildren(...models.detectors.map(d => el('option', { value: d.size, disabled: !d.available, textContent: `${d.size} px (rec_${d.record}) - ${d.note}` })));
+  $('ocrModel').replaceChildren(...models.crnns.map(c => el('option', { value: c.id, disabled: !c.available, textContent: `rec_${c.id} - ${c.note}` })));
+  checks($('ensembleModels'), models.crnns.filter(c => c.ensemble), 'ens');
+  checks($('regionClassifiers'), models.regions, 'reg');
+  $('regionClassifiers').querySelectorAll('label').forEach((l, i) => l.append(` ${models.regions[i].note ? '- ' + models.regions[i].note : ''}`));
+  $('regionClassifiers').className = '';
+  $('urlHint').textContent = (models.allow_files ? 'A video file path on the server also works. ' : '') + 'A saved password shows as ***; leave it to keep the stored one.';
+  if (!models.corners_available) $('rectify').disabled = true;
+}
+
+// Everything that depends on where reads are sent.
+function applySettings() {
+  const url = settings.events_url;
+  const notes = [];
+  if (models && !models.ffmpeg) notes.push('ffmpeg was not found: streams cannot be decoded');
+  notes.push(url ? `Reads post to ${url}` : 'No HTTP URL set: reads stay here');
+  $('serverNote').textContent = notes.join(' · ');
+  $('trigger').disabled = !url; // a ticked box stays ticked, so the choice survives the URL being cleared
+  $('triggerHint').textContent = url ? `Each event is posted to ${url} as a camera read. A real site may open a barrier.` : 'Set the HTTP URL under Settings to enable this.';
+  $('resolvedUrl').textContent = url || 'Nowhere - no URL is set';
+}
+
+function fillSettings() {
+  $('targetUrl').value = settings.url; $('allowRemote').checked = settings.allow_remote;
+  $('settingsError').textContent = ''; $('settingsOk').textContent = '';
+}
+
+function syncVisibility() {
+  const mode = $('ocr').value;
+  $('pinnedBox').classList.toggle('hidden', mode !== 'pinned');
+  $('ensembleBox').classList.toggle('hidden', mode === 'pinned');
+  $('ensembleLabel').textContent = mode === 'routed' ? 'Fallback models when no region claims the plate' : 'Models in the ensemble';
+  $('regionToggle').classList.toggle('hidden', mode === 'routed');
+  $('regionList').classList.toggle('hidden', mode !== 'routed' && !$('region').checked);
+  $('marginRow').classList.toggle('hidden', !$('rectify').checked);
+  $('changeBox').classList.toggle('hidden', !$('skipUnchanged').checked);
+  $('deshearValue').textContent = `(${Number($('deshear').value).toFixed(2)})`;
+}
+
+// Settings are stored as 32-bit floats, so 0.2 comes back as 0.20000000298: show what was typed.
+const num = v => +Number(v).toFixed(3);
+
+function fillForm(c) {
+  const p = c.pipeline;
+  $('name').value = c.name; $('url').value = c.url; $('transport').value = c.transport; $('fps').value = num(c.fps); $('enabled').checked = c.enabled;
+  $('detector').value = p.detector; $('ocr').value = p.ocr; $('ocrModel').value = p.ocr_model;
+  setChecked($('ensembleModels'), p.ensemble_models); setChecked($('regionClassifiers'), p.region_classifiers); $('region').checked = p.region;
+  $('rectify').checked = p.rectify && models.corners_available; $('marginX').value = num(p.corner_margin_x); $('marginY').value = num(p.corner_margin_y);
+  $('deshear').value = num(p.deshear); $('cropPad').value = num(p.crop_pad);
+  $('minConf').value = Math.round(c.min_confidence * 100); $('stable').value = c.stable_frames; $('dedupe').value = c.dedupe_seconds;
+  $('cameraId').value = c.camera_id; $('trigger').checked = c.trigger;
+  $('skipUnchanged').checked = c.skip_unchanged; $('changePercent').value = num(c.change_percent);
+  region = (p.roi || []).map(pt => [...pt]); drawing = null; renderRegion();
+  $('formError').textContent = ''; $('formOk').textContent = '';
+  syncVisibility();
+}
+
+function readForm(base) {
+  return {
+    ...base,
+    name: $('name').value, url: $('url').value, transport: $('transport').value, fps: Number($('fps').value), enabled: $('enabled').checked,
+    camera_id: $('cameraId').value, trigger: $('trigger').checked,
+    skip_unchanged: $('skipUnchanged').checked, change_percent: Number($('changePercent').value),
+    min_confidence: Number($('minConf').value) / 100, stable_frames: Number($('stable').value), dedupe_seconds: Number($('dedupe').value),
+    pipeline: {
+      ...base.pipeline,
+      detector: Number($('detector').value), ocr: $('ocr').value, ocr_model: Number($('ocrModel').value),
+      ensemble_models: checked($('ensembleModels')), region: $('region').checked, region_classifiers: checked($('regionClassifiers')),
+      rectify: $('rectify').checked, corner_margin_x: Number($('marginX').value), corner_margin_y: Number($('marginY').value),
+      deshear: Number($('deshear').value), crop_pad: Number($('cropPad').value),
+      roi: region,
+    },
+  };
+}
+
+const current = () => channels.find(c => c.config.id === selected);
+const subtitle = s => s.state === 'running' ? `${s.fps.toFixed(1)} fps · ${s.process_ms.toFixed(0)} ms per frame${s.width ? ` · ${s.width}×${s.height}` : ''}` : s.state === 'error' ? (s.message || 'error') : s.state;
+
+// The region layer uses a 1000x1000 box stretched over the picture, so points map straight from fractions.
+function renderRegion() {
+  const pts = drawing || region;
+  const shape = document.createElementNS(SVG, drawing ? 'polyline' : 'polygon');
+  shape.setAttribute('points', pts.map(([x, y]) => `${x * 1000},${y * 1000}`).join(' '));
+  Object.entries({ fill: drawing ? 'none' : 'rgba(255, 209, 102, 0.12)', stroke: '#ffd166', 'stroke-width': 2, 'stroke-dasharray': drawing ? '' : '8 6', 'vector-effect': 'non-scaling-stroke' }).forEach(([k, v]) => shape.setAttribute(k, v));
+  const dots = (drawing || []).map(([x, y]) => {
+    const dot = document.createElementNS(SVG, 'ellipse');
+    Object.entries({ cx: x * 1000, cy: y * 1000, rx: 5, ry: 9, fill: '#ffd166' }).forEach(([k, v]) => dot.setAttribute(k, v));
+    return dot;
+  });
+  $('regionLayer').replaceChildren(...(pts.length ? [shape] : []), ...dots);
+  $('preview').classList.toggle('drawing', !!drawing);
+  ['doneBtn', 'undoBtn', 'cancelBtn'].forEach(id => $(id).classList.toggle('hidden', !drawing));
+  ['drawBtn', 'clearBtn'].forEach(id => $(id).classList.toggle('hidden', !!drawing));
+  $('doneBtn').disabled = !drawing || drawing.length < 3;
+  $('undoBtn').disabled = !drawing || !drawing.length;
+  $('clearBtn').disabled = !region.length;
+  $('drawBtn').textContent = region.length ? 'Redraw region' : 'Draw region';
+  $('regionState').textContent = drawing ? `${drawing.length} point${drawing.length === 1 ? '' : 's'} - click the picture to add more` : region.length ? `${region.length}-point region` : 'Whole picture';
+}
+
+function show(next, id) {
+  view = next;
+  selected = next === 'channel' ? id : null;
+  loadedFor = undefined;
+  if (next === 'settings') fillSettings();
+  render();
+  refreshSnapshots();
+}
+
+// Outlines each plate of the frame on an SVG laid over the picture.
+function drawPlates(svg, s, roi = []) {
+  const [w, h] = [s.width || 16, s.height || 9];
+  svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+  const stroke = Math.max(2, (s.width || 1000) / 400);
+  const outline = [];
+  if (roi.length >= 3 && s.width) {
+    const area = document.createElementNS(SVG, 'polygon');
+    area.setAttribute('points', roi.map(([x, y]) => `${x * w},${y * h}`).join(' '));
+    Object.entries({ fill: 'none', stroke: '#ffd166', 'stroke-width': stroke * 0.8, 'stroke-dasharray': `${stroke * 4} ${stroke * 3}` }).forEach(([k, v]) => area.setAttribute(k, v));
+    outline.push(area);
+  }
+  svg.replaceChildren(...outline, ...(s.state === 'running' ? s.plates : []).flatMap(p => {
+    const shape = document.createElementNS(SVG, 'polygon');
+    const [x1, y1, x2, y2] = p.box;
+    const pts = p.corners ? [0, 2, 4, 6].map(i => `${p.corners[i]},${p.corners[i + 1]}`) : [`${x1},${y1}`, `${x1},${y2}`, `${x2},${y2}`, `${x2},${y1}`];
+    shape.setAttribute('points', pts.join(' '));
+    Object.entries({ fill: 'none', stroke: '#3ddc84', 'stroke-width': stroke }).forEach(([k, v]) => shape.setAttribute(k, v));
+    const label = document.createElementNS(SVG, 'text');
+    label.textContent = `${p.plate} ${(p.confidence * 100).toFixed(0)}%`;
+    Object.entries({ x: x1, y: Math.max(y1 - stroke * 3, stroke * 9), fill: '#3ddc84', stroke: '#000', 'stroke-width': stroke / 3, 'paint-order': 'stroke', 'font-size': stroke * 9, 'font-family': 'ui-monospace, Menlo, monospace', 'font-weight': 700 }).forEach(([k, v]) => label.setAttribute(k, v));
+    return [shape, label];
+  }));
+}
+
+// Loads the next picture off screen and swaps it in, so a slow frame never blanks the view.
+function loadSnapshot(img, text, c, width) {
+  const s = c.status;
+  if (s.state !== 'running' || !s.frames) {
+    img.classList.add('hidden');
+    text.textContent = s.state === 'running' ? 'No frame yet' : s.state === 'stopped' ? 'Stopped' : s.state === 'error' ? 'No signal' : 'Connecting';
+    return;
+  }
+  const next = new Image();
+  next.onload = () => { img.src = next.src; img.classList.remove('hidden'); };
+  next.src = `/api/channels/${c.config.id}/snapshot.jpg?w=${width}&t=${Date.now()}`;
+}
+
+function makeTile(id) {
+  const t = {
+    text: el('span'), img: el('img', { alt: '', className: 'hidden' }), svg: document.createElementNS(SVG, 'svg'),
+    dot: el('span', { className: 'dot' }), name: el('span', { className: 'name' }), plate: el('span', { className: 'plate' }), sub: el('span', { className: 'sub' }),
+  };
+  t.svg.setAttribute('preserveAspectRatio', 'none');
+  t.root = el('button', { type: 'button', className: 'tile', title: 'Open this channel\'s settings' },
+    el('div', { className: 'preview' }, t.text, t.img, t.svg),
+    el('div', { className: 'tile-foot' }, t.dot, t.name, t.plate, t.sub));
+  t.root.onclick = () => show('channel', id);
+  return t;
+}
+
+// Tiles are kept and updated in place, so pictures do not flicker and clicks are never lost.
+function renderWall() {
+  $('noChannels').classList.toggle('hidden', channels.length > 0);
+  const ids = new Set(channels.map(c => c.config.id));
+  for (const [id, t] of tiles) if (!ids.has(id)) { t.root.remove(); tiles.delete(id); }
+  channels.forEach((c, i) => {
+    let t = tiles.get(c.config.id);
+    if (!t) { t = makeTile(c.config.id); tiles.set(c.config.id, t); }
+    if ($('wall').children[i] !== t.root) $('wall').insertBefore(t.root, $('wall').children[i] || null);
+    const s = c.status;
+    t.dot.className = 'dot ' + s.state;
+    t.name.textContent = c.config.name;
+    t.plate.textContent = s.last_plate || '';
+    t.sub.textContent = subtitle(s);
+    t.sub.title = s.message || '';
+    drawPlates(t.svg, s, c.config.pipeline.roi);
+    if (s.width) t.img.parentElement.style.aspectRatio = `${s.width} / ${s.height}`;
+  });
+}
+
+function renderChannel() {
+  const c = current();
+  $('detail').classList.remove('hidden');
+  if (loadedFor !== selected) {
+    fillForm(c ? c.config : { ...models.defaults, name: '', url: '' });
+    loadedFor = selected;
+    $('snapshot').classList.add('hidden');
+  }
+  $('deleteBtn').classList.toggle('hidden', !c);
+  $('toggleBtn').classList.toggle('hidden', !c);
+  $('saveBtn').textContent = c ? 'Save' : 'Create channel';
+  $('livePanel').classList.toggle('hidden', !c);
+  const msg = $('statusMsg');
+  if (!c) { msg.classList.add('hidden'); return; }
+  const s = c.status;
+  $('stState').textContent = s.state === 'running' ? `running, ${s.fps.toFixed(1)} fps${s.width ? `, ${s.width}×${s.height}` : ''}` : s.state;
+  $('stPlate').textContent = s.last_plate || '-';
+  $('stConf').textContent = s.last_confidence != null ? `${(s.last_confidence * 100).toFixed(1)}%` : '-';
+  $('stFrames').textContent = s.frames ? `${s.frames} read${s.unchanged ? `, ${s.unchanged} unchanged` : ''}${s.dropped ? `, ${s.dropped} too late` : ''}` : '-';
+  if (s.width) $('preview').style.aspectRatio = `${s.width} / ${s.height}`;
+  $('drawBtn').disabled = !s.frames && !drawing;
+  $('stMs').textContent = s.process_ms ? `${s.process_ms.toFixed(1)} ms` : '-';
+  $('stEvents').textContent = s.events || '-';
+  if (s.crop) $('crop').src = 'data:image/jpeg;base64,' + s.crop;
+  $('crop').style.visibility = s.crop ? 'visible' : 'hidden';
+  msg.className = 'msg ' + (s.state === 'error' ? 'bad' : 'warn') + (s.message ? '' : ' hidden');
+  msg.textContent = s.message || '';
+  $('toggleBtn').textContent = c.config.enabled ? 'Stop' : 'Start';
+  drawPlates($('overlay'), s);
+}
+
+function render() {
+  $('viewLive').classList.toggle('hidden', view !== 'live');
+  $('viewChannel').classList.toggle('hidden', view !== 'channel');
+  $('viewSettings').classList.toggle('hidden', view !== 'settings');
+  $('readsPanel').classList.toggle('hidden', view === 'settings');
+  $('navLive').classList.toggle('current', view === 'live');
+  $('navSettings').classList.toggle('current', view === 'settings');
+  $('addBtn').classList.toggle('current', view === 'channel' && selected === 'new');
+  if (view === 'live') renderWall();
+  if (view === 'channel') renderChannel();
+}
+
+async function refresh() {
+  try {
+    channels = await api('/api/channels');
+    // A channel deleted elsewhere takes its settings page with it.
+    if (view === 'channel' && selected !== 'new' && !current()) { view = 'live'; selected = null; }
+    render();
+    applySettings();
+  } catch (e) { $('serverNote').textContent = 'The server is not answering'; }
+}
+
+function refreshSnapshots() {
+  if (view === 'live') channels.forEach(c => { const t = tiles.get(c.config.id); if (t) loadSnapshot(t.img, t.text, c, 640); });
+  const c = current();
+  if (view === 'channel' && c) loadSnapshot($('snapshot'), $('previewText'), c, 960);
+}
+
+async function refreshEvents() {
+  let events;
+  try { events = await api('/api/events'); } catch (e) { return; }
+  $('noEvents').classList.toggle('hidden', events.length > 0);
+  $('eventsTable').classList.toggle('hidden', events.length === 0);
+  $('events').replaceChildren(...events.map(e => {
+    const d = e.delivery;
+    const sent = !d ? '-' : d.sent ? `HTTP ${d.status}${d.decision ? ', ' + d.decision : ''} (${d.ms} ms)` : `failed: ${d.error}`;
+    return el('tr', {},
+      el('td', { textContent: new Date(e.at).toLocaleTimeString() }), el('td', { textContent: e.channel }), el('td', { className: 'mono', textContent: e.plate }),
+      el('td', { textContent: `${(e.confidence * 100).toFixed(1)}%` }), el('td', { textContent: e.ocr_model }),
+      el('td', {}, el('img', { src: 'data:image/jpeg;base64,' + e.crop, alt: '' })), el('td', { textContent: sent }));
+  }));
+}
+
+$('drawBtn').onclick = () => { drawing = []; renderRegion(); $('preview').scrollIntoView({ block: 'nearest' }); };
+$('cancelBtn').onclick = () => { drawing = null; renderRegion(); };
+$('undoBtn').onclick = () => { drawing.pop(); renderRegion(); };
+$('doneBtn').onclick = () => { region = drawing; drawing = null; renderRegion(); };
+$('clearBtn').onclick = () => { region = []; renderRegion(); };
+$('preview').onclick = ev => {
+  if (!drawing || drawing.length >= 32) return;
+  const box = $('preview').getBoundingClientRect();
+  const clamp = v => Math.min(1, Math.max(0, +v.toFixed(4)));
+  drawing.push([clamp((ev.clientX - box.left) / box.width), clamp((ev.clientY - box.top) / box.height)]);
+  renderRegion();
+};
+$('skipUnchanged').addEventListener('input', syncVisibility);
+$('navLive').onclick = $('backBtn').onclick = () => show('live');
+$('navSettings').onclick = () => show('settings');
+$('addBtn').onclick = () => show('channel', 'new');
+['ocr', 'region', 'rectify', 'deshear'].forEach(id => $(id).addEventListener('input', syncVisibility));
+document.querySelectorAll('[data-preset]').forEach(b => b.onclick = () => {
+  const d = models.defaults.pipeline;
+  const preset = { corners: [true, 0, d.crop_pad], shear: [false, 0.3, 0.02], off: [false, 0, 0.02] }[b.dataset.preset];
+  $('rectify').checked = preset[0] && models.corners_available; $('deshear').value = preset[1]; $('cropPad').value = num(preset[2]);
+  $('marginX').value = num(d.corner_margin_x); $('marginY').value = num(d.corner_margin_y);
+  syncVisibility();
+});
+
+$('form').onsubmit = async ev => {
+  ev.preventDefault();
+  $('formError').textContent = ''; $('formOk').textContent = '';
+  const c = current();
+  $('saveBtn').disabled = true;
+  try {
+    const saved = c ? await api(`/api/channels/${c.config.id}`, 'PUT', readForm(c.config)) : await api('/api/channels', 'POST', readForm(models.defaults));
+    selected = saved.config.id; loadedFor = undefined;
+    await refresh();
+    $('formOk').textContent = 'Saved';
+    setTimeout(() => $('formOk').textContent = '', 2500);
+  } catch (e) { $('formError').textContent = e.message; }
+  $('saveBtn').disabled = false;
+};
+
+$('toggleBtn').onclick = async () => {
+  const c = current(); if (!c) return;
+  try { await api(`/api/channels/${c.config.id}/${c.config.enabled ? 'stop' : 'start'}`, 'POST'); $('enabled').checked = !c.config.enabled; await refresh(); }
+  catch (e) { $('formError').textContent = e.message; }
+};
+
+$('deleteBtn').onclick = async () => {
+  const c = current(); if (!c || !confirm(`Delete the channel "${c.config.name}"?`)) return;
+  try { await api(`/api/channels/${c.config.id}`, 'DELETE'); show('live'); await refresh(); }
+  catch (e) { $('formError').textContent = e.message; }
+};
+
+$('settingsForm').onsubmit = async ev => {
+  ev.preventDefault();
+  $('settingsError').textContent = ''; $('settingsOk').textContent = '';
+  $('settingsSave').disabled = true;
+  try {
+    settings = await api('/api/settings', 'PUT', { url: $('targetUrl').value, allow_remote: $('allowRemote').checked });
+    fillSettings(); applySettings();
+    $('settingsOk').textContent = settings.events_url ? 'Saved' : 'Saved: reads are no longer posted';
+  } catch (e) { $('settingsError').textContent = e.message; }
+  $('settingsSave').disabled = false;
+};
+
+(async () => {
+  [models, settings] = await Promise.all([api('/api/models'), api('/api/settings')]);
+  buildModelInputs();
+  applySettings();
+  await refresh();
+  refreshSnapshots();
+  setInterval(refresh, 1000);
+  setInterval(refreshSnapshots, 1000);
+  setInterval(refreshEvents, 2000);
+  setInterval(async () => { if (view !== 'settings') { try { settings = await api('/api/settings'); applySettings(); } catch (e) {} } }, 5000);
+  refreshEvents();
+})();
+</script>
+</body>
+</html>

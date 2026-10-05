@@ -1,0 +1,42 @@
+{
+  "channels": [
+    {
+      "id": 1,
+      "name": "LOCAL",
+      "url": "rtsp://127.0.0.1:8554/live",
+      "enabled": true,
+      "transport": "udp",
+      "fps": 30.0,
+      "camera_id": "",
+      "trigger": false,
+      "min_confidence": 0.9,
+      "stable_frames": 2,
+      "dedupe_seconds": 30,
+      "pipeline": {
+        "detector": 640,
+        "ocr": "pinned",
+        "ocr_model": 57,
+        "ensemble_models": [
+          57
+        ],
+        "region": false,
+        "region_classifiers": [
+          29,
+          41
+        ],
+        "rectify": false,
+        "corner_margin_x": 0.2,
+        "corner_margin_y": 0.5,
+        "crop_pad": 0.02,
+        "deshear": 0.0,
+        "plate_score": 0.25,
+        "nms_iou": 0.45,
+        "max_plates": 6
+      }
+    }
+  ],
+  "target": {
+    "url": "http://127.0.0.1:5000/api/alprevents",
+    "allow_remote": false
+  }
+}

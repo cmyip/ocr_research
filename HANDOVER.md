@@ -167,3 +167,14 @@ Corrections to the notes above, verified on-device and against the Python PoC:
 - **Region routing**: group 1187's classifier (rec_29) tags Malaysian plates as 1125 → rec_57. Only classifiers with a 9999 class should route.
 - **rec_78** is a vehicle-box refiner inside a 224 vehicle crop, not plate-in-vehicle.
 - MNN Vulkan on the emulator gives wrong rec_57 output; the app validates GPU sessions against CPU and falls back.
+
+## Rust API and benchmark harness (`lpr-api/`) — 2026-10-05
+
+[`lpr-api/`](lpr-api/README.md) is a Rust port of the app's default pipeline (rec_72 → rec_71 → rec_57) behind an HTTP API:
+`POST /v1/read` answers in the camera provider's event shape, `POST /v1/trigger` also posts that event to a
+ParkingDashboard `/api/alpr/events`, and `lpr-api bench` compares accuracy and latency with other APIs over an image set.
+It reads all three samples, the same as the app, in about 26 ms per 1920×1080 JPEG on an Apple-silicon laptop (8 ms of that is JPEG decode).
+The server also has a web UI at `/` for RTSP channels: several streams decoded at once (ffmpeg), each with its own
+detector, OCR strategy and CRNN selection, and the app's skew-correction settings (rec_71 rectification, corner margins,
+shear, padding). The Rust port of the shear reproduces the PoC: `--no-rectify --deshear 0.3 --crop-pad 0.02` reads BRL4104
+and turns PUTRAJAYA541 into PUTRAJAYA1541.

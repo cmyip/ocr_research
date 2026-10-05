@@ -1,0 +1,41 @@
+# HTTP APIs for `lpr-api bench --providers`. Copy to providers.toml and edit.
+#
+#   request    how the image is sent: "raw" body (default), "multipart" file field, or "json" (base64 string)
+#   field      the multipart field or JSON key that carries the image (default "image")
+#   headers    request headers; ${NAME} is read from the environment, so tokens stay out of this file
+#   form       extra multipart fields or JSON keys
+#   plate      JSON pointer to the plate in the reply (a missing or null value counts as "no read")
+#   confidence, server_ms   optional JSON pointers: the API's confidence and its own processing time in ms
+#   timeout_s  per call (default 30)
+#
+# Every image in the set is uploaded to each API listed here.
+
+# This crate's own server (`lpr-api serve`), to see what the HTTP hop costs over the in-process model.
+[[provider]]
+name = "lpr-api-http"
+url = "http://127.0.0.1:8088/v1/read"
+request = "raw"
+plate = "/plate"
+confidence = "/confidence"
+server_ms = "/timing_ms/total"
+
+# Plate Recognizer Snapshot Cloud. Check the field names against their current API reference.
+# [[provider]]
+# name = "platerecognizer"
+# url = "https://api.platerecognizer.com/v1/plate-reader/"
+# request = "multipart"
+# field = "upload"
+# headers = { Authorization = "Token ${PLATE_RECOGNIZER_TOKEN}" }
+# form = { regions = "my" }
+# plate = "/results/0/plate"
+# confidence = "/results/0/score"
+# server_ms = "/processing_time"
+
+# An API that takes the camera provider's JSON (base64 "image") and answers with a "plate".
+# [[provider]]
+# name = "other-json-api"
+# url = "https://ocr.example.com/read"
+# request = "json"
+# field = "image"
+# headers = { "X-Api-Key" = "${OTHER_API_KEY}" }
+# plate = "/plate"
