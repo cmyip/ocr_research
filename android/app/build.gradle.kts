@@ -8,7 +8,7 @@ plugins {
 
 // The SDK weights live in ../../weights and are never committed into this module.
 // They are synced into a generated assets dir at build time, under assets/models/.
-val weightsDir = rootProject.layout.projectDirectory.dir("../weights")
+val weightsDir = rootProject.layout.projectDirectory.dir("../weights_ft")
 val generatedAssets = layout.buildDirectory.dir("generated/weightsAssets")
 val copyWeights by tasks.registering(Sync::class) {
     from(weightsDir) { include("rec_*.bin") }

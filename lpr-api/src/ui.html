@@ -170,6 +170,12 @@
               <label id="ensembleLabel">Models in the ensemble</label>
               <div class="grid-checks" id="ensembleModels"></div>
             </div>
+            <label for="plateFormat">Plate format</label>
+            <select id="plateFormat">
+              <option value="none">None: report the characters as read</option>
+              <option value="my">Malaysia: letters, then a number</option>
+            </select>
+            <p class="hint">Malaysian plates draw 1 and I, and 0 and O, the same way. The format decides by position.</p>
             <div id="regionBox">
               <label class="check" id="regionToggle"><input type="checkbox" id="region"> Also report the plate's region</label>
               <div id="regionList">
@@ -333,7 +339,7 @@ function fillForm(c) {
   $('detector').value = p.detector; $('ocr').value = p.ocr; $('ocrModel').value = p.ocr_model;
   setChecked($('ensembleModels'), p.ensemble_models); setChecked($('regionClassifiers'), p.region_classifiers); $('region').checked = p.region;
   $('rectify').checked = p.rectify && models.corners_available; $('marginX').value = num(p.corner_margin_x); $('marginY').value = num(p.corner_margin_y);
-  $('deshear').value = num(p.deshear); $('cropPad').value = num(p.crop_pad);
+  $('deshear').value = num(p.deshear); $('cropPad').value = num(p.crop_pad); $('plateFormat').value = p.plate_format || 'none';
   $('minConf').value = Math.round(c.min_confidence * 100); $('stable').value = c.stable_frames; $('dedupe').value = c.dedupe_seconds;
   $('cameraId').value = c.camera_id; $('trigger').checked = c.trigger;
   $('skipUnchanged').checked = c.skip_unchanged; $('changePercent').value = num(c.change_percent);
@@ -354,7 +360,7 @@ function readForm(base) {
       detector: Number($('detector').value), ocr: $('ocr').value, ocr_model: Number($('ocrModel').value),
       ensemble_models: checked($('ensembleModels')), region: $('region').checked, region_classifiers: checked($('regionClassifiers')),
       rectify: $('rectify').checked, corner_margin_x: Number($('marginX').value), corner_margin_y: Number($('marginY').value),
-      deshear: Number($('deshear').value), crop_pad: Number($('cropPad').value),
+      deshear: Number($('deshear').value), crop_pad: Number($('cropPad').value), plate_format: $('plateFormat').value,
       roi: region,
     },
   };

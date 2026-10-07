@@ -11,6 +11,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::image::{round_half_even, RgbImage};
 use crate::mnn::Net;
+use crate::plate_format::{self, PlateFormat};
 
 const ALNUM: &str = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const PLATE_W: usize = 96;
@@ -106,6 +107,10 @@ pub struct PipelineConfig {
     #[arg(long, default_value_t = 0.0, allow_negative_numbers = true)]
     #[serde(serialize_with = "short_f32")]
     pub deshear: f32,
+    /// Settles look-alike characters by their position on the plate: `my` reads a stroke as I among
+    /// the letters and as 1 in the number (and O/0 likewise).
+    #[arg(long, value_enum, default_value_t = PlateFormat::None)]
+    pub plate_format: PlateFormat,
     /// Detection region: a polygon of (x, y) points as fractions of the frame, drawn in the web UI.
     /// The detector only looks inside its bounding box, and only plates centred inside the polygon
     /// are read. Empty means the whole frame.
@@ -154,6 +159,7 @@ impl Default for PipelineConfig {
             corner_margin_y: 0.5,
             crop_pad: 0.03,
             deshear: 0.0,
+            plate_format: PlateFormat::None,
             roi: Vec::new(),
             plate_score: 0.25,
             nms_iou: 0.45,
@@ -546,7 +552,7 @@ impl Pipeline {
             timings.ocr_ms += ms_since(t);
 
             plates.push(PlateRead {
-                plate: text,
+                plate: plate_format::apply(self.cfg.plate_format, &text),
                 confidence,
                 det_score,
                 bbox,

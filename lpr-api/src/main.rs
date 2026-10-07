@@ -6,6 +6,7 @@ mod image;
 mod mnn;
 mod payload;
 mod pipeline;
+mod plate_format;
 mod server;
 
 use std::path::PathBuf;

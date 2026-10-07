@@ -216,6 +216,7 @@ and 320 MB for the whole process.
 | `--no-rectify` | off | skip rec_71 and read the padded detector box (misreads two of the three samples) |
 | `--corner-margin-x`, `--corner-margin-y` | `0.2`, `0.5` | context around the detector box given to rec_71 |
 | `--deshear` | `0` | horizontal shear; `--no-rectify --deshear 0.3 --crop-pad 0.02` is the PoC's setting |
+| `--plate-format` | `none` | `my` settles look-alike `I/1` and `O/0` by position: letters, then 1-4 digits, then at most one letter |
 | `--crop-pad` | `0.03` | padding around the plate |
 | `--threads` | `4` | per model, ONNX Runtime and MNN |
 | `--workers` | `2` | `serve` only: model sets loaded, one request each at a time |

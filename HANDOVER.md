@@ -178,3 +178,21 @@ The server also has a web UI at `/` for RTSP channels: several streams decoded a
 detector, OCR strategy and CRNN selection, and the app's skew-correction settings (rec_71 rectification, corner margins,
 shear, padding). The Rust port of the shear reproduces the PoC: `--no-rectify --deshear 0.3 --crop-pad 0.02` reads BRL4104
 and turns PUTRAJAYA541 into PUTRAJAYA1541.
+
+## Fine-tuning the OCR (`finetune/`) — 2026-10-07
+
+[`finetune/`](finetune/README.md) transfer-learns a CRNN on new plates and writes it back as a drop-in `rec_NN.bin`.
+
+- **Why `UITM1776` read `UTM1776`:** not the detector or the crop. rec_57 never learned `I` and `O` (the ordinary
+  series skips them): 33 % and 26 % on rendered plates against about 81 % for other letters.
+- **CRNN structure, from the flatbuffer:** MobileNetV3 backbone → 3×6 grid of 128-d features → those 18 cells are
+  the "CTC steps" → BiLSTM(64) → Dense. Weights are fp16. `finetune/mnn_crnn.py` rebuilds it in PyTorch (matches
+  MNN to 4e-5) and exports by overwriting weight bytes in place. Loads 14 of the 20 CRNNs (not 51, 52, 54, 61, 62, 65).
+- **Result:** trained with every `UITM` plate held out, the model reads `UITM1776` (0 → 72 % over jittered crops) and
+  the other samples are unchanged. `weights_ft/` (untracked) holds the model trained on all four samples; use it with
+  `--weights weights_ft`.
+- Still unmeasured: accuracy on real traffic. Needs a labelled set from the cameras.
+- **1 vs I:** the plate font draws both as a bare stroke, so position decides. The synthetic data is now letters-then-number
+  with stroke-shaped 1s, and `lpr-api --plate-format my` settles `I/1`, `O/0` by position (off by default; not in the Android app).
+- **Open:** tightly spaced `11` on long plates with small lettering merges into one character (`VGG811` → `VGG81`, stock model
+  too) unless the photo was trained on. It is a resolution limit of the 96×48 crop; a horizontally tighter crop reads it.
