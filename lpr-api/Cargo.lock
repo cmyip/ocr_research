@@ -840,6 +840,7 @@ dependencies = [
  "chrono",
  "clap",
  "cmake",
+ "futures-util",
  "image",
  "ort",
  "reqwest",

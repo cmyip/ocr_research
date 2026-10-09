@@ -5,13 +5,16 @@
 //!   GET  /healthz
 //!   GET  /             web UI for the RTSP channels (see channels.rs); its API lives under /api
 //!
+//! A channel's picture is served two ways: `/api/channels/{id}/snapshot.jpg` (one frame, for
+//! polling) and `/api/channels/{id}/stream.mjpg` (every frame as it arrives, as motion JPEG).
+//!
 //! An image arrives as a raw body (image/jpeg, image/png), a multipart file field (`image`,
 //! `upload` or `file`), or JSON with a base64 `image` - which is the provider's own payload, so a
 //! captured camera post can be replayed here as it is.
 use std::net::SocketAddr;
 use std::path::PathBuf;
 use std::sync::{Arc, Mutex};
-use std::time::Instant;
+use std::time::{Duration, Instant};
 
 use anyhow::{bail, Context, Result};
 use axum::extract::{DefaultBodyLimit, FromRequest, Multipart, Path as UrlPath, Query, Request, State};
@@ -27,7 +30,7 @@ use tokio::sync::Semaphore;
 use crate::channels::{ChannelConfig, Context as ChannelContext, Manager, TargetSettings};
 use crate::image::RgbImage;
 use crate::payload::ProviderEvent;
-use crate::pipeline::{FrameResult, Pipeline, PipelineConfig, DECODABLE_CRNNS, LATIN_CRNNS, REGION_GROUPS};
+use crate::pipeline::{FrameResult, Pipeline, PipelineConfig, COLOUR, DECODABLE_CRNNS, LATIN_CRNNS, MMR, REGION_GROUPS, VTYPE};
 
 const MAX_BODY: usize = 32 * 1024 * 1024;
 
@@ -171,6 +174,8 @@ pub async fn serve(args: ServeArgs) -> Result<()> {
         .route("/api/channels/{id}/start", post(start_channel))
         .route("/api/channels/{id}/stop", post(stop_channel))
         .route("/api/channels/{id}/snapshot.jpg", get(snapshot))
+        .route("/api/channels/{id}/stream.mjpg", get(mjpeg))
+        .route("/api/events/{id}/frame.jpg", get(event_frame))
         .route("/api/settings", get(|State(s): State<Arc<AppState>>| async move { Json(s.manager.target()) }).put(update_settings))
         .route("/api/events", get(|State(s): State<Arc<AppState>>| async move { Json(s.manager.events.recent(50)) }))
         .layer(DefaultBodyLimit::max(MAX_BODY))
@@ -215,6 +220,8 @@ fn catalog(args: &ServeArgs, has_ffmpeg: bool) -> Value {
         "crnns": DECODABLE_CRNNS.iter().map(|&id| json!({ "id": id, "note": crnn_note(id), "ensemble": LATIN_CRNNS.contains(&id), "available": exists(id) })).collect::<Vec<_>>(),
         "regions": REGION_GROUPS.iter().map(|g| json!({ "id": g.1, "group": g.0, "crnn": g.3, "note": region_note(g.0), "available": exists(g.1) })).collect::<Vec<_>>(),
         "corners_available": exists(71),
+        // rec_15 serves both the make/model and the pose; each model needs its label record.
+        "mmc": { "make_model": exists(MMR) && exists(16) && exists(18), "colour": exists(COLOUR) && exists(20), "type": exists(VTYPE) && exists(22) },
         "ffmpeg": has_ffmpeg,
         "allow_files": args.allow_file_sources,
         "defaults": ChannelConfig::default(),
@@ -270,23 +277,92 @@ async fn update_settings(State(state): State<Arc<AppState>>, Json(body): Json<Va
 }
 
 #[derive(Debug, Default, Deserialize)]
-struct SnapshotParams {
+struct PictureParams {
     /// Width in pixels; the live wall asks for small ones.
     w: Option<usize>,
+    /// stream.mjpg only: the most frames per second to send. The channel's own "frames read per
+    /// second" is the real ceiling, since that is how often a new picture exists.
+    fps: Option<f32>,
 }
 
-/// The frame the channel last read, scaled down for the preview.
-async fn snapshot(State(state): State<Arc<AppState>>, UrlPath(id): UrlPath<u32>, Query(params): Query<SnapshotParams>) -> Result<Response, ApiError> {
-    let frame = state.manager.preview(id).ok_or(ApiError(StatusCode::NOT_FOUND, "no frame yet".into()))?;
-    let jpeg = tokio::task::spawn_blocking(move || {
-        let width = frame.width.min(params.w.unwrap_or(960).clamp(160, 1920));
-        let height = (frame.height * width / frame.width).max(1);
-        frame.resize(width, height, 2.0).encode_jpeg(80)
-    })
-    .await
-    .map_err(|e| ApiError(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?
-    .map_err(|e| ApiError(StatusCode::INTERNAL_SERVER_ERROR, format!("{e:#}")))?;
-    Ok(([(header::CONTENT_TYPE, "image/jpeg"), (header::CACHE_CONTROL, "no-store")], jpeg).into_response())
+impl PictureParams {
+    fn width(&self) -> usize {
+        self.w.unwrap_or(960).clamp(160, 1920)
+    }
+}
+
+/// The channel's newest frame, scaled down for the preview.
+async fn snapshot(State(state): State<Arc<AppState>>, UrlPath(id): UrlPath<u32>, Query(params): Query<PictureParams>) -> Result<Response, ApiError> {
+    let width = params.width();
+    let (_, jpeg) = change(&state, move |m| m.frame_jpeg(id, width, 0)).await?.ok_or(ApiError(StatusCode::NOT_FOUND, "no frame yet".into()))?;
+    Ok(([(header::CONTENT_TYPE, "image/jpeg"), (header::CACHE_CONTROL, "no-store")], jpeg.to_vec()).into_response())
+}
+
+const MJPEG_BOUNDARY: &str = "lprframe";
+/// With no new frame for this long the last one is sent again, so a viewer that has gone away is
+/// noticed (the write fails) even while the camera is quiet.
+const MJPEG_KEEPALIVE: Duration = Duration::from_secs(5);
+/// A stream whose channel has had no picture at all for this long ends.
+const MJPEG_GIVE_UP: Duration = Duration::from_secs(20);
+
+/// The channel's frames as motion JPEG (multipart/x-mixed-replace), which an <img> plays as
+/// video. Smoother than polling snapshots, at the cost of one JPEG encode per frame.
+async fn mjpeg(State(state): State<Arc<AppState>>, UrlPath(id): UrlPath<u32>, Query(params): Query<PictureParams>) -> Result<Response, ApiError> {
+    let width = params.width();
+    let tick = Duration::from_secs_f32(1.0 / params.fps.filter(|f| f.is_finite()).unwrap_or(25.0).clamp(1.0, 30.0));
+    change(&state, move |m| m.frame_jpeg(id, width, u64::MAX)).await?; // 404 for a channel that does not exist
+
+    struct Viewer {
+        manager: Arc<Manager>,
+        last_seq: u64,
+        last_jpeg: Option<Arc<Vec<u8>>>,
+        last_sent: Instant,
+    }
+    let viewer = Viewer { manager: state.manager.clone(), last_seq: 0, last_jpeg: None, last_sent: Instant::now() };
+    let frames = futures_util::stream::unfold(viewer, move |mut v| async move {
+        loop {
+            let (manager, newer_than) = (v.manager.clone(), v.last_seq);
+            let next = tokio::task::spawn_blocking(move || manager.frame_jpeg(id, width, newer_than)).await;
+            let jpeg = match next {
+                Ok(Ok(Some((seq, jpeg)))) => {
+                    v.last_seq = seq;
+                    v.last_jpeg = Some(jpeg.clone());
+                    jpeg
+                }
+                Ok(Ok(None)) => match &v.last_jpeg {
+                    Some(jpeg) if v.last_sent.elapsed() >= MJPEG_KEEPALIVE => jpeg.clone(),
+                    None if v.last_sent.elapsed() >= MJPEG_GIVE_UP => return None,
+                    _ => {
+                        tokio::time::sleep(tick).await;
+                        continue;
+                    }
+                },
+                // The channel was deleted, or the server is shutting down.
+                _ => return None,
+            };
+            let mut part = format!("--{MJPEG_BOUNDARY}\r\nContent-Type: image/jpeg\r\nContent-Length: {}\r\n\r\n", jpeg.len()).into_bytes();
+            part.extend_from_slice(&jpeg);
+            part.extend_from_slice(b"\r\n");
+            // Pace to the asked rate: the next frame is looked for one tick after this one went out.
+            let wait = tick.saturating_sub(v.last_sent.elapsed());
+            if v.last_sent.elapsed() < tick {
+                tokio::time::sleep(wait).await;
+            }
+            v.last_sent = Instant::now();
+            return Some((Ok::<_, std::convert::Infallible>(part), v));
+        }
+    });
+    Ok((
+        [(header::CONTENT_TYPE, format!("multipart/x-mixed-replace; boundary={MJPEG_BOUNDARY}")), (header::CACHE_CONTROL, "no-store".to_string())],
+        axum::body::Body::from_stream(frames),
+    )
+        .into_response())
+}
+
+/// The frame an event was raised on.
+async fn event_frame(State(state): State<Arc<AppState>>, UrlPath(id): UrlPath<u64>) -> Result<Response, ApiError> {
+    let jpeg = state.manager.events.frame(id).ok_or(ApiError(StatusCode::NOT_FOUND, "this event's picture is no longer kept".into()))?;
+    Ok(([(header::CONTENT_TYPE, "image/jpeg"), (header::CACHE_CONTROL, "private, max-age=3600")], jpeg.to_vec()).into_response())
 }
 
 async fn read(State(state): State<Arc<AppState>>, Query(params): Query<Params>, req: Request) -> Result<Json<Value>, ApiError> {
@@ -370,6 +446,7 @@ async fn recognise(state: &Arc<AppState>, params: Params, req: Request, with_ima
             "rectify": round2(timings.rectify_ms),
             "region": round2(timings.region_ms),
             "ocr": round2(timings.ocr_ms),
+            "mmc": round2(timings.mmc_ms),
             // decode + pipeline: what recognising this image cost
             "total": round2(decode_ms + timings.pipeline_ms),
             // receiving the body and waiting for a free worker, before recognition started

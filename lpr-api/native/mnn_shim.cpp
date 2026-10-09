@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <cstring>
 #include <memory>
+#include <string>
 #include <vector>
 #ifndef _WIN32
 #include <unistd.h>
@@ -15,6 +16,7 @@ struct Net {
     std::shared_ptr<MNN::Interpreter> interp;
     MNN::Session* session = nullptr;
     MNN::Tensor* input = nullptr;
+    std::vector<std::string> outNames;
     std::vector<MNN::Tensor*> outs;
 };
 
@@ -60,7 +62,10 @@ void* lpr_mnn_create(const char* path, int threads) {
     n->interp = interp;
     n->session = session;
     n->input = interp->getSessionInput(session, nullptr);
-    for (auto& kv : interp->getSessionOutputAll(session)) n->outs.push_back(kv.second);
+    for (auto& kv : interp->getSessionOutputAll(session)) {
+        n->outNames.push_back(kv.first);
+        n->outs.push_back(kv.second);
+    }
     return n;
 }
 
@@ -76,6 +81,16 @@ int lpr_mnn_input_shape(void* h, int* dims, int cap) {
 }
 
 int lpr_mnn_output_count(void* h) { return (int) static_cast<Net*>(h)->outs.size(); }
+
+// Copies the name of output `index` (NUL-terminated, truncated to `cap`); returns its full length.
+int lpr_mnn_output_name(void* h, int index, char* buf, int cap) {
+    const std::string& name = static_cast<Net*>(h)->outNames[index];
+    if (cap > 0) {
+        std::strncpy(buf, name.c_str(), (size_t) cap - 1);
+        buf[cap - 1] = '\0';
+    }
+    return (int) name.size();
+}
 
 int lpr_mnn_output_shape(void* h, int index, int* dims, int cap) {
     return copyShape(static_cast<Net*>(h)->outs[index]->shape(), dims, cap);

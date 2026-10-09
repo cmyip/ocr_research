@@ -35,7 +35,26 @@
   .tile-foot .name { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .tile-foot .plate { font-size: 17px; }
   .tile-foot .sub { grid-column: 2 / -1; color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tile.add { border-style: dashed; background: transparent; display: grid; place-items: center; align-content: center; gap: 6px; min-height: 180px; color: var(--muted); text-align: center; padding: 16px; }
+  .tile.add .plus { font-size: 34px; line-height: 1; font-weight: 300; }
+  .tile.add:hover, .tile.add:focus-visible { color: var(--accent); }
+  .wall-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+  .wall-bar label { margin: 0; }
+  .wall-bar select { width: auto; }
+  .wall-bar .hint { margin: 0; }
   .back { margin-bottom: 12px; }
+  #events tr { cursor: pointer; }
+  #events tr:hover, #events tr:focus-visible { background: color-mix(in srgb, var(--accent) 10%, transparent); outline: none; }
+  dialog { border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--text); padding: 0; width: min(1100px, calc(100vw - 32px)); max-height: calc(100vh - 32px); }
+  dialog::backdrop { background: rgba(0, 0, 0, .6); }
+  .dialog-head { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  .dialog-head h2 { margin: 0; font-size: 15px; color: var(--text); flex: 1; }
+  .dialog-body { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 16px; padding: 16px; overflow: auto; }
+  @media (max-width: 800px) { .dialog-body { grid-template-columns: 1fr; } }
+  .dialog-body .stats { align-content: start; }
+  .dialog-body h3 { font-size: 12px; color: var(--muted); font-weight: 600; margin: 14px 0 6px; }
+  .legend { display: flex; gap: 14px; font-size: 12px; color: var(--muted); margin-top: 6px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border: 2px solid; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
   .preview.drawing { cursor: crosshair; outline: 2px solid var(--warn); }
   .region-buttons { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
   .region-buttons span { color: var(--muted); font-size: 13px; }
@@ -85,15 +104,23 @@
   <h1>LPR Channels</h1>
   <nav>
     <button type="button" id="navLive">Live view</button>
-    <button type="button" id="addBtn">Add channel</button>
     <button type="button" id="navSettings">Settings</button>
   </nav>
   <div class="note" id="serverNote"></div>
 </header>
 <main>
   <section id="viewLive">
-    <div id="noChannels" class="panel empty hidden">No channels yet. Add a channel to start reading an RTSP stream.</div>
-    <div class="wall" id="wall"></div>
+    <div class="wall-bar">
+      <label for="pictureMode">Live picture</label>
+      <select id="pictureMode">
+        <option value="snapshot">Snapshots, one per second</option>
+        <option value="mjpeg">MJPEG video</option>
+      </select>
+      <span class="hint" id="pictureHint"></span>
+    </div>
+    <div class="wall" id="wall">
+      <button type="button" class="tile add" id="addBtn"><span class="plus">+</span><span id="addText">Add channel</span></button>
+    </div>
   </section>
 
   <section id="viewSettings" class="panel hidden">
@@ -186,6 +213,16 @@
           </fieldset>
 
           <fieldset>
+            <legend>Vehicle details</legend>
+            <label class="check"><input type="checkbox" id="mmcMakeModel"> Make and model</label>
+            <label class="check"><input type="checkbox" id="mmcPose"> Pose: seen from the front or the rear</label>
+            <label class="check"><input type="checkbox" id="mmcColour"> Colour</label>
+            <label class="check"><input type="checkbox" id="mmcType"> Type: car, SUV, van, truck&hellip;</label>
+            <p class="hint">Read once for each event, from the vehicle around the plate, and logged with it. Adds about 10 ms to that one frame. The whole vehicle should be in the picture; with a detection area drawn, inside that area.</p>
+            <p class="hint" id="mmcMissing"></p>
+          </fieldset>
+
+          <fieldset>
             <legend>Skew correction</legend>
             <div class="presets">
               <button type="button" data-preset="corners">Corner rectification</button>
@@ -259,11 +296,35 @@
     <h2>Recent reads</h2>
     <div id="noEvents" class="empty">No plates read yet.</div>
     <table id="eventsTable" class="hidden">
-      <thead><tr><th>Time</th><th>Channel</th><th>Plate</th><th>Confidence</th><th>Model</th><th>Crop</th><th>Sent</th></tr></thead>
+      <thead><tr><th>Time</th><th>Channel</th><th>Plate</th><th>Confidence</th><th>Vehicle</th><th>Crop</th><th>Sent</th></tr></thead>
       <tbody id="events"></tbody>
     </table>
   </section>
 </main>
+
+<dialog id="eventDialog" aria-labelledby="evTitle">
+  <div class="dialog-head">
+    <h2 id="evTitle">Event</h2>
+    <button type="button" id="evClose">Close</button>
+  </div>
+  <div class="dialog-body">
+    <div>
+      <div class="preview" id="evPreview"><span id="evNoFrame">Loading the picture&hellip;</span><img id="evFrame" alt="" class="hidden"><svg id="evOverlay" preserveAspectRatio="none"></svg></div>
+      <div class="legend"><span><i style="border-color:#3ddc84"></i>Plate</span><span id="evVehicleKey"><i style="border-color:#5aa9ff"></i>Vehicle</span></div>
+    </div>
+    <div>
+      <div class="plate" id="evPlate"></div>
+      <img class="crop" id="evCrop" alt="" style="margin-top:8px">
+      <h3>Read</h3>
+      <dl class="stats" id="evRead"></dl>
+      <h3>Vehicle</h3>
+      <dl class="stats" id="evVehicle"></dl>
+      <div class="hint" id="evNoVehicle"></div>
+      <h3>Sent</h3>
+      <div id="evSent" style="font-size:13px; overflow-wrap:anywhere"></div>
+    </div>
+  </div>
+</dialog>
 
 <script>
 const $ = id => document.getElementById(id);
@@ -275,6 +336,15 @@ let view = 'live', selected = null, loadedFor = undefined;
 const tiles = new Map();
 // The detection region being edited: points as fractions of the picture. `drawing` holds a new outline in progress.
 let region = [], drawing = null;
+// How pictures arrive: 'snapshot' polls one a second, 'mjpeg' plays the channel's frames as video.
+// A choice of this browser, not of the server.
+let pictureMode = 'snapshot';
+try { if (localStorage.getItem('lpr.picture') === 'mjpeg') pictureMode = 'mjpeg'; } catch (e) {}
+// A browser opens at most six connections to one server, and every video holds one open, so
+// only this many play at once; the rest of the page needs the others.
+const MAX_STREAMS = 4;
+const BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+let events = [], eventsShown = '', openEvent = null;
 
 async function api(path, method = 'GET', body) {
   const res = await fetch(path, { method, headers: body ? { 'content-type': 'application/json' } : {}, body: body ? JSON.stringify(body) : undefined });
@@ -299,6 +369,12 @@ function buildModelInputs() {
   $('regionClassifiers').className = '';
   $('urlHint').textContent = (models.allow_files ? 'A video file path on the server also works. ' : '') + 'A saved password shows as ***; leave it to keep the stored one.';
   if (!models.corners_available) $('rectify').disabled = true;
+  const mmc = models.mmc || {};
+  $('mmcMakeModel').disabled = $('mmcPose').disabled = !mmc.make_model;
+  $('mmcColour').disabled = !mmc.colour;
+  $('mmcType').disabled = !mmc.type;
+  const missing = [!mmc.make_model && 'make, model and pose (rec_15)', !mmc.colour && 'colour (rec_19)', !mmc.type && 'type (rec_21)'].filter(Boolean);
+  $('mmcMissing').textContent = missing.length ? `Not in the weights folder: ${missing.join(', ')}.` : '';
 }
 
 // Everything that depends on where reads are sent.
@@ -343,6 +419,9 @@ function fillForm(c) {
   $('minConf').value = Math.round(c.min_confidence * 100); $('stable').value = c.stable_frames; $('dedupe').value = c.dedupe_seconds;
   $('cameraId').value = c.camera_id; $('trigger').checked = c.trigger;
   $('skipUnchanged').checked = c.skip_unchanged; $('changePercent').value = num(c.change_percent);
+  const mmc = models.mmc || {};
+  $('mmcMakeModel').checked = !!p.mmc_make_model && !!mmc.make_model; $('mmcPose').checked = !!p.mmc_pose && !!mmc.make_model;
+  $('mmcColour').checked = !!p.mmc_colour && !!mmc.colour; $('mmcType').checked = !!p.mmc_type && !!mmc.type;
   region = (p.roi || []).map(pt => [...pt]); drawing = null; renderRegion();
   $('formError').textContent = ''; $('formOk').textContent = '';
   syncVisibility();
@@ -362,6 +441,7 @@ function readForm(base) {
       rectify: $('rectify').checked, corner_margin_x: Number($('marginX').value), corner_margin_y: Number($('marginY').value),
       deshear: Number($('deshear').value), crop_pad: Number($('cropPad').value), plate_format: $('plateFormat').value,
       roi: region,
+      mmc_make_model: $('mmcMakeModel').checked, mmc_pose: $('mmcPose').checked, mmc_colour: $('mmcColour').checked, mmc_type: $('mmcType').checked,
     },
   };
 }
@@ -397,7 +477,7 @@ function show(next, id) {
   loadedFor = undefined;
   if (next === 'settings') fillSettings();
   render();
-  refreshSnapshots();
+  syncPictures(true);
 }
 
 // Outlines each plate of the frame on an SVG laid over the picture.
@@ -425,17 +505,53 @@ function drawPlates(svg, s, roi = []) {
   }));
 }
 
-// Loads the next picture off screen and swaps it in, so a slow frame never blanks the view.
-function loadSnapshot(img, text, c, width) {
+function stopStream(img) {
+  if (!img.dataset.stream) return;
+  delete img.dataset.stream;
+  img.src = BLANK; // replacing the address is what makes the browser hang up
+}
+
+// Shows a channel's picture in `img`: as video when `stream` is set, otherwise as a snapshot,
+// fetched only on a `tick` (once a second) and swapped in when loaded so the view never blanks.
+function showPicture(img, text, c, width, stream, tick) {
   const s = c.status;
   if (s.state !== 'running' || !s.frames) {
+    stopStream(img);
     img.classList.add('hidden');
     text.textContent = s.state === 'running' ? 'No frame yet' : s.state === 'stopped' ? 'Stopped' : s.state === 'error' ? 'No signal' : 'Connecting';
     return;
   }
+  if (stream) {
+    const url = `/api/channels/${c.config.id}/stream.mjpg?w=${width}`;
+    if (img.dataset.stream !== url) { img.dataset.stream = url; img.src = url; }
+    img.classList.remove('hidden');
+    return;
+  }
+  stopStream(img);
+  if (!tick) return;
   const next = new Image();
-  next.onload = () => { img.src = next.src; img.classList.remove('hidden'); };
+  next.onload = () => { if (!img.dataset.stream) { img.src = next.src; img.classList.remove('hidden'); } };
   next.src = `/api/channels/${c.config.id}/snapshot.jpg?w=${width}&t=${Date.now()}`;
+}
+
+// Gives every visible picture its source, and hangs up the videos of pictures out of view.
+function syncPictures(tick) {
+  const video = pictureMode === 'mjpeg';
+  let playing = 0;
+  for (const c of channels) {
+    const t = tiles.get(c.config.id);
+    if (!t) continue;
+    if (view !== 'live') { stopStream(t.img); continue; }
+    const stream = video && c.status.state === 'running' && c.status.frames > 0 && playing < MAX_STREAMS;
+    if (stream) playing++;
+    showPicture(t.img, t.text, c, 640, stream, tick);
+  }
+  const c = current();
+  if (view === 'channel' && c) showPicture($('snapshot'), $('previewText'), c, 960, video, tick);
+  else stopStream($('snapshot'));
+  const running = channels.filter(ch => ch.status.state === 'running').length;
+  $('pictureHint').textContent = !video ? '' : 'Motion as smooth as each channel\'s read rate, for more CPU on the server and in this browser.'
+    + (running > MAX_STREAMS ? ` Video plays on the first ${MAX_STREAMS} channels; the others stay on snapshots, because a browser opens only six connections to one server.` : '');
 }
 
 function makeTile(id) {
@@ -453,7 +569,7 @@ function makeTile(id) {
 
 // Tiles are kept and updated in place, so pictures do not flicker and clicks are never lost.
 function renderWall() {
-  $('noChannels').classList.toggle('hidden', channels.length > 0);
+  $('addText').textContent = channels.length ? 'Add channel' : 'No channels yet. Add one to start reading an RTSP stream.';
   const ids = new Set(channels.map(c => c.config.id));
   for (const [id, t] of tiles) if (!ids.has(id)) { t.root.remove(); tiles.delete(id); }
   channels.forEach((c, i) => {
@@ -477,6 +593,7 @@ function renderChannel() {
   if (loadedFor !== selected) {
     fillForm(c ? c.config : { ...models.defaults, name: '', url: '' });
     loadedFor = selected;
+    stopStream($('snapshot'));
     $('snapshot').classList.add('hidden');
   }
   $('deleteBtn').classList.toggle('hidden', !c);
@@ -509,7 +626,6 @@ function render() {
   $('readsPanel').classList.toggle('hidden', view === 'settings');
   $('navLive').classList.toggle('current', view === 'live');
   $('navSettings').classList.toggle('current', view === 'settings');
-  $('addBtn').classList.toggle('current', view === 'channel' && selected === 'new');
   if (view === 'live') renderWall();
   if (view === 'channel') renderChannel();
 }
@@ -521,29 +637,94 @@ async function refresh() {
     if (view === 'channel' && selected !== 'new' && !current()) { view = 'live'; selected = null; }
     render();
     applySettings();
+    syncPictures(false);
   } catch (e) { $('serverNote').textContent = 'The server is not answering'; }
 }
 
-function refreshSnapshots() {
-  if (view === 'live') channels.forEach(c => { const t = tiles.get(c.config.id); if (t) loadSnapshot(t.img, t.text, c, 640); });
-  const c = current();
-  if (view === 'channel' && c) loadSnapshot($('snapshot'), $('previewText'), c, 960);
-}
+const percent = v => `${(v * 100).toFixed(1)}%`;
+const vehicleSummary = v => !v ? '' : [v.colour && v.colour.label, v.make_model && `${v.make_model.make} ${v.make_model.model}`.trim(), v.type && v.type.label, v.pose && v.pose.label].filter(Boolean).join(' · ');
+const sentText = d => !d ? 'Not sent: this channel keeps its reads here.' : d.sent ? `HTTP ${d.status}${d.decision ? ', ' + d.decision : ''} (${d.ms} ms)` : `Failed: ${d.error}`;
 
 async function refreshEvents() {
-  let events;
   try { events = await api('/api/events'); } catch (e) { return; }
-  $('noEvents').classList.toggle('hidden', events.length > 0);
-  $('eventsTable').classList.toggle('hidden', events.length === 0);
-  $('events').replaceChildren(...events.map(e => {
-    const d = e.delivery;
-    const sent = !d ? '-' : d.sent ? `HTTP ${d.status}${d.decision ? ', ' + d.decision : ''} (${d.ms} ms)` : `failed: ${d.error}`;
-    return el('tr', {},
-      el('td', { textContent: new Date(e.at).toLocaleTimeString() }), el('td', { textContent: e.channel }), el('td', { className: 'mono', textContent: e.plate }),
-      el('td', { textContent: `${(e.confidence * 100).toFixed(1)}%` }), el('td', { textContent: e.ocr_model }),
-      el('td', {}, el('img', { src: 'data:image/jpeg;base64,' + e.crop, alt: '' })), el('td', { textContent: sent }));
-  }));
+  // Redrawn only when something changed, so a row is never replaced under a click.
+  const showing = JSON.stringify(events.map(e => [e.id, e.delivery]));
+  if (showing !== eventsShown) {
+    eventsShown = showing;
+    $('noEvents').classList.toggle('hidden', events.length > 0);
+    $('eventsTable').classList.toggle('hidden', events.length === 0);
+    $('events').replaceChildren(...events.map(e => {
+      const row = el('tr', { tabIndex: 0, title: 'Open this event' },
+        el('td', { textContent: new Date(e.at).toLocaleTimeString() }), el('td', { textContent: e.channel }), el('td', { className: 'mono', textContent: e.plate }),
+        el('td', { textContent: percent(e.confidence) }), el('td', { textContent: vehicleSummary(e.vehicle) || '-' }),
+        el('td', {}, el('img', { src: 'data:image/jpeg;base64,' + e.crop, alt: '' })), el('td', { textContent: e.delivery ? sentText(e.delivery) : '-' }));
+      row.dataset.id = e.id;
+      return row;
+    }));
+  }
+  // An open event keeps up with its delivery, which is known a moment after the event.
+  const open = openEvent && events.find(e => e.id === openEvent);
+  if (open && $('eventDialog').open) $('evSent').textContent = sentText(open.delivery);
 }
+
+function fillList(dl, pairs) {
+  dl.replaceChildren(...pairs.filter(([, v]) => v).flatMap(([k, v]) => [el('dt', { textContent: k }), el('dd', { textContent: v })]));
+}
+
+// The event view: the frame the plate was read in, with the plate and its vehicle outlined.
+function showEvent(id) {
+  const e = events.find(ev => ev.id === id);
+  if (!e) return;
+  openEvent = id;
+  $('evTitle').textContent = `${e.plate} on ${e.channel}`;
+  $('evPlate').textContent = e.plate;
+  $('evCrop').src = 'data:image/jpeg;base64,' + e.crop;
+  fillList($('evRead'), [['Time', new Date(e.at).toLocaleString()], ['Channel', e.channel], ['Camera ID', e.camera_id], ['Confidence', percent(e.confidence)], ['OCR model', e.ocr_model], ['Strategy', e.strategy]]);
+  const v = e.vehicle;
+  const with_confidence = l => l && `${l.label} (${percent(l.confidence)})`;
+  fillList($('evVehicle'), !v ? [] : [
+    ['Make and model', v.make_model && `${v.make_model.make} ${v.make_model.model}`.trim() + ` (${percent(v.make_model.confidence)})`],
+    ['Pose', with_confidence(v.pose)], ['Colour', with_confidence(v.colour)], ['Type', with_confidence(v.type)]]);
+  $('evNoVehicle').textContent = v ? '' : 'None recorded: vehicle details were off for this channel, or no vehicle was found around the plate.';
+  $('evVehicleKey').classList.toggle('hidden', !v);
+  $('evSent').textContent = sentText(e.delivery);
+
+  $('evPreview').style.aspectRatio = `${e.frame_width} / ${e.frame_height}`;
+  const frame = $('evFrame');
+  frame.classList.add('hidden');
+  $('evNoFrame').textContent = 'Loading the picture…';
+  frame.onload = () => frame.classList.remove('hidden');
+  frame.onerror = () => { $('evNoFrame').textContent = 'The picture of this event is no longer kept.'; };
+  frame.src = `/api/events/${e.id}/frame.jpg`;
+
+  const svg = $('evOverlay'), stroke = Math.max(2, e.frame_width / 400);
+  svg.setAttribute('viewBox', `0 0 ${e.frame_width} ${e.frame_height}`);
+  const outline = (points, colour) => {
+    const shape = document.createElementNS(SVG, 'polygon');
+    shape.setAttribute('points', points.map(([x, y]) => `${x},${y}`).join(' '));
+    Object.entries({ fill: 'none', stroke: colour, 'stroke-width': stroke }).forEach(([k, val]) => shape.setAttribute(k, val));
+    return shape;
+  };
+  const rect = ([x1, y1, x2, y2]) => [[x1, y1], [x1, y2], [x2, y2], [x2, y1]];
+  const plate = e.corners ? [0, 2, 4, 6].map(i => [e.corners[i], e.corners[i + 1]]) : rect(e.box);
+  svg.replaceChildren(...(v ? [outline(rect([v.box.x1, v.box.y1, v.box.x2, v.box.y2]), '#5aa9ff')] : []), outline(plate, '#3ddc84'));
+
+  if (!$('eventDialog').open) $('eventDialog').showModal();
+}
+
+$('events').onclick = ev => { const row = ev.target.closest('tr'); if (row) showEvent(Number(row.dataset.id)); };
+$('events').onkeydown = ev => { if (ev.key === 'Enter' || ev.key === ' ') { const row = ev.target.closest('tr'); if (row) { ev.preventDefault(); showEvent(Number(row.dataset.id)); } } };
+$('evClose').onclick = () => $('eventDialog').close();
+// A click on the dimmed surround lands on the dialog element itself, not on its contents.
+$('eventDialog').onclick = ev => { if (ev.target === $('eventDialog')) $('eventDialog').close(); };
+$('eventDialog').onclose = () => { openEvent = null; $('evFrame').removeAttribute('src'); };
+
+$('pictureMode').value = pictureMode;
+$('pictureMode').onchange = () => {
+  pictureMode = $('pictureMode').value;
+  try { localStorage.setItem('lpr.picture', pictureMode); } catch (e) {}
+  syncPictures(true);
+};
 
 $('drawBtn').onclick = () => { drawing = []; renderRegion(); $('preview').scrollIntoView({ block: 'nearest' }); };
 $('cancelBtn').onclick = () => { drawing = null; renderRegion(); };
@@ -613,10 +794,11 @@ $('settingsForm').onsubmit = async ev => {
   [models, settings] = await Promise.all([api('/api/models'), api('/api/settings')]);
   buildModelInputs();
   applySettings();
-  await refresh();
-  refreshSnapshots();
-  setInterval(refresh, 1000);
-  setInterval(refreshSnapshots, 1000);
+  // With video the plate outlines have to keep up with the picture, so the reads are fetched more often.
+  const refreshLoop = async () => { await refresh(); setTimeout(refreshLoop, pictureMode === 'mjpeg' ? 300 : 1000); };
+  await refreshLoop();
+  syncPictures(true);
+  setInterval(() => syncPictures(true), 1000);
   setInterval(refreshEvents, 2000);
   setInterval(async () => { if (view !== 'settings') { try { settings = await api('/api/settings'); applySettings(); } catch (e) {} } }, 5000);
   refreshEvents();

@@ -196,3 +196,14 @@ and turns PUTRAJAYA541 into PUTRAJAYA1541.
   with stroke-shaped 1s, and `lpr-api --plate-format my` settles `I/1`, `O/0` by position (off by default; not in the Android app).
 - **Open:** tightly spaced `11` on long plates with small lettering merges into one character (`VGG811` → `VGG81`, stock model
   too) unless the photo was trained on. It is a resolution limit of the 96×48 crop; a horizontally tighter crop reads it.
+
+### lpr-api: vehicle details, event view, MJPEG — 2026-10-09
+
+- **MMC in Rust.** `lpr-api` now runs rec_15 (make/model + pose), rec_19 (colour) and rec_21 (type) on the vehicle box
+  around a plate, per channel and per attribute. Same preprocessing as the app (224×224 RGB in [-1, 1]) and the same
+  answers: BRL4104 → Toyota Corolla Cross, Front, SUV; rec_17 → Mitsubishi Outlander, Rear. About 10 ms for all four,
+  so a channel runs it once per event rather than per frame. rec_15's outputs are `predictions_mmr` and `predictions_pose`.
+- Events carry the vehicle details and the frame; the web UI opens an event in a pop-up. Posted payloads gain
+  `vehiclemake/model/color/type/pose` when read (ParkingDashboard's `AlprEventRequest` has no such fields yet and ignores them).
+- Live pictures can be MJPEG (`/api/channels/{id}/stream.mjpg`) instead of one snapshot a second.
+

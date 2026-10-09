@@ -11,6 +11,7 @@ axum = { version = "0.8", features = ["multipart"] }
 base64 = "0.22"
 chrono = "0.4"
 clap = { version = "4", features = ["derive", "env"] }
+futures-util = { version = "0.3", default-features = false, features = ["std"] }
 image = { version = "0.25", default-features = false, features = ["jpeg", "png"] }
 ort = "=2.0.0-rc.13"
 reqwest = { version = "0.12", default-features = false, features = ["json", "multipart", "rustls-tls"] }

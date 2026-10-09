@@ -19,6 +19,19 @@ const PLATE_H: usize = 48;
 const DET_320: u32 = 72;
 const DET_640: u32 = 75;
 const CORNERS: u32 = 71;
+/// Vehicle attribute models ("MMC"), all MobileNetV3 on a 224×224 vehicle crop: rec_15 gives
+/// make/model and pose from one pass, rec_19 colour, rec_21 type; each has a label record.
+pub const MMR: u32 = 15;
+const MMR_LABELS: u32 = 16;
+const POSE_LABELS: u32 = 18;
+pub const COLOUR: u32 = 19;
+const COLOUR_LABELS: u32 = 20;
+pub const VTYPE: u32 = 21;
+const VTYPE_LABELS: u32 = 22;
+const VEHICLE_SIZE: usize = 224;
+/// Detector score a vehicle box needs, and how many are kept per frame (the Android app's values).
+const VEHICLE_SCORE: f32 = 0.40;
+const MAX_VEHICLES: usize = 3;
 /// CRNNs with the 0-9A-Z alphabet: the only ones an ensemble can compare.
 pub const LATIN_CRNNS: [u32; 9] = [50, 53, 57, 60, 63, 65, 66, 68, 69];
 /// Every CRNN whose alphabet is known, so its output decodes to text (rec_55 adds a separator).
@@ -117,6 +130,18 @@ pub struct PipelineConfig {
     #[arg(skip)]
     #[serde(serialize_with = "short_points")]
     pub roi: Vec<[f32; 2]>,
+    /// Report the make and model of the vehicle carrying the plate (rec_15, the heaviest model).
+    #[arg(long)]
+    pub mmc_make_model: bool,
+    /// Report whether the vehicle is seen from the front or the rear (rec_15's second output).
+    #[arg(long)]
+    pub mmc_pose: bool,
+    /// Report the vehicle's colour (rec_19).
+    #[arg(long)]
+    pub mmc_colour: bool,
+    /// Report the vehicle's type: car, SUV, van, truck... (rec_21).
+    #[arg(long)]
+    pub mmc_type: bool,
     #[arg(long, default_value_t = 0.25)]
     #[serde(serialize_with = "short_f32")]
     pub plate_score: f32,
@@ -161,6 +186,10 @@ impl Default for PipelineConfig {
             deshear: 0.0,
             plate_format: PlateFormat::None,
             roi: Vec::new(),
+            mmc_make_model: false,
+            mmc_pose: false,
+            mmc_colour: false,
+            mmc_type: false,
             plate_score: 0.25,
             nms_iou: 0.45,
             max_plates: 6,
@@ -171,6 +200,11 @@ impl Default for PipelineConfig {
 }
 
 impl PipelineConfig {
+    /// Whether any vehicle attribute is asked for, so vehicles have to be found at all.
+    pub fn any_mmc(&self) -> bool {
+        self.mmc_make_model || self.mmc_pose || self.mmc_colour || self.mmc_type
+    }
+
     /// Bounding box of the detection region as fractions of the frame: x0, y0, x1, y1.
     fn roi_extent(&self) -> [f32; 4] {
         let fold = |i: usize, init: f32, f: fn(f32, f32) -> f32| self.roi.iter().map(|p| p[i]).fold(init, f);
@@ -295,6 +329,42 @@ pub struct RegionRead {
     pub confidence: f32,
 }
 
+/// One classifier's answer.
+#[derive(Clone, Debug, PartialEq, Serialize)]
+pub struct Label {
+    pub label: String,
+    pub confidence: f32,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
+pub struct MakeModel {
+    pub make: String,
+    pub model: String,
+    pub confidence: f32,
+}
+
+/// The vehicle a plate is on: where the detector found it, and whichever attributes were asked
+/// for. The attributes stay empty until `Pipeline::describe` has run on it.
+#[derive(Clone, Debug, Serialize)]
+pub struct Vehicle {
+    #[serde(rename = "box")]
+    pub bbox: BBox,
+    pub det_score: f32,
+    pub make_model: Option<MakeModel>,
+    /// "Front" or "Rear": which end of the vehicle faces the camera.
+    pub pose: Option<Label>,
+    pub colour: Option<Label>,
+    #[serde(rename = "type")]
+    pub kind: Option<Label>,
+}
+
+impl Vehicle {
+    /// Whether any attribute was read; a bare box says nothing worth reporting.
+    pub fn described(&self) -> bool {
+        self.make_model.is_some() || self.pose.is_some() || self.colour.is_some() || self.kind.is_some()
+    }
+}
+
 #[derive(Clone, Serialize)]
 pub struct PlateRead {
     pub plate: String,
@@ -311,6 +381,9 @@ pub struct PlateRead {
     pub region: Option<RegionRead>,
     #[serde(skip_serializing_if = "Vec::is_empty")]
     pub regions: Vec<RegionRead>,
+    /// The vehicle whose box holds this plate, when vehicle attributes are switched on.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub vehicle: Option<Vehicle>,
     /// The exact 96×48 image fed to the CRNN.
     #[serde(skip)]
     pub ocr_input: RgbImage,
@@ -323,6 +396,8 @@ pub struct Timings {
     pub rectify_ms: f64,
     pub region_ms: f64,
     pub ocr_ms: f64,
+    /// Vehicle attributes, when they are switched on.
+    pub mmc_ms: f64,
     /// Decoded image in, plates out.
     pub pipeline_ms: f64,
 }
@@ -354,6 +429,29 @@ struct Crnn {
     net: Net,
 }
 
+/// rec_15: one pass gives both the make/model and the pose.
+struct MmrNet {
+    net: Net,
+    mmr_output: usize,
+    pose_output: usize,
+    /// (make, model) per class.
+    makes: Vec<(String, String)>,
+    poses: Vec<String>,
+}
+
+/// A single-output attribute classifier with its display labels.
+struct AttributeNet {
+    net: Net,
+    labels: Vec<String>,
+}
+
+#[derive(Default)]
+struct VehicleModels {
+    mmr: Option<MmrNet>,
+    colour: Option<AttributeNet>,
+    kind: Option<AttributeNet>,
+}
+
 /// One set of loaded models. Not shareable across threads: use one per worker.
 pub struct Pipeline {
     cfg: PipelineConfig,
@@ -361,6 +459,7 @@ pub struct Pipeline {
     corners: Option<Net>,
     regions: Vec<RegionClassifier>,
     crnns: Vec<Crnn>,
+    vehicles: VehicleModels,
 }
 
 fn ms_since(t: Instant) -> f64 {
@@ -454,10 +553,73 @@ impl Pipeline {
             }
             crnns.push(Crnn { id, net });
         }
-        Ok(Pipeline { cfg: cfg.clone(), detector, corners, regions, crnns })
+        let mut vehicles = VehicleModels::default();
+        if cfg.mmc_make_model || cfg.mmc_pose {
+            let net = Net::load(&rec(w, MMR), cfg.threads)?;
+            let (mmr_output, pose_output) = net.output_index("mmr").zip(net.output_index("pose")).with_context(|| format!("rec_{MMR} lacks the mmr and pose outputs"))?;
+            let makes = label_lines(w, MMR_LABELS)?.into_iter().map(|l| l.split_once('\t').map_or((l.clone(), String::new()), |(a, b)| (a.trim().to_string(), b.trim().to_string()))).collect();
+            vehicles.mmr = Some(MmrNet { net, mmr_output, pose_output, makes, poses: label_lines(w, POSE_LABELS)? });
+        }
+        // "white<TAB>White", "BIGTRUCK<TAB>Large Truck": a code, then the name to show.
+        let named = |id: u32| -> Result<Vec<String>> { Ok(label_lines(w, id)?.into_iter().map(|l| l.split_once('\t').map_or(l.clone(), |(_, name)| name.trim().to_string())).collect()) };
+        if cfg.mmc_colour {
+            vehicles.colour = Some(AttributeNet { net: Net::load(&rec(w, COLOUR), cfg.threads)?, labels: named(COLOUR_LABELS)? });
+        }
+        if cfg.mmc_type {
+            vehicles.kind = Some(AttributeNet { net: Net::load(&rec(w, VTYPE), cfg.threads)?, labels: named(VTYPE_LABELS)? });
+        }
+        Ok(Pipeline { cfg: cfg.clone(), detector, corners, regions, crnns, vehicles })
     }
 
+    /// Image → plates, with the attributes of each plate's vehicle when they are switched on.
     pub fn process(&mut self, img: &RgbImage) -> Result<FrameResult> {
+        let mut result = self.read_plates(img)?;
+        let t = Instant::now();
+        for plate in result.plates.iter_mut() {
+            if let Some(vehicle) = plate.vehicle.as_mut() {
+                self.describe(img, vehicle)?;
+            }
+        }
+        result.timings.mmc_ms = ms_since(t);
+        result.timings.pipeline_ms += result.timings.mmc_ms;
+        Ok(result)
+    }
+
+    /// Fills in the attributes of a vehicle that `read_plates` found. Separate from reading
+    /// because it costs more than the rest of the pipeline together: a stream only needs it for
+    /// the frame that raises an event, not for every frame.
+    pub fn describe(&mut self, img: &RgbImage, vehicle: &mut Vehicle) -> Result<()> {
+        let b = vehicle.bbox;
+        let (w, h) = (img.width as f32, img.height as f32);
+        // 224×224 RGB in [-1, 1]: with raw 0-255 every car comes out as "Large Truck" (android/README.md).
+        let crop = img.crop(b.x1.clamp(0.0, w), b.y1.clamp(0.0, h), b.x2.clamp(0.0, w), b.y2.clamp(0.0, h)).resize(VEHICLE_SIZE, VEHICLE_SIZE, 0.0);
+        let x = crop.to_tensor(1.0 / 127.5, -1.0, false);
+        if let Some(m) = self.vehicles.mmr.as_mut() {
+            let mut outputs = m.net.run_all(&x)?;
+            if self.cfg.mmc_make_model {
+                let p = softmax_if_logits(std::mem::take(&mut outputs[m.mmr_output]), 1);
+                let best = argmax(&p);
+                if let Some((make, model)) = m.makes.get(best) {
+                    vehicle.make_model = Some(MakeModel { make: make.clone(), model: model.clone(), confidence: p[best] });
+                }
+            }
+            if self.cfg.mmc_pose {
+                // The label file says "Frontal"; "Front" reads better next to "Rear".
+                vehicle.pose = top_label(std::mem::take(&mut outputs[m.pose_output]), &m.poses).map(|l| Label { label: if l.label == "Frontal" { "Front".into() } else { l.label }, ..l });
+            }
+        }
+        if let Some(c) = self.vehicles.colour.as_mut() {
+            vehicle.colour = top_label(c.net.run(&x)?, &c.labels);
+        }
+        if let Some(k) = self.vehicles.kind.as_mut() {
+            vehicle.kind = top_label(k.net.run(&x)?, &k.labels);
+        }
+        Ok(())
+    }
+
+    /// Image → plates. Each plate is tied to the vehicle box around it, if vehicle attributes
+    /// are switched on, but the attributes themselves are left to `describe`.
+    pub fn read_plates(&mut self, img: &RgbImage) -> Result<FrameResult> {
         let start = Instant::now();
         let mut timings = Timings::default();
 
@@ -488,11 +650,18 @@ impl Pipeline {
         let t = Instant::now();
         let (out, anchors) = self.detector.infer(x)?;
         let (ox, oy) = (rx0 as f32, ry0 as f32);
-        let detections: Vec<(BBox, f32)> = plate_nms(&out, anchors, ratio, self.cfg.plate_score, self.cfg.nms_iou, self.cfg.max_plates)
+        let in_frame = |(b, score): (BBox, f32)| (BBox { x1: b.x1 + ox, y1: b.y1 + oy, x2: b.x2 + ox, y2: b.y2 + oy }, score);
+        let detections: Vec<(BBox, f32)> = class_nms(&out, anchors, 0, ratio, self.cfg.plate_score, self.cfg.nms_iou, self.cfg.max_plates)
             .into_iter()
-            .map(|(b, score)| (BBox { x1: b.x1 + ox, y1: b.y1 + oy, x2: b.x2 + ox, y2: b.y2 + oy }, score))
+            .map(in_frame)
             .filter(|(b, _)| self.cfg.roi_contains((b.x1 + b.x2) / 2.0, (b.y1 + b.y2) / 2.0, img.width, img.height))
             .collect();
+        // Class 1 = vehicle. Only looked at when an attribute is wanted.
+        let vehicle_boxes: Vec<(BBox, f32)> = if self.cfg.any_mmc() && out.len() >= 6 * anchors {
+            class_nms(&out, anchors, 1, ratio, VEHICLE_SCORE, self.cfg.nms_iou, MAX_VEHICLES).into_iter().map(in_frame).collect()
+        } else {
+            Vec::new()
+        };
         timings.det_infer_ms = ms_since(t);
 
         // 2. Per plate: rectify, classify the region if asked, read.
@@ -561,6 +730,7 @@ impl Pipeline {
                 strategy,
                 region: routed.map(|(r, _)| r),
                 regions,
+                vehicle: vehicle_of(&bbox, &vehicle_boxes),
                 ocr_input,
             });
         }
@@ -589,21 +759,53 @@ impl Pipeline {
     }
 }
 
+/// The vehicle a plate belongs to: the smallest vehicle box that holds the plate's centre.
+fn vehicle_of(plate: &BBox, vehicles: &[(BBox, f32)]) -> Option<Vehicle> {
+    let (cx, cy) = ((plate.x1 + plate.x2) / 2.0, (plate.y1 + plate.y2) / 2.0);
+    vehicles
+        .iter()
+        .filter(|(b, _)| (b.x1..=b.x2).contains(&cx) && (b.y1..=b.y2).contains(&cy))
+        .min_by(|a, b| a.0.area().total_cmp(&b.0.area()))
+        .map(|&(bbox, det_score)| Vehicle { bbox, det_score, make_model: None, pose: None, colour: None, kind: None })
+}
+
+/// The non-empty lines of a label record. rec_16 is mostly UTF-8 with some Windows-1252 lines,
+/// so a line that is not UTF-8 is read byte for byte as Latin-1 rather than losing its accents.
+fn label_lines(weights: &Path, id: u32) -> Result<Vec<String>> {
+    let bytes = std::fs::read(rec(weights, id)).with_context(|| format!("label list rec_{id}"))?;
+    Ok(bytes
+        .split(|&b| b == b'\n')
+        .map(|line| match std::str::from_utf8(line) {
+            Ok(text) => text.trim_end_matches('\r').to_string(),
+            Err(_) => line.iter().map(|&b| b as char).collect::<String>().trim_end_matches('\r').to_string(),
+        })
+        .filter(|l| !l.trim().is_empty())
+        .collect())
+}
+
+/// The most likely class of a classifier's output, with its label.
+fn top_label(output: Vec<f32>, labels: &[String]) -> Option<Label> {
+    let p = softmax_if_logits(output, 1);
+    let best = argmax(&p);
+    labels.get(best).map(|label| Label { label: label.clone(), confidence: p[best] })
+}
+
 /// Decodes Ultralytics YOLOv8 output rows (cx, cy, w, h, then one score per class; class 0 =
-/// plate) into image-space boxes, with greedy NMS.
-fn plate_nms(out: &[f32], n: usize, ratio: f32, min_score: f32, max_iou: f32, max_plates: usize) -> Vec<(BBox, f32)> {
+/// plate, class 1 = vehicle) into image-space boxes of one class, with greedy NMS.
+fn class_nms(out: &[f32], n: usize, class: usize, ratio: f32, min_score: f32, max_iou: f32, max_boxes: usize) -> Vec<(BBox, f32)> {
+    let scores = &out[(4 + class) * n..(5 + class) * n];
     let mut candidates: Vec<(BBox, f32)> = (0..n)
-        .filter(|&i| out[4 * n + i] >= min_score)
+        .filter(|&i| scores[i] >= min_score)
         .map(|i| {
             let (cx, cy, w, h) = (out[i], out[n + i], out[2 * n + i], out[3 * n + i]);
             let b = BBox { x1: (cx - w / 2.0) / ratio, y1: (cy - h / 2.0) / ratio, x2: (cx + w / 2.0) / ratio, y2: (cy + h / 2.0) / ratio };
-            (b, out[4 * n + i])
+            (b, scores[i])
         })
         .collect();
     candidates.sort_by(|a, b| b.1.total_cmp(&a.1));
     let mut keep: Vec<(BBox, f32)> = Vec::new();
     for c in candidates {
-        if keep.len() >= max_plates {
+        if keep.len() >= max_boxes {
             break;
         }
         if keep.iter().all(|k| k.0.iou(&c.0) <= max_iou) {
@@ -772,7 +974,7 @@ mod tests {
             out[3 * n + i] = b.3;
             out[4 * n + i] = b.4;
         }
-        let kept = plate_nms(&out, n, 0.5, 0.25, 0.45, 6);
+        let kept = class_nms(&out, n, 0, 0.5, 0.25, 0.45, 6);
         assert_eq!(kept.len(), 2);
         assert_eq!(kept[0].1, 0.9);
         assert_eq!(kept[0].0.x1, 160.0); // (100 - 20) / 0.5
@@ -844,6 +1046,59 @@ mod tests {
         assert!(PipelineConfig { roi: vec![[0.1, 0.1], [0.2, 0.2]], ..whole.clone() }.validate().is_err(), "two points");
         assert!(PipelineConfig { roi: vec![[0.1, 0.1], [1.2, 0.2], [0.5, 0.9]], ..whole.clone() }.validate().is_err(), "outside");
         assert!(PipelineConfig { roi: vec![[0.1, 0.1], [0.12, 0.1], [0.11, 0.9]], ..whole }.validate().is_err(), "a sliver");
+    }
+
+    #[test]
+    fn a_plate_belongs_to_the_smallest_vehicle_around_it() {
+        let plate = BBox { x1: 100.0, y1: 100.0, x2: 140.0, y2: 120.0 };
+        let lorry = (BBox { x1: 0.0, y1: 0.0, x2: 500.0, y2: 400.0 }, 0.9);
+        let car = (BBox { x1: 60.0, y1: 40.0, x2: 220.0, y2: 160.0 }, 0.6);
+        let elsewhere = (BBox { x1: 300.0, y1: 0.0, x2: 400.0, y2: 90.0 }, 0.95);
+        let found = vehicle_of(&plate, &[lorry, car, elsewhere]).unwrap();
+        assert_eq!((found.bbox.x1, found.det_score), (60.0, 0.6));
+        assert!(!found.described());
+        assert!(vehicle_of(&plate, &[elsewhere]).is_none());
+    }
+
+    /// The vehicle attributes the Android app established on these two pictures (android/README.md):
+    /// the BRL4104 car is a frontal Toyota Corolla Cross SUV, the SDK's own sample a rear
+    /// Mitsubishi Outlander SUV.
+    #[test]
+    fn vehicle_attributes_match_the_app() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
+        if !root.join("weights/rec_15.bin").is_file() {
+            eprintln!("weights not found, skipping");
+            return;
+        }
+        let all = PipelineConfig { weights: root.join("weights"), mmc_make_model: true, mmc_pose: true, mmc_colour: true, mmc_type: true, ..PipelineConfig::default() };
+        let mut pipeline = Pipeline::load(&all).unwrap();
+        let frame = RgbImage::decode(&std::fs::read(root.join("sample_data/BRL4104.jpeg")).unwrap()).unwrap();
+        let result = pipeline.process(&frame).unwrap();
+        assert_eq!(result.plates[0].plate, "BRL4104");
+        let vehicle = result.plates[0].vehicle.as_ref().expect("the car around the plate is found");
+        let mm = vehicle.make_model.as_ref().unwrap();
+        assert_eq!((mm.make.as_str(), mm.model.as_str()), ("Toyota", "Corolla Cross"));
+        assert_eq!(vehicle.pose.as_ref().unwrap().label, "Front");
+        assert_eq!(vehicle.kind.as_ref().unwrap().label, "SUV");
+        assert!(vehicle.colour.is_some());
+
+        // Reading alone finds the vehicle but leaves describing it for later.
+        let lazy = pipeline.read_plates(&frame).unwrap();
+        assert!(lazy.plates[0].vehicle.as_ref().is_some_and(|v| !v.described()));
+
+        let sample = RgbImage { width: 224, height: 224, data: std::fs::read(root.join("weights/rec_17.bin")).unwrap() };
+        let mut vehicle = Vehicle { bbox: BBox { x1: 0.0, y1: 0.0, x2: 224.0, y2: 224.0 }, det_score: 1.0, make_model: None, pose: None, colour: None, kind: None };
+        pipeline.describe(&sample, &mut vehicle).unwrap();
+        let mm = vehicle.make_model.unwrap();
+        assert_eq!((mm.make.as_str(), mm.model.as_str()), ("Mitsubishi", "Outlander"));
+        assert_eq!(vehicle.pose.unwrap().label, "Rear");
+
+        // Only what is asked for is reported, and nothing at all by default.
+        let pose_only = PipelineConfig { weights: root.join("weights"), mmc_pose: true, ..PipelineConfig::default() };
+        let v = Pipeline::load(&pose_only).unwrap().process(&frame).unwrap().plates.remove(0).vehicle.unwrap();
+        assert!(v.pose.is_some() && v.make_model.is_none() && v.colour.is_none() && v.kind.is_none());
+        let off = PipelineConfig { weights: root.join("weights"), ..PipelineConfig::default() };
+        assert!(Pipeline::load(&off).unwrap().process(&frame).unwrap().plates[0].vehicle.is_none());
     }
 
     #[test]

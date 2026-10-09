@@ -7,7 +7,7 @@ use std::collections::{HashMap, VecDeque};
 use std::io::{BufRead, BufReader};
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{Arc, Condvar, Mutex, RwLock};
 use std::thread::JoinHandle;
 use std::time::{Duration, Instant};
@@ -19,13 +19,18 @@ use serde_json::{json, Value};
 
 use crate::image::RgbImage;
 use crate::payload::{now_iso, ProviderEvent};
-use crate::pipeline::{Pipeline, PipelineConfig, PlateRead};
+use crate::pipeline::{Pipeline, PipelineConfig, PlateRead, Vehicle};
 
 const MASK: &str = "***";
 const STALL: Duration = Duration::from_secs(15);
 const EVENTS_KEPT: usize = 200;
 /// Reads of one plate count towards "steady" only if they are this close together.
 const STEADY_GAP_S: f64 = 3.0;
+/// The frame kept with each event is scaled down to this width: 200 events stay near 30 MB.
+const EVENT_FRAME_WIDTH: usize = 1280;
+/// Numbers every frame of every channel, so a viewer can tell a new picture from the one it has,
+/// also across a channel restart.
+static FRAME_SEQ: AtomicU64 = AtomicU64::new(1);
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
@@ -161,9 +166,22 @@ pub struct Event {
     pub confidence: f32,
     pub at: String,
     pub ocr_model: String,
+    pub strategy: String,
     pub crop: String,
+    /// Size of the frame the plate was read in; the boxes below are in its pixels.
+    pub frame_width: usize,
+    pub frame_height: usize,
+    #[serde(rename = "box")]
+    pub bbox: [f32; 4],
+    pub corners: Option<[f32; 8]>,
+    /// The vehicle carrying the plate and its attributes, when the channel has them switched on
+    /// and the detector found the vehicle.
+    pub vehicle: Option<Vehicle>,
     /// Outcome of posting to the target, once known.
     pub delivery: Option<Value>,
+    /// The frame as a JPEG, served by its own endpoint rather than with the list.
+    #[serde(skip)]
+    pub frame: Arc<Vec<u8>>,
 }
 
 #[derive(Default)]
@@ -192,6 +210,11 @@ impl EventLog {
     /// Newest first.
     pub fn recent(&self, limit: usize) -> Vec<Event> {
         self.inner.lock().unwrap().0.iter().rev().take(limit).cloned().collect()
+    }
+
+    /// The frame an event was raised on, while the event is still kept.
+    pub fn frame(&self, id: u64) -> Option<Arc<Vec<u8>>> {
+        self.inner.lock().unwrap().0.iter().find(|e| e.id == id).map(|e| e.frame.clone()).filter(|f| !f.is_empty())
     }
 }
 
@@ -311,10 +334,17 @@ impl MotionGate {
 
 struct Shared {
     status: Mutex<Status>,
-    preview: Mutex<Option<Arc<RgbImage>>>,
+    /// The newest frame and its number.
+    preview: Mutex<Option<(u64, Arc<RgbImage>)>>,
+    /// The newest frame as JPEGs, by width, so several viewers share one encode.
+    jpegs: Mutex<(u64, Vec<(usize, Arc<Vec<u8>>)>)>,
 }
 
 impl Shared {
+    fn show(&self, img: RgbImage) {
+        *self.preview.lock().unwrap() = Some((FRAME_SEQ.fetch_add(1, Ordering::Relaxed), Arc::new(img)));
+    }
+
     fn set_state(&self, state: &'static str, message: Option<String>) {
         let mut s = self.status.lock().unwrap();
         s.state = state;
@@ -335,7 +365,7 @@ struct Worker {
 impl Worker {
     fn start(cfg: ChannelConfig, ctx: Arc<Context>, events: Arc<EventLog>) -> Worker {
         let stop = Arc::new(AtomicBool::new(false));
-        let shared = Arc::new(Shared { status: Mutex::new(Status { state: "starting", ..Status::default() }), preview: Mutex::new(None) });
+        let shared = Arc::new(Shared { status: Mutex::new(Status { state: "starting", ..Status::default() }), preview: Mutex::new(None), jpegs: Mutex::new((0, Vec::new())) });
         let (s, sh) = (stop.clone(), shared.clone());
         let handle = std::thread::Builder::new().name(format!("channel-{}", cfg.id)).spawn(move || run(cfg, ctx, events, sh, s)).ok();
         Worker { stop, handle, shared }
@@ -586,14 +616,27 @@ fn stream_once(
                 (window_start, window_frames) = (Instant::now(), 0);
             }
             drop(s);
-            *shared.preview.lock().unwrap() = Some(Arc::new(img));
+            shared.show(img);
             continue;
         }
 
         let t = Instant::now();
-        let result = pipeline.process(&img);
-        let ms = t.elapsed().as_secs_f32() * 1e3;
+        let mut result = pipeline.read_plates(&img);
+        // Vehicle attributes cost as much as everything else together, so they are read only
+        // for a plate that is about to become an event, on the frame that makes it one.
         let mut raised: Vec<PlateRead> = Vec::new();
+        if let Ok(r) = result.as_mut() {
+            let now = clock.elapsed().as_secs_f64();
+            for plate in r.plates.iter_mut().filter(|p| tracker.observe(&p.plate, p.confidence, now)) {
+                if let Some(vehicle) = plate.vehicle.as_mut() {
+                    if let Err(e) = pipeline.describe(&img, vehicle) {
+                        eprintln!("channel {}: vehicle attributes failed: {e:#}", cfg.name);
+                    }
+                }
+                raised.push(plate.clone());
+            }
+        }
+        let ms = t.elapsed().as_secs_f32() * 1e3;
         {
             let mut s = shared.status.lock().unwrap();
             s.state = "running";
@@ -615,8 +658,6 @@ fn stream_once(
                         s.last_read_at = Some(now_iso());
                         s.crop = best.ocr_input.encode_jpeg(95).ok().map(|j| base64::engine::general_purpose::STANDARD.encode(j));
                     }
-                    let now = clock.elapsed().as_secs_f64();
-                    raised = r.plates.into_iter().filter(|p| tracker.observe(&p.plate, p.confidence, now)).collect();
                     s.events += raised.len() as u64;
                 }
                 Err(e) => s.message = Some(format!("reading a frame failed: {e:#}")),
@@ -625,7 +666,7 @@ fn stream_once(
         for plate in &raised {
             raise(cfg, ctx, events, plate, &img);
         }
-        *shared.preview.lock().unwrap() = Some(Arc::new(img));
+        shared.show(img);
     };
     let _ = child.kill();
     let _ = child.wait();
@@ -646,6 +687,13 @@ fn view(p: &PlateRead) -> PlateView {
     }
 }
 
+/// The frame as a JPEG no wider than `width`.
+fn scaled_jpeg(frame: &RgbImage, width: usize, quality: u8) -> Result<Vec<u8>> {
+    let width = frame.width.min(width.max(1));
+    let height = (frame.height * width / frame.width).max(1);
+    frame.resize(width, height, 2.0).encode_jpeg(quality)
+}
+
 /// Records the event and, when the channel triggers, posts it to the target like a camera would.
 fn raise(cfg: &ChannelConfig, ctx: &Context, events: &Arc<EventLog>, plate: &PlateRead, frame: &RgbImage) {
     let b64 = |bytes: Vec<u8>| base64::engine::general_purpose::STANDARD.encode(bytes);
@@ -659,8 +707,15 @@ fn raise(cfg: &ChannelConfig, ctx: &Context, events: &Arc<EventLog>, plate: &Pla
         confidence: plate.confidence,
         at: now_iso(),
         ocr_model: plate.ocr_model.clone(),
+        strategy: plate.strategy.clone(),
         crop: plate.ocr_input.encode_jpeg(95).map(b64).unwrap_or_default(),
+        frame_width: frame.width,
+        frame_height: frame.height,
+        bbox: [plate.bbox.x1, plate.bbox.y1, plate.bbox.x2, plate.bbox.y2],
+        corners: plate.corners,
+        vehicle: plate.vehicle.clone().filter(Vehicle::described),
         delivery: None,
+        frame: Arc::new(scaled_jpeg(frame, EVENT_FRAME_WIDTH, 80).unwrap_or_default()),
     });
     let (true, Some(url)) = (cfg.trigger, ctx.target.read().unwrap().1.clone()) else { return };
     let jpeg = frame.encode_jpeg(85).unwrap_or_default();
@@ -823,12 +878,33 @@ impl Manager {
         self.save(&entries)
     }
 
-    /// The frame the channel last read, for the preview.
-    pub fn preview(&self, id: u32) -> Option<Arc<RgbImage>> {
-        let entries = self.entries.lock().unwrap();
-        let worker = entries.iter().find(|e| e.cfg.id == id)?.worker.as_ref()?;
-        let frame = worker.shared.preview.lock().unwrap().clone();
-        frame
+    /// The channel's newest frame as a JPEG `width` pixels wide, with its number. `newer_than`
+    /// is the number the caller already has: `Ok(None)` then means nothing new yet (or the
+    /// channel is not running), and `Err` that the channel is gone.
+    pub fn frame_jpeg(&self, id: u32, width: usize, newer_than: u64) -> Result<Option<(u64, Arc<Vec<u8>>)>> {
+        let shared = {
+            let entries = self.entries.lock().unwrap();
+            let entry = entries.iter().find(|e| e.cfg.id == id).with_context(|| format!("channel {id} does not exist"))?;
+            match &entry.worker {
+                Some(w) => w.shared.clone(),
+                None => return Ok(None),
+            }
+        };
+        let Some((seq, frame)) = shared.preview.lock().unwrap().clone().filter(|(seq, _)| *seq > newer_than) else { return Ok(None) };
+        // Held across the encode on purpose: viewers asking for the same frame wait for one
+        // encode instead of each doing their own.
+        let mut cache = shared.jpegs.lock().unwrap();
+        if cache.0 != seq {
+            *cache = (seq, Vec::new());
+        }
+        if let Some((_, jpeg)) = cache.1.iter().find(|(w, _)| *w == width) {
+            return Ok(Some((seq, jpeg.clone())));
+        }
+        let jpeg = Arc::new(scaled_jpeg(&frame, width, 80)?);
+        if cache.1.len() < 8 {
+            cache.1.push((width, jpeg.clone()));
+        }
+        Ok(Some((seq, jpeg)))
     }
 
     /// The URL events are posted to right now, if one is set and usable.
@@ -924,6 +1000,36 @@ mod tests {
         // Switched off, every frame is read.
         let mut off = MotionGate::new(&ChannelConfig { skip_unchanged: false, ..ChannelConfig::default() });
         assert!(off.should_read(&empty, whole, 0.0) && off.should_read(&empty, whole, 10.0) && off.should_read(&empty, whole, 10.1));
+    }
+
+    #[test]
+    fn an_event_keeps_its_frame_until_it_is_dropped() {
+        let log = EventLog::default();
+        let event = |frame: &[u8]| Event {
+            id: 0, channel_id: 1, channel: "Entry".into(), camera_id: "CAM".into(), plate: "BRL4104".into(), confidence: 0.99,
+            at: now_iso(), ocr_model: "rec_57".into(), strategy: "pinned rec_57".into(), crop: String::new(),
+            frame_width: 1920, frame_height: 1080, bbox: [0.0; 4], corners: None, vehicle: None, delivery: None, frame: Arc::new(frame.to_vec()),
+        };
+        let first = log.push(event(b"jpeg"));
+        assert_eq!(log.frame(first).as_deref(), Some(&b"jpeg".to_vec()));
+        assert!(log.frame(first + 1).is_none());
+        // The frame is not part of the list the page polls.
+        assert!(serde_json::to_value(&log.recent(1)[0]).unwrap().get("frame").is_none());
+        let empty = log.push(event(b""));
+        assert!(log.frame(empty).is_none(), "an event whose frame could not be encoded has no picture");
+        for _ in 0..EVENTS_KEPT {
+            log.push(event(b"x"));
+        }
+        assert!(log.frame(first).is_none(), "dropped with its event");
+    }
+
+    #[test]
+    fn a_frame_is_scaled_down_but_never_up() {
+        let frame = RgbImage::filled(1920, 1080, 90);
+        let small = RgbImage::decode(&scaled_jpeg(&frame, 640, 80).unwrap()).unwrap();
+        assert_eq!((small.width, small.height), (640, 360));
+        let same = RgbImage::decode(&scaled_jpeg(&frame, 4000, 80).unwrap()).unwrap();
+        assert_eq!((same.width, same.height), (1920, 1080));
     }
 
     #[test]

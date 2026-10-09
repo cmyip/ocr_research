@@ -30,7 +30,7 @@ Needs Rust 1.88+, CMake and a C++ compiler. The first build downloads and compil
 downloads a prebuilt ONNX Runtime. Both are linked statically, so the binary stands alone.
 
 ```bash
-cargo test --release     # 23 tests; one reads the three samples end to end
+cargo test --release     # 31 tests; one reads the three samples end to end
 ```
 
 ### OpenVINO build (Ubuntu 26.04, x86_64)
@@ -130,18 +130,37 @@ to decide anything.
 Open `http://127.0.0.1:8088/` while `serve` is running. Decoding needs `ffmpeg` on the PATH (or
 `--ffmpeg /path/to/ffmpeg`); nothing else is installed.
 
-The main page is the **live view**: a tile per channel with its latest frame (refreshed every
-second), the plate outlined and labelled, the last read, frame rate and time per frame, and below
-them the recent reads across all channels. A channel that is down shows "No signal" with ffmpeg's
-message. Clicking a tile opens that channel's settings; **Add channel** creates one, and
+The main page is the **live view**: a tile per channel with its picture, the plate outlined and
+labelled, the last read, frame rate and time per frame, and below them the recent reads across
+all channels. A channel that is down shows "No signal" with ffmpeg's message. Clicking a tile
+opens that channel's settings; the **Add channel** box at the end of the tiles creates one, and
 **Settings** holds the HTTP URL reads are posted to.
 
-Each channel has five groups of settings:
+**Live picture.** The selector above the tiles chooses how pictures arrive, per browser:
+
+- *Snapshots, one per second* (the default) polls `/api/channels/{id}/snapshot.jpg`.
+- *MJPEG video* plays `/api/channels/{id}/stream.mjpg`, every frame the channel reads, so motion
+  is as smooth as the channel's "frames read per second". It costs one JPEG encode per frame
+  (shared between viewers of the same channel and size): about a tenth of a core for 15 frames a
+  second at tile size, against 2-3% for snapshots, plus the browser's decoding. Reads are
+  fetched three times a second in this mode so the outlines keep up.
+- A browser opens at most six connections to one server and each video holds one, so video plays
+  on the first four running channels and the rest stay on snapshots.
+- Both URLs take `?w=` (width, 160-1920); the stream also takes `?fps=` to cap its rate, and
+  works in anything that plays motion JPEG.
+
+**Events.** Clicking a row of the recent reads opens the event in a pop-up: the frame the plate
+was read in (kept at up to 1280 pixels wide) with the plate and its vehicle outlined, the crop
+the OCR read, time, channel, camera ID, confidence, model, the vehicle details, and what the HTTP
+URL answered. Esc, *Close* or a click outside closes it.
+
+Each channel has six groups of settings:
 
 | Group | Settings |
 |---|---|
 | **Stream** | name, `rtsp://` or `rtsps://` URL, TCP or UDP transport, frames read per second (default 5), listen on/off |
 | **Models** | detector (320 or 640); OCR strategy: one pinned CRNN, region-routed, or an ensemble; which CRNNs are in the ensemble (also the fallback when routing finds no group); which region classifiers run |
+| **Vehicle details** | make and model, pose (seen from the front or the rear), colour, type; each on or off |
 | **Skew correction** | corner rectification with rec_71 on/off and its context margins; shear (−1 to 1, positive straightens right-leaning italics); padding around the plate. Presets: *Corner rectification* (the app's default), *Shear only* (the PoC's 0.3 shear, 2% padding), *Off* |
 | **Detection area** | a region drawn on the channel's picture, and whether to skip frames where nothing has changed (and how much of the area must change, default 1%) |
 | **Events** | minimum confidence, how many frames must agree, how long the same plate is ignored, the camera ID, and whether to post events to the HTTP URL from Settings |
@@ -153,6 +172,22 @@ and behave the same: with rectification the plate is warped to 192×96, sheared,
 
 A channel's page shows its frame larger, with the 96×48 image the OCR actually read, so a skew
 change can be judged on the next plate after saving.
+
+**Vehicle details (MMC).** The detector also finds vehicles; the smallest vehicle box around a
+plate is cropped to 224×224 and given to rec_15 (make/model and pose in one pass), rec_19
+(colour) and rec_21 (type), whichever are ticked. On a channel this runs once per event, on the
+frame that raises it, not on every frame: about 10 ms for all four. The result is logged with the
+event, shown in the reads table and the event pop-up, and added to the posted payload as
+`vehiclemake`, `vehiclemodel`, `vehiclecolor`, `vehicletype` and `vehiclepose` (`Front` or
+`Rear`); these keys are absent when nothing was read, so the payload is unchanged with the
+feature off. An event has no vehicle details when the detector finds no vehicle around the plate
+(score below 0.40), which happens when the vehicle is cut off by the picture or by a tight
+detection area. On the samples: BRL4104 is a front-facing Toyota Corolla Cross SUV, EV232 a BYD
+Atto 3, as the Android app found. Colour is only as good as the picture: the samples are
+monochrome night-mode frames, so their colours (White/Grey/Black) are unconfirmed.
+
+The same switches are flags for `read`, `bench` and `serve` (`--mmc-make-model`, `--mmc-pose`,
+`--mmc-colour`, `--mmc-type`); there every plate's vehicle is described, in `plates[].vehicle`.
 
 **Detection region.** On a channel's page, *Draw region* lets you click points on the picture to
 outline the lane (3 to 32 points; *Undo point*, *Done*, then *Save*). The detector then sees only
@@ -218,6 +253,7 @@ and 320 MB for the whole process.
 | `--deshear` | `0` | horizontal shear; `--no-rectify --deshear 0.3 --crop-pad 0.02` is the PoC's setting |
 | `--plate-format` | `none` | `my` settles look-alike `I/1` and `O/0` by position: letters, then 1-4 digits, then at most one letter |
 | `--crop-pad` | `0.03` | padding around the plate |
+| `--mmc-make-model`, `--mmc-pose`, `--mmc-colour`, `--mmc-type` | off | vehicle details for each plate's vehicle (about 10 ms for all four) |
 | `--threads` | `4` | per model, ONNX Runtime and MNN |
 | `--workers` | `2` | `serve` only: model sets loaded, one request each at a time |
 
@@ -278,11 +314,14 @@ Every image is uploaded to each HTTP provider in the file, so only list APIs the
 - Accuracy is verified on the three Malaysian samples only; that is not a benchmark. A labelled
   set of real frames is needed before the numbers mean anything.
 - Calls are sequential: latency is per request with no contention, not throughput under load.
-- One plate becomes the event (the highest detector score). Vehicles and make/model are not run.
+- For `/v1/read` and `/v1/trigger` one plate becomes the event (the highest detector score).
+- Vehicle details were checked against the Android app's results on two pictures; make/model
+  accuracy on local traffic is unmeasured.
 - Only the 37- and 38-class CRNN alphabets decode to text; other models cannot be pinned.
 - JPEG decoding differs slightly from Pillow's, so values drift from the Python goldens in the
   third significant figure (the reads are the same).
 - EXIF orientation is ignored.
 - RTSP channels were tested against a local VLC stream, not a physical camera. Streams are
   decoded on the CPU by ffmpeg at full resolution.
-- Stream events are kept in memory (the last 200) and are lost on restart.
+- Stream events, with their frames, are kept in memory (the last 200, roughly 30 MB) and are
+  lost on restart.
